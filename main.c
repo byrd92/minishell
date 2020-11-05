@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: jalcayne <jalcayne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 17:07:46 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/11/05 11:13:53 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/11/05 17:19:51 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,13 @@ static void	ft_search_command(char *str)
 	i = 0;
 	while (str[i] == ' ')
 		i++;
-	if (( i = i + ft_strcmp(ft_search_word(&str[i]), "echo")) > 0)
+	if ((ft_strcmp(ft_search_word(&str[i]), "echo")))
 	{
-		//ft_command_echo(&str[i]);
+		i += 4;
+		ft_echo(&str[i]);
 	}
 	else
 	{
-		ft_print_word(&str[i]);
 		ft_printf("%s: command not found\n",ft_search_word(&str[i]));
 	}
 }
@@ -106,7 +106,7 @@ int		main(void)
 	ret = 1;
 	while (ret > 0)
 	{
-		ft_printf("> ");
+		ft_printf("minivid > ");
 		ret = get_next_line(0, &str);
 		ft_search_command(str);
 		free(str);

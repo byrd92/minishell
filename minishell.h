@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: jalcayne <jalcayne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 16:53:56 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/11/05 10:52:05 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/11/05 17:29:40 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,17 @@
 typedef struct  s_comand
 {
 	char        *type;
-	t_list      *flags;
-	t_list      *value;
+	char		*value;
 }               t_comand;
 
-void    ft_command_echo(char *line);
-char	*ft_search_word(char *str);
-int		ft_print_word(char *str);
+typedef struct	s_general
+{
+	t_list		*comand;
+}				t_general;
+
+void		ft_echo(char *str);
+char		*ft_search_word(char *str);
+int			ft_print_word(char *str);
+int			ft_strcmp(char *s1, char *s2);
 
 #endif
