@@ -1,0 +1,21 @@
+-fork(): Crea un proceso hijo
+-wait(): Suspende la ejecucion de un proceso hasta que acaba el procso hijo
+-waitpid(): Suspende la ejecucion de un proceso hijo especificado como argumento de la funcion
+
+-signal(): http://www.chuidiang.org/clinux/senhales/senhales.php
+-kill(): Send any signal to any process group or process.
+-exit(): causa la terminacion normal del proceso y el valor de status es devuelto al padre
+-getcwd(): Devuelve una string conteniendo una direccion absoluta al directorio actual del proceso
+-chdir(): Cambia el directorio actual del proceso al directorio especificado en path
+-stat(): Devuelve informacion acerca del archivo apuntado en pathname
+-lstat(): Es igual a stat pero pathname es un archivo simbolico y devuelve informacion sobre el link per se no sobre el archivo al que apunta
+-fstat(): Es igual a stat pero el archivo especificado e sespecificado po un fd
+-execve(): Ejecuta un programa referenciado por  pathname esto causa que el programa que esta llamado por el proceso de llamda se reemplace por un nuevo programa
+-dup(): Crea un copia del file descriptor (fd) usando el menor numero del file descriptor disponibe para el nuevo fd
+-dup2(): Igual que dup() pero en vez de usar el menor numero de file descriptor disponible una el numero de fd especificado en newfd, si esta usado, cierra el archivo y lo reusa
+-pipe(): crea un canar de comunicacion unidireccional que puede ser usado para comunicacion interproceso
+-opendir(): Abre un directorio correspondiente al directorio name, y devuelve un puntero al stream del directorio, el stream es posicionada a la primera entrasda del directorio
+-readdir(): Devuelve un puntero a una estructura dirent representando la siguiente entrada del directorio, devuelve NULL en busca de el final del directorio o si ocurre un error
+-closedir(): Cierra el directorio asociado con dirp
+-strerror(): devuelve una string que describe el codigo de error pasado en el argumento de la funcion
+-errno(): define la variable errno que es usada por muchas llamadas al sistema y funciones de la libreria en el evento de un error para indicar que ha ido mal	
