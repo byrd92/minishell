@@ -6,11 +6,24 @@
 /*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 16:17:59 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/11/11 14:57:11 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/11/11 20:44:59 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void		ft_kill_commands(char ***commands)
+{
+	int i;
+
+	i = 0;
+
+	while ((*commands)[i])
+	{
+		free((*commands)[i]);
+		i++;
+	}	
+}
 
 void		ft_environment(char ***env, char **envp)
 {
@@ -50,52 +63,53 @@ static int		ft_iscomma(char *str, int *comma)
 	return (*comma);
 }
 
-void		ft_separate_commands(char ***commands, char *str)
+void		ft_separate_commands(char ***commands, char **str)
 {
 	int i;
 	int num_commands;
 	char *aux;
-	int j;
 
 	
 	num_commands = 1;
 	i = 0;
-	while (str[i])
+	while ((*str)[i])
 	{
 		i++;
-		if (str[i] == ';')
+		if ((*str)[i] == ';')
 			num_commands++;
 	}
-	(*commands) = (char **)malloc(sizeof(char *) * num_commands + 1);
-	num_commands--;
+	printf("%d\n", num_commands);
 	i = 0;
-	while (num_commands >= 0)
+	(*commands) = (char **)malloc(sizeof(char *) * num_commands + 1);
+	ft_printf("str: %s\n", (*str));
+	while((aux = ft_strchr((*str), ';')))
 	{
-		j = -1;
-		if ((aux = ft_strchr(str, ';')))
-		{
-			aux = 0;
-			(*commands)[j] = (char *)malloc(sizeof(char) * ft_strlen(str) + 1);
-			printf("%s\n", str);
-			while (str[++j])
-				(*commands)[i][j] = str[j];
-			(*commands)[i][j] = 0;
-			aux = ft_strdup(++aux);
-			free(str);
-			str = aux;
-		}
-		else
-		{
-			(*commands)[j] = (char *)malloc(sizeof(char) * ft_strlen(str) + 1);
-			while (str[++j])
-				(*commands)[i][j] = str[j];
-			(*commands)[i][j] = 0;
-			free(str);
-			str = NULL;
-		}
-		i++;
+		write(1, "X", 1);
+		aux = 0;
+				write(1, "X", 1);
+
+		(*commands)[i++] = ft_strdup((*str));
+						ft_printf("%s", aux);
+
+		aux = ft_strdup(++aux);
+						write(1, "X", 1);
+
+		free((*str));
+						write(1, "X", 1);
+
+		(*str) = aux;
+						write(1, "X", 1);
+
+		aux = NULL;
+		
 	}
-	(*commands)[j] = NULL;	
+			write(1, "Y", 1);
+
+	(*commands)[i++] = ft_strdup((*str));
+	(*commands)[i] = NULL;
+	free((*str));
+	(*str) = NULL;
+
 }
 
 int			ft_read_commands(char ***commands)
@@ -129,17 +143,11 @@ int			ft_read_commands(char ***commands)
 			continue;
 		}
 		//ft_printf("frase: %s\n", str);
-		ft_separate_commands(commands, str);
-		int y;
-		y = 0;
-		while ((*commands)[y])
-		{
-			printf("commando: %s\n", (*commands)[y]);
-			y++;
-			write(1, "y", 1);
-
-		}
+		ft_separate_commands(commands, &str);
+		printf("%s\n",(*commands)[0]);
+		ft_kill_commands(commands);
 		write(1, "x", 1);
+
 		free(line);
 	}
 	return (0);
