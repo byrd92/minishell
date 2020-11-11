@@ -6,7 +6,7 @@
 /*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 16:17:59 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/11/11 12:29:46 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/11/11 13:02:47 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,25 +32,22 @@ void		ft_environment(char ***env, char **envp)
 	(*env)[i] = NULL;
 }
 
-static int		ft_iscomma(char *str)
+static int		ft_iscomma(char *str, int *comma)
 {
 	int i;
-
+	
 	i = 0;
-	while (str[i] && str[i] != 39 && str[i] != 34)
+	while (str[i])
 	{
+		if (str[i] == 39 && *comma == 0)
+			*comma = 1;
+		else if (str[i] == 34 && *comma == 0)
+			*comma = 2;
+		else if((str[i] == 34 || str[i] == 39) && *comma > 0)
+			*comma = 0;
 		i++;
 	}
-	if (str[i] == 39)
-	{
-		return(1);
-	}
-	if (str[i] == 34)
-	{
-		return(2);
-	}
-	return (0);
-	
+	return (*comma);
 }
 
 int			ft_read_commands(char ***commands)
@@ -65,6 +62,7 @@ int			ft_read_commands(char ***commands)
 
 	ret = 1;
 	str = NULL;
+	comma = 0;
 	while (ret > 0)
 	{
 		if (str == NULL)
@@ -74,40 +72,21 @@ int			ft_read_commands(char ***commands)
 		if (ret < 0)
 			return(1);
 		aux = ft_strjoin(str, line);
-			free(str);
-			str = aux;
-			ft_printf("%s\n", str);
-		if (ft_iscomma(str) > 0 && comma > 0)
+		free(str);
+		str = aux;
+		//ft_printf("linea: %s\n", str);
+					ft_printf("\n%d", comma);
+
+		if (ft_iscomma(line, &comma))
 		{
-			comma = 0;
-		}
-		else if ((ft_iscomma(str) > 0 || comma > 0))
-		{
-			if (comma == 0)
-			{
-				comma = ft_iscomma(str);
-			}
 			aux = ft_strjoin(str, "\n");
 			free(str);
 			str = aux;
-			continue ;
-		}
-		printf("%s\n", str);
-		int j;
 
-		j = 0;
-		while ((aux = ft_strchr(str, ';')))
-		{
-			if (aux)
-			{
-				aux = 0;
-				(*commands)[j] = ft_strdup(str);
-				aux = ft_strdup(++aux);
-				str = aux;
-				j++;
-				aux = NULL;
-			}
+			continue;
 		}
+		ft_printf("frase: %s\n", str);
+
 		free(str);
 		str = NULL;
 		free(line);
