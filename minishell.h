@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalcayne <jalcayne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 16:53:56 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/11/10 18:37:47 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/11/11 12:15:19 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <limits.h>
-
+# include <errno.h>
 typedef struct  s_comand
 {
 	char        *type;
