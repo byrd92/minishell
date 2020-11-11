@@ -6,7 +6,7 @@
 /*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 16:17:59 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/11/11 13:02:47 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/11/11 14:57:11 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,54 @@ static int		ft_iscomma(char *str, int *comma)
 	return (*comma);
 }
 
+void		ft_separate_commands(char ***commands, char *str)
+{
+	int i;
+	int num_commands;
+	char *aux;
+	int j;
+
+	
+	num_commands = 1;
+	i = 0;
+	while (str[i])
+	{
+		i++;
+		if (str[i] == ';')
+			num_commands++;
+	}
+	(*commands) = (char **)malloc(sizeof(char *) * num_commands + 1);
+	num_commands--;
+	i = 0;
+	while (num_commands >= 0)
+	{
+		j = -1;
+		if ((aux = ft_strchr(str, ';')))
+		{
+			aux = 0;
+			(*commands)[j] = (char *)malloc(sizeof(char) * ft_strlen(str) + 1);
+			printf("%s\n", str);
+			while (str[++j])
+				(*commands)[i][j] = str[j];
+			(*commands)[i][j] = 0;
+			aux = ft_strdup(++aux);
+			free(str);
+			str = aux;
+		}
+		else
+		{
+			(*commands)[j] = (char *)malloc(sizeof(char) * ft_strlen(str) + 1);
+			while (str[++j])
+				(*commands)[i][j] = str[j];
+			(*commands)[i][j] = 0;
+			free(str);
+			str = NULL;
+		}
+		i++;
+	}
+	(*commands)[j] = NULL;	
+}
+
 int			ft_read_commands(char ***commands)
 {
 	int		ret;
@@ -57,8 +105,6 @@ int			ft_read_commands(char ***commands)
 	char	*str;
 	char	*aux;
 	int		comma;
-
-	(*commands) = (char **)malloc(sizeof(char*) * PATH_MAX);
 
 	ret = 1;
 	str = NULL;
@@ -75,22 +121,26 @@ int			ft_read_commands(char ***commands)
 		free(str);
 		str = aux;
 		//ft_printf("linea: %s\n", str);
-					ft_printf("\n%d", comma);
-
 		if (ft_iscomma(line, &comma))
 		{
 			aux = ft_strjoin(str, "\n");
 			free(str);
 			str = aux;
-
 			continue;
 		}
-		ft_printf("frase: %s\n", str);
+		//ft_printf("frase: %s\n", str);
+		ft_separate_commands(commands, str);
+		int y;
+		y = 0;
+		while ((*commands)[y])
+		{
+			printf("commando: %s\n", (*commands)[y]);
+			y++;
+			write(1, "y", 1);
 
-		free(str);
-		str = NULL;
+		}
+		write(1, "x", 1);
 		free(line);
-		
 	}
 	return (0);
 }
