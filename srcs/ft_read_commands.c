@@ -6,7 +6,7 @@
 /*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 12:07:48 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/11/13 10:44:48 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/11/13 11:09:19 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,10 @@ int			ft_read_commands(char ***commands)
 	{
 		if (str == NULL)
 			str = ft_strdup("");
-		ft_printf("minivid > ");
+		ft_printf("> ");
 		ret = get_next_line(0, &line);
 		if (ret < 0)
-			return(1);
+			return(-1);
 		aux = ft_strjoin(str, line);
 		free(str);
 		str = aux;
@@ -97,11 +97,8 @@ int			ft_read_commands(char ***commands)
 			continue;
 		}
 		ft_separate_commands(commands, &str);
-		// Funcion donde sigue el programa
-		// Funcion()
-		
-		ft_kill_commands(commands);
 		free(line);
+		return (ret);
 	}
 	return (0);
 }

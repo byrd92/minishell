@@ -6,7 +6,7 @@
 /*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 16:17:59 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/11/13 10:20:45 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/11/13 11:10:50 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,28 @@ int			main(int argc, char **argv, char **envp)
 {
 	char	**env;
 	char	**commands;
-
+	int i = 0;
 	ft_environment(&env, envp);
-	ft_read_commands(&commands);
+	ft_printf("minivid ");
+
+	while (ft_read_commands(&commands))
+	{
+
+		i = 0;
+		while (commands[i])
+		{
+			printf("%s\n", commands[i++]);
+		}
+		
+		
+		//continuar programa
+		//siguente funcion()
+		ft_kill_commands(&commands);
+		ft_printf("minivid ");
+
+	}
+	ft_kill_commands(&commands);
+
 	(void)argc;
 	(void)argv;
 }
