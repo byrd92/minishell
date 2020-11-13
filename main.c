@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: egarcia- <egarcia-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 16:17:59 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/11/13 11:10:50 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/11/13 19:25:21 by egarcia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,9 @@ int			main(int argc, char **argv, char **envp)
 		i = 0;
 		while (commands[i])
 		{
-			printf("%s\n", commands[i++]);
+			ft_parse_commands(commands[i]);
+			//ft_printf("%s\n", commands[i]);
+			i++;
 		}
 		
 		

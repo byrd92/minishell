@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: egarcia- <egarcia-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 16:53:56 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/11/12 12:08:49 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/11/13 20:08:22 by egarcia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,10 @@ void		ft_kill_commands(char ***commands);
 
 int			ft_read_commands(char ***commands);
 
+void        ft_parse_commands();
 
+void        ft_echo(char *str);
+void        ft_echo2(char *str ,int flag);
+
+int			ft_iscomma(char *str, int *comma);
 #endif

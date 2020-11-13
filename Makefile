@@ -5,7 +5,7 @@ NAME = minishell
 
 FLAGS = -Wall -Wextra -Werror
 
-SRCS = main.c srcs/getnextline/get_next_line_utils.c srcs/getnextline/get_next_line.c srcs/ft_read_commands.c
+SRCS = main.c srcs/getnextline/get_next_line_utils.c srcs/getnextline/get_next_line.c srcs/ft_read_commands.c srcs/ft_parse_command.c
 
 OBJS = $(SRCS:.c=.o)
 
