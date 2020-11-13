@@ -6,7 +6,7 @@
 /*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 12:07:48 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/11/12 12:08:36 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/11/13 10:44:48 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ static int		ft_iscomma(char *str, int *comma)
 	return (*comma);
 }
 
+/*
+**	Funcion que separa los comandos, separados por <;>, de la frase escrita en la terminal
+*/
 static void		ft_separate_commands(char ***commands, char **str)
 {
 	int i;
@@ -60,7 +63,10 @@ static void		ft_separate_commands(char ***commands, char **str)
 	free((*str));
 	(*str) = NULL;
 }
-
+/*
+**	Funcion para leer los valores que se encirben en la terminal
+**	y separar los comandos 
+*/
 int			ft_read_commands(char ***commands)
 {
 	int		ret;
@@ -91,6 +97,9 @@ int			ft_read_commands(char ***commands)
 			continue;
 		}
 		ft_separate_commands(commands, &str);
+		// Funcion donde sigue el programa
+		// Funcion()
+		
 		ft_kill_commands(commands);
 		free(line);
 	}

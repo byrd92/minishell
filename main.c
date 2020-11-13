@@ -6,11 +6,15 @@
 /*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 16:17:59 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/11/12 12:09:00 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/11/13 10:20:45 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+** Funcion barra borrar la variable que guarda los comandos
+*/
 
 void		ft_kill_commands(char ***commands)
 {
@@ -24,6 +28,9 @@ void		ft_kill_commands(char ***commands)
 		i++;
 	}	
 }
+/*
+** Funcion para guardar las variables de entorno en una variable
+*/
 
 static void		ft_environment(char ***env, char **envp)
 {
@@ -45,6 +52,13 @@ static void		ft_environment(char ***env, char **envp)
 	(*env)[i] = NULL;
 }
 
+
+/*
+** Funcion inicial del programa
+** Se guardan las variables de entorno
+** Funcion donde se guardan los comandos de cada linea escrita en la terminal
+**		Es donde sigue el programa
+*/
 
 int			main(int argc, char **argv, char **envp)
 {
