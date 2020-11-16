@@ -6,7 +6,7 @@
 /*   By: egarcia- <egarcia-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 18:58:44 by egarcia-          #+#    #+#             */
-/*   Updated: 2020/11/16 19:14:19 by egarcia-         ###   ########.fr       */
+/*   Updated: 2020/11/16 20:15:21 by egarcia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ void        ft_echo2(char *str ,int flag)
                 i++;
                 coma_simple = 0;
             }      
-         write(1, &str[i], 1);
+        }
+        write(1, &str[i], 1);
         i++;
     }
     flag == 1 ? write(1, "", 1) : write(1, "\n", 1) ;
