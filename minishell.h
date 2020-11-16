@@ -6,9 +6,11 @@
 /*   By: jalcayne <jalcayne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 16:53:56 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/11/16 19:38:45 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/11/16 19:44:51 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -25,7 +27,8 @@ typedef struct  s_comand
 	char        *type;
 	char		*value;
 }               t_comand;
-typedef struct 	s_env
+
+typedef struct s_env
 {
 	char		*name;
 	char		*value;
@@ -37,5 +40,10 @@ void		ft_echo(char *str);
 char		*ft_search_word(char *str);
 int			ft_print_word(char *str);
 int			ft_strcmp(char *s1, char *s2);
-
+void		ft_kill_commands(char ***commands);
+int			ft_read_commands(char ***commands);
+void        ft_parse_commands();
+void        ft_echo(char *str);
+void        ft_echo2(char *str ,int flag);
+int			ft_iscomma(char *str, int *comma);
 #endif

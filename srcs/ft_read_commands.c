@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-static int		ft_iscomma(char *str, int *comma)
+int		ft_iscomma(char *str, int *comma)
 {
 	int i;
 	

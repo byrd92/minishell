@@ -6,9 +6,11 @@
 /*   By: jalcayne <jalcayne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 19:38:34 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/11/16 19:38:39 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/11/16 19:45:54 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #include "minishell.h"
 
@@ -96,6 +98,9 @@ int			main(int argc, char **argv, char **envp)
 {
 	t_list	*env;
 	char	**commands;
+	char	*str;
+
+	int ret;
 	int i = 0;
 	ft_environment(&env, envp);
 	ft_printf("minivid ");
@@ -105,6 +110,19 @@ int			main(int argc, char **argv, char **envp)
 		ret = get_next_line(0, &str);
 		ft_search_command(str);
 		free(str);
+		i = 0;
+		while (commands[i])
+		{
+			ft_parse_commands(commands[i]);
+			//ft_printf("%s\n", commands[i]);
+			i++;
+		}
+		
+		
+		//continuar programa
+		//siguente funcion()
+		ft_kill_commands(&commands);
+		ft_printf("minivid ");
 	}
 	(void)argc;
 	(void)argv;
