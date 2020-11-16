@@ -6,7 +6,7 @@
 /*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 16:53:56 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/11/12 12:08:49 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/11/16 10:37:15 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ typedef struct  s_comand
 	t_list      *flags;
 	t_list      *value;
 }               t_comand;
+typedef struct 	s_envar
+{
+	char		*name;
+	char		*value;
+}				t_envar;
+
 
 void		ft_kill_commands(char ***commands);
 
