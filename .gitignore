@@ -1,6 +1,8 @@
 # Prerequisites
 *.d
 *.pdf
+ejemplos
+minishell
 # Object files
 *.o
 *.ko

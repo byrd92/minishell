@@ -3,112 +3,91 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalcayne <jalcayne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: egarcia- <egarcia-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/04 17:07:46 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/11/05 17:19:51 by jalcayne         ###   ########.fr       */
+/*   Created: 2020/11/16 19:18:46 by egarcia-          #+#    #+#             */
+/*   Updated: 2020/11/16 19:19:27 by egarcia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #include "minishell.h"
 
 /*
-** Funcion par buscar la primera palabra dentro de una string
-** Quita los espacion que hay antes de la palabra
-**	Devuelve ua string con la palabra
+** Funcion barra borrar la variable que guarda los comandos
 */
 
-char	*ft_search_word(char *str)
+void		ft_kill_commands(char ***commands)
 {
 	int i;
-	char *aux;
-	char *word;
+
 	i = 0;
-	while(ft_isspace(str[i]))
+
+	while ((*commands)[i])
+	{
+		free((*commands)[i]);
 		i++;
-	aux = ft_strdup(str);
-	while ((ft_isspace(aux[i]) == 0) && aux[i])
+	}	
+}
+/*
+** Funcion para guardar las variables de entorno en una variable
+*/
+
+static void		ft_environment(char ***env, char **envp)
+{
+	int i;
+	int j;
+	i = -1;
+	while(envp[++i])
+		NULL;
+	(*env) = (char **)malloc(sizeof(char*) * i);
+	i = -1;
+	while (envp[++i])
+	{
+		(*env)[i] = (char *)malloc(PATH_MAX + 1);
+		j = -1;
+		while (envp[i][++j])
+			(*env)[i][j] = envp[i][j];
+		(*env)[i][j] = 0;
+	}
+	(*env)[i] = NULL;
+}
+
+
+/*
+** Funcion inicial del programa
+** Se guardan las variables de entorno
+** Funcion donde se guardan los comandos de cada linea escrita en la terminal
+**		Es donde sigue el programa
+*/
+
+int			main(int argc, char **argv, char **envp)
+{
+	char	**env;
+	char	**commands;
+	int i = 0;
+	ft_environment(&env, envp);
+	ft_printf("minivid ");
+
+	while (ft_read_commands(&commands))
+	{
+		i = 0;
+		while (commands[i])
 		{
+			ft_parse_commands(commands[i]);
+			//ft_printf("%s\n", commands[i]);
 			i++;
 		}
-	aux[i] = 0;
-	word = ft_strdup(aux);
-	free(aux);
-	return (word);
-}
-
-/*
-** Funcion para buscar e imprimir una palabra directamente
-** Devuelve el tamaño de la palabra imprimida
-*/
-
-int		ft_print_word(char *str)
-{
-	char *word;
-	int i;
-
-	word = ft_search_word(str);
-	ft_printf("%s", word);
-	i = ft_strlen(word);
-	free(word);
-	return (i);
-}
-/*
-** Funcion para comparar dos string, si son identicas en cuanto a valores y a tamaño
-**	Devuelve un 0 si no es igual
-**	devuelve el tamaño de las palabras
-*/
-
-int			ft_strcmp(char *s1, char *s2)
-{
-	int i;
-	
-	i = 0;
-	while (s1[i] && s2[i])
-	{
-		if (s1[i] != s2[i])
-			return(0);
-		i++;
+		
+		
+		//continuar programa
+		//siguente funcion()
+		ft_kill_commands(&commands);
+		ft_printf("minivid ");
 	}
-	if (s1[i] != s2[i])
-		return(0);
-	return(i);
-	
-}
+	ft_kill_commands(&commands);
 
-/*
-** Funcion para buscar si hay un comando en la terminal y ejecutar la funcion correspondiente
-*/
-
-static void	ft_search_command(char *str)
-{
-	int i;
-	
-	i = 0;
-	while (str[i] == ' ')
-		i++;
-	if ((ft_strcmp(ft_search_word(&str[i]), "echo")))
-	{
-		i += 4;
-		ft_echo(&str[i]);
-	}
-	else
-	{
-		ft_printf("%s: command not found\n",ft_search_word(&str[i]));
-	}
-}
-
-int		main(void)
-{
-	char	*str;
-	int		ret;
-
-	ret = 1;
-	while (ret > 0)
-	{
-		ft_printf("minivid > ");
-		ret = get_next_line(0, &str);
-		ft_search_command(str);
-		free(str);
-	}
+	(void)argc;
+	(void)argv;
 }
