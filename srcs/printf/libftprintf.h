@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libftprintf.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalcayne <jalcayne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 16:31:34 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/02/19 11:35:30 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/11/12 11:52:07 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ typedef struct	s_flags
 	char		type;
 }				t_flags;
 
-int				ft_printf(const char *format, ...);
 int				ft_search_type(char *format, int *i, va_list ap, t_flags flags);
 t_flags			ft_search_flags(va_list ap, char *format, int *i);
 int				ft_sel_format_type(char type, va_list ap, t_flags flags);

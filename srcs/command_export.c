@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   command_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: jalcayne <jalcayne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/06 15:28:14 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/11/12 11:55:22 by jalcayne         ###   ########.fr       */
+/*   Created: 2020/11/15 10:52:20 by jalcayne          #+#    #+#             */
+/*   Updated: 2020/11/16 18:17:06 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishell.h"
 
-char	*ft_strchr(char *s, char c)
+/*
+**	Cambiar la funcion ft_environtment la variable env por una lista para usarla aqui toda justa
+*/
+int     ft_command_export(char **env, char *str)
 {
-	int		i;
-
+	int i;
+	
 	i = 0;
-	while (s[i] && s[i] != c)
-	{
-		i++;
-	}
-	if (s[i] == c)
-		return (&s[i]);
-	return (NULL);
+
+	
 }
