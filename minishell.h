@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalcayne <jalcayne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 16:53:56 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/11/16 19:44:51 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/11/17 12:20:47 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,15 @@ void        ft_parse_commands();
 void        ft_echo(char *str);
 void        ft_echo2(char *str ,int flag);
 int			ft_iscomma(char *str, int *comma);
+
+/*
+**	Command export
+*/
+int			ft_export(t_list **env, char *str);
+/*
+**	Command env
+*/
+int			ft_env(t_list *env);
+
+
 #endif

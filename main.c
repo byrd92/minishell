@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalcayne <jalcayne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 19:38:34 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/11/16 20:35:01 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/11/17 12:29:59 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,27 +29,6 @@ void		ft_kill_commands(char ***commands)
 		free((*commands)[i]);
 		i++;
 	}	
-}
-
-char			*ft_search_word(char *str)
-{
-	int		i;
-	char	*word;
-
-	i = 0;
-	while (!ft_isalnum(*str))
-		str++;
-	while (ft_isalnum(str[i]))
-		i++;
-	word = (char *)malloc(sizeof(char) * i + 1);
-	i = 0;
-	while (ft_isalnum(str[i]))
-	{
-		word[i] = str[i];
-		i++;
-	}
-	word[i] = 0;
-	return (word);
 }
 
 /*
@@ -78,15 +57,6 @@ static void		ft_environment(t_list **env, char **envp)
 	}
 }
 
-/*void		ft_printlst(void *content)
-{
-	t_env *env;
-
-	env = (t_env *)content;
-	ft_printf("%s=%s\n",env->name,env->value);
-}*/
-
-
 /*
 ** Funcion inicial del programa
 ** Se guardan las variables de entorno
@@ -98,18 +68,16 @@ int			main(int argc, char **argv, char **envp)
 {
 	t_list	*env;
 	char	**commands;
-	char	*str;
-
-	int ret;
-	int i = 0;
-	ft_environment(&env, envp);
+	int i;
+	
+	//ft_environment(&env, envp);
+	//ft_env(env);
+	//ft_export(&env, "hola=adios");
+	//ft_env(env);
 	ft_printf("minivid ");
 	while (ft_read_commands(&commands))
 	{
 		ft_printf("minivid > ");
-		ret = get_next_line(0, &str);
-		ft_search_command(str);
-		free(str);
 		i = 0;
 		while (commands[i])
 		{
