@@ -6,7 +6,7 @@
 /*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 11:29:48 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/11/17 09:44:29 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/11/18 17:15:12 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,9 @@ void				ft_lstfree_all(t_list **lst);
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 					void (*del)(void *));
+int					ft_lstsearch(t_list *lst, int (*f)(void *, void *),
+					void *to_search);
+
 char				*ft_strnew(size_t size);
 int					ft_isupper(int c);
 int					ft_islower(int c);
