@@ -6,13 +6,28 @@
 /*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 09:40:55 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/11/18 17:24:37 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/11/18 17:31:12 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+static int			ft_search_env(void	*content, void *to_search)
+{
+	t_env	*env;
+	t_env	*env_to_search;
 
+	env_to_search = (t_env *)to_search;
+	env = (t_env *)content;
+
+	if (ft_strncmp(env->name,env_to_search->name, ft_strlen(env_to_search->name)) == 0)
+	{
+		env->value = env_to_search->value;
+		return (1);
+	}
+	return (0);
+
+}
 
 int			ft_export(t_list **env, char *str)
 {
