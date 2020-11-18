@@ -6,7 +6,7 @@
 /*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 09:40:55 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/11/18 17:31:12 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/11/18 18:29:06 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static int			ft_search_env(void	*content, void *to_search)
 		return (1);
 	}
 	return (0);
-
 }
 
 int			ft_export(t_list **env, char *str)

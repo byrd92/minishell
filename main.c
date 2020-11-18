@@ -6,7 +6,7 @@
 /*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 19:38:34 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/11/18 16:30:14 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/11/18 19:10:34 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,16 @@ void		ft_kill_commands(char ***commands)
 		free((*commands)[i]);
 		i++;
 	}	
+}
+
+void		ft_kill_env(void *content)
+{
+	t_env *env;
+	
+	env = (t_env *)content;
+	free(env->name);
+	free(env->value);
+	free(env);
 }
 
 /*
@@ -65,26 +75,6 @@ static void		ft_environment(t_list **env, char **envp)
 ** Funcion donde se guardan los comandos de cada linea escrita en la terminal
 **		Es donde sigue el programa
 */
-
-/*static void		ft_environment(char ***env, char **envp)
-{
-	int i;
-	int j;
-	i = -1;
-	while(envp[++i])
-		NULL;
-	(*env) = (char **)malloc(sizeof(char*) * i);
-	i = -1;
-	while (envp[++i])
-	{
-		(*env)[i] = (char *)malloc(PATH_MAX + 1);
-		j = -1;
-		while (envp[i][++j])
-			(*env)[i][j] = envp[i][j];
-		(*env)[i][j] = 0;
-	}
-	(*env)[i] = NULL;
-}*/
 
 int			main(int argc, char **argv, char **envp)
 {

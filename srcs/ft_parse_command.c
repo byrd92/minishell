@@ -6,7 +6,7 @@
 /*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 18:58:44 by egarcia-          #+#    #+#             */
-/*   Updated: 2020/11/18 16:32:30 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/11/18 18:59:35 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,15 @@ void        ft_parse_commands(char *command, t_list **env)
 	char *alter;
 
 	alter = command;
-	if (ft_strncmp(alter, "echo ", 6) == 0)
+	if(ft_strncmp(alter, "echo ", 6) == 0)
 		ft_echo(&alter[5]);
-	else if (ft_strncmp(alter, "export ", 7) == 0)
+	else if(ft_strncmp(alter, "export ", 7) == 0)
 		ft_export(env, &alter[6]);
-	else if (ft_strncmp(alter, "env", 3) == 0)
+	else if(ft_strncmp(alter, "env", 3) == 0)
 		ft_env(env);
+	else if(ft_strncmp(alter, "unset ", 6) == 0)
+	{
+		ft_unset(env, &alter[5]);
+	}
+	
 }

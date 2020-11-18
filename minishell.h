@@ -6,7 +6,7 @@
 /*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 16:53:56 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/11/18 17:24:31 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/11/18 18:43:58 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void        ft_echo(char *str);
 void        ft_echo2(char *str ,int flag);
 int			ft_iscomma(char *str, int *comma);
 
+
+void		ft_kill_env(void *content);
 /*
 **	Command export
 */
@@ -56,5 +58,7 @@ int			ft_export(t_list **env, char *str);
 */
 int			ft_env(t_list **env);
 
+
+int			ft_unset(t_list **env, char *str);
 
 #endif
