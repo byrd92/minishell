@@ -6,7 +6,7 @@
 /*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 09:40:55 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/11/18 11:52:10 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/11/18 16:17:08 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ static void		ft_printenv(void *content)
 	ft_printf("%s=%s\n",env->name,env->value);
 }
 
-int			ft_env(t_list *env)
+int			ft_env(t_list **env)
 {
-	ft_lstiter(env, ft_printenv);
+	ft_lstiter(*env, ft_printenv);
 	return (0);
 }

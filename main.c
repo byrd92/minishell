@@ -6,7 +6,7 @@
 /*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 19:38:34 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/11/18 11:53:15 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/11/18 16:30:14 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ static void		ft_environment(t_list **env, char **envp)
 		j++;
 		newenv->value = ft_strdup(&envp[i][j]);
 		t_list *new = ft_lstnew((const void *)newenv);
-			write(1,"N", 1);
 		ft_lstadd_back(env, new);
 	}
 }
@@ -95,16 +94,14 @@ int			main(int argc, char **argv, char **envp)
 	
 	env = NULL;
 	ft_environment(&env, envp);
-	ft_export(&env, "hola=adios");
-	ft_env(env);
 	ft_printf("minivid ");
 	while (ft_read_commands(&commands))
 	{
-		ft_printf("minivid > ");
+		ft_printf("> ");
 		i = 0;
 		while (commands[i])
 		{
-			ft_parse_commands(commands[i]);
+			ft_parse_commands(commands[i], &env);
 			//ft_printf("%s\n", commands[i]);
 			i++;
 		}
