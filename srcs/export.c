@@ -6,7 +6,7 @@
 /*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 09:40:55 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/11/17 12:29:04 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/11/18 11:52:10 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int			ft_export(t_list **env, char *str)
 		i++;
 	if (!ft_isalnum(str[i - 1]))
 	{
-		printf("bash: %s\n", ft_strdup(&str[i]));
+		printf("bash: %s error en el comando\n", ft_strdup(&str[i]));
 		return(1);//error
 
 	}

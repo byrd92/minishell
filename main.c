@@ -6,7 +6,7 @@
 /*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 19:38:34 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/11/17 12:29:59 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/11/18 11:53:15 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static void		ft_environment(t_list **env, char **envp)
 
 	i = -1;
 	j = 0;
+
 	while(envp[++i])
 	{
 		j = 0;
@@ -53,7 +54,9 @@ static void		ft_environment(t_list **env, char **envp)
 			j++;
 		j++;
 		newenv->value = ft_strdup(&envp[i][j]);
-		ft_lstadd_back(env, ft_lstnew(newenv));
+		t_list *new = ft_lstnew((const void *)newenv);
+			write(1,"N", 1);
+		ft_lstadd_back(env, new);
 	}
 }
 
@@ -64,16 +67,36 @@ static void		ft_environment(t_list **env, char **envp)
 **		Es donde sigue el programa
 */
 
+/*static void		ft_environment(char ***env, char **envp)
+{
+	int i;
+	int j;
+	i = -1;
+	while(envp[++i])
+		NULL;
+	(*env) = (char **)malloc(sizeof(char*) * i);
+	i = -1;
+	while (envp[++i])
+	{
+		(*env)[i] = (char *)malloc(PATH_MAX + 1);
+		j = -1;
+		while (envp[i][++j])
+			(*env)[i][j] = envp[i][j];
+		(*env)[i][j] = 0;
+	}
+	(*env)[i] = NULL;
+}*/
+
 int			main(int argc, char **argv, char **envp)
 {
 	t_list	*env;
 	char	**commands;
 	int i;
 	
-	//ft_environment(&env, envp);
-	//ft_env(env);
-	//ft_export(&env, "hola=adios");
-	//ft_env(env);
+	env = NULL;
+	ft_environment(&env, envp);
+	ft_export(&env, "hola=adios");
+	ft_env(env);
 	ft_printf("minivid ");
 	while (ft_read_commands(&commands))
 	{
