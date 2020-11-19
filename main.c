@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: egarcia- <egarcia-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 19:38:34 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/11/18 19:10:34 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/11/19 18:26:21 by egarcia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int			main(int argc, char **argv, char **envp)
 	ft_printf("minivid ");
 	while (ft_read_commands(&commands))
 	{
-		ft_printf("> ");
+		//ft_printf("> ");
 		i = 0;
 		while (commands[i])
 		{

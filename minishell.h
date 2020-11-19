@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: egarcia- <egarcia-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 16:53:56 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/11/18 18:43:58 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/11/19 20:01:18 by egarcia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,14 @@ typedef struct s_env
 
 void		ft_kill_commands(char ***commands);
 int			ft_read_commands(char ***commands);
-void		ft_echo(char *str);
+void		ft_echo(t_list **env, char *str);
 char		*ft_search_word(char *str);
 int			ft_print_word(char *str);
 int			ft_strcmp(char *s1, char *s2);
 void		ft_kill_commands(char ***commands);
 int			ft_read_commands(char ***commands);
 void        ft_parse_commands(char *command, t_list **env);
-void        ft_echo(char *str);
-void        ft_echo2(char *str ,int flag);
+void        ft_echo2(char *str ,int flag, t_list **env);
 int			ft_iscomma(char *str, int *comma);
 
 
@@ -57,7 +56,7 @@ int			ft_export(t_list **env, char *str);
 **	Command env
 */
 int			ft_env(t_list **env);
-
+int			ft_search_env(void	*content, void *to_search);
 
 int			ft_unset(t_list **env, char *str);
 
