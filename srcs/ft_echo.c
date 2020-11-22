@@ -12,27 +12,65 @@
 
 #include "../minishell.h"
 
+static int			ft_search_env2(void	*content, void *to_search)
+{
+	t_env	*env;
+	char	*name_to_search;
+
+	name_to_search = (char *)to_search;
+	env = (t_env *)content;
+
+	if (ft_strncmp(env->name,name_to_search, ft_strlen(name_to_search)) == 0)
+		return (1);
+	return (0);
+}
+void			*ft_lstsearch_content(t_list *lst, int (*f)(void *, void *), void *to_search)
+{
+	t_list	*ptr;
+
+	ptr = lst;
+	if (lst == NULL)
+	{
+	}
+	else
+	{
+		while (ptr->next)
+		{
+			if (f(ptr->content, to_search) > 0)
+				return(ptr->content);
+			ptr = ptr->next;
+		}
+		if (f(ptr->content, to_search) > 0)
+			return(ptr->content);
+	}
+	return (NULL);
+}
+
+
 int        ft_echo_env(char *str, t_list **env)
 {
     int i;
     int size;
     char *variable;
+	t_env *tmp;
 
     size = 0;
     i = 0;
     while (!(ft_isspace(str[size])) && str[size] != 0)
         size++;
     variable = malloc(sizeof(char *) * size);
-    while (!(ft_isspace(*str)) && *str != 0)
+	str++;
+    while (!(ft_isspace(*str)) && *str != 34 && *str != 0)
     {
         variable[i] = *str;
         str++;
         i++;
     }
-    //variable[i] = 0;
-    ft_printf("%s", variable);
-    (void)env;
-    return 0;
+	variable[i] = 0;
+	tmp = (t_env*)ft_lstsearch_content((*env), ft_search_env2, variable);
+    if (tmp)
+		ft_printf("%s", tmp->value);
+    return (size);
 }
 
 void        ft_echo2(char *str ,int flag, t_list **env)
@@ -46,41 +84,38 @@ void        ft_echo2(char *str ,int flag, t_list **env)
 	i = 0;
 	while (str[i])
 	{
-		while (coma_simple == 0 && coma_hard == 0 && str[i] == ' ')
-			i++;
 		if (str[i] == 34)
 		{
-		   if (coma_hard == 0 && coma_simple == 0)
-		   {
-			i++;
-			coma_hard = 1;          
-		   }
-		   else if (coma_hard == 1 && coma_simple == 0)
-		   {
+		   	if (coma_hard == 0 && coma_simple == 0)
+			{
+				coma_hard = 1;
+				i++;
+			}
+		   	else if (coma_hard == 1 && coma_simple == 0)
+			{
 				coma_hard = 0;
 				i++;
-		   }
-
+			}
 		}
 		if (str[i] == 39)
 		{
 			if (coma_simple == 0 && coma_hard == 0)
 			{
-				i++;
 				coma_simple = 1;
-			}
-			else if (coma_simple == 1)
-			{
 				i++;
+			}
+			else if (coma_simple == 1 && coma_hard == 0)
+			{
 				coma_simple = 0;
-			}      
+				i++;
+			}
 		}
         if (str[i] == '$')
         {
             if (!(coma_simple == 1 && coma_hard == 0))
             {
-                i += ft_echo_env(&str[i], env);
-                while (!(ft_isspace(str[i])))
+                ft_echo_env(&str[i], env);
+                while (!(ft_isspace(str[i])) && str[i] && str[i] != 34)
                     i++;
             }
         }

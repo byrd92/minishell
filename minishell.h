@@ -56,7 +56,6 @@ int			ft_export(t_list **env, char *str);
 **	Command env
 */
 int			ft_env(t_list **env);
-int			ft_search_env(void	*content, void *to_search);
 
 int			ft_unset(t_list **env, char *str);
 
