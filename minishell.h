@@ -46,6 +46,7 @@ void        ft_parse_commands(char *command, t_list **env);
 void        ft_echo2(char *str ,int flag, t_list **env);
 int			ft_iscomma(char *str, int *comma);
 
+void			*ft_lstsearch_content(t_list *lst, int (*f)(void *, void *), void *to_search);
 
 void		ft_kill_env(void *content);
 /*
@@ -59,4 +60,6 @@ int			ft_env(t_list **env);
 
 int			ft_unset(t_list **env, char *str);
 
+
+int			ft_pwd(t_list **env);
 #endif
