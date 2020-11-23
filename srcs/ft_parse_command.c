@@ -27,5 +27,9 @@ void        ft_parse_commands(char *command, t_list **env)
 	{
 		ft_unset(env, &alter[5]);
 	}
+	else if(ft_strncmp(alter, "pwd", 3) == 0)
+	{
+		ft_pwd(env);
+	}
 	
 }
