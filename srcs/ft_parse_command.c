@@ -12,11 +12,55 @@
 
  #include "../minishell.h"
 
+ static void		ft_printlist(void *content)
+{
+	char *env;
+
+	env = (char *)content;
+	ft_printf("%s\n",env);
+}
+
+static int			ft_printlista(t_list **lista)
+{
+	ft_lstiter(*lista, ft_printlist);
+	return (0);
+}
+
+void	list_commands(t_list **alter, char *command)
+{
+	char *tmp;
+	int i;
+	char *value;
+
+	tmp = command;
+	i = 0;
+	while (*command)
+	{
+		if (*command == '|')
+		{
+			*command = 0;
+			value = ft_strdup(tmp);
+			t_list *new = ft_lstnew((const void *)value);
+			ft_lstadd_back(alter, new);
+			tmp = command + 1;
+		}
+		command++;
+	}
+	value = ft_strdup(tmp);
+	t_list *new = ft_lstnew((const void *)value);
+	ft_lstadd_back(alter, new);
+}
+
 void        ft_parse_commands(char *command, t_list **env)
 {
 	char *alter;
+	t_list *alterlist;
 
+	alter = NULL;
+	alterlist = NULL;
+	list_commands(&alterlist, command);
 	alter = command;
+	//ft_printlista(&alterlist);
 	if(ft_strncmp(alter, "echo ", 5) == 0)
 		ft_echo(env ,&alter[5]);
     else if(ft_strncmp(alter, "export ", 7) == 0)
