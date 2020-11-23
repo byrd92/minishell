@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
  #include "../minishell.h"
-
+/*
  static void		ft_printlist(void *content)
 {
 	char *env;
@@ -24,7 +24,7 @@ static int			ft_printlista(t_list **lista)
 {
 	ft_lstiter(*lista, ft_printlist);
 	return (0);
-}
+}*/
 
 void	list_commands(t_list **alter, char *command)
 {
