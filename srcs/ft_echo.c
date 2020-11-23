@@ -60,7 +60,7 @@ int        ft_echo_env(char *str, t_list **env)
         size++;
     variable = malloc(sizeof(char *) * size);
 	str++;
-    while (!(ft_isspace(*str)) && *str != 34 && *str != 0)
+    while (!(ft_isspace(*str)) && *str != 34 && *str != 39 && *str != 0)
     {
         variable[i] = *str;
         str++;
@@ -112,10 +112,10 @@ void        ft_echo2(char *str ,int flag, t_list **env)
 		}
         if (str[i] == '$')
         {
-            if (!(coma_simple == 1 && coma_hard == 0))
+            if ((coma_simple == 0 && coma_hard == 0) || coma_hard == 1)
             {
                 ft_echo_env(&str[i], env);
-                while (!(ft_isspace(str[i])) && str[i] && str[i] != 34)
+                while (!(ft_isspace(str[i])) && str[i] && str[i] != 39)
                     i++;
             }
         }
