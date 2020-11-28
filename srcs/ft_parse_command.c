@@ -29,11 +29,9 @@ static int			ft_printlista(t_list **lista)
 void	list_commands(t_list **alter, char *command)
 {
 	char *tmp;
-	int i;
 	char *value;
 
 	tmp = command;
-	i = 0;
 	while (*command)
 	{
 		if (*command == '|')
