@@ -3,36 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalcayne <jalcayne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 19:17:23 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/11/23 19:38:06 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/11/30 11:13:12 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-int         ft_cd()
+
+
+
+int         ft_cd(char *str)
 {
- 
- /* Variables */
- DIR *dirp;
- struct dirent *direntp;
- 
- /* Abrimos el directorio */
- dirp = opendir("./");
- if (dirp == NULL){
- printf("Error: No se puede abrir el directorio\n");
- exit(2);
- }
- 
- /* Leemos las entradas del directorio */
- printf("i-nodo\toffset\t\tlong\tnombre\n");
- while ((direntp = readdir(dirp)) != NULL) {
- printf("%llu\t%d\t%u\t%s\n", direntp->d_ino, direntp->d_reclen, direntp->d_type ,direntp->d_name);
- }
- 
- /* Cerramos el directorio */
- return (closedir(dirp));
+	int i;
+
+	i = 0;
+
+	while (str[i] && ft_isspace(str[i]))
+		i++;
+	return (chdir(&str[i]));
 }
 
 /*#include <sys/types.h>

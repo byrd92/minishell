@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalcayne <jalcayne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 18:04:19 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/11/23 19:24:47 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/11/27 19:53:57 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,6 @@ int			ft_pwd()
 {
 	char *tmp;
 	tmp = NULL;
-	printf("%s\n", getcwd(tmp,0));
+	ft_printf("%s\n", getcwd(tmp,0));
 	return (0);
 }
