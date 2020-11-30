@@ -95,8 +95,6 @@ int			main(int argc, char **argv, char **envp)
 			//ft_printf("%s\n", commands[i]);
 			i++;
 		}
-		
-		
 		//continuar programa
 		//siguente funcion()
 		ft_kill_commands(&commands);

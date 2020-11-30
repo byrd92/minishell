@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jalcayne <jalcayne@student.42.fr>          +#+  +:+       +#+         #
+#    By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/04 11:35:44 by aortega-          #+#    #+#              #
-#    Updated: 2020/02/19 11:24:20 by jalcayne         ###   ########.fr        #
+#    Updated: 2020/11/27 20:07:25 by jalcayne         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME = libftprintf.a
 
 FLAGS = -Wall -Wextra -Werror
 
-SRCS = ft_printf.c ft_search_types.c ft_search_flags.c ft_sel_format_type.c functions_flags.c ft_utoa.c ft_ulltoa_base.c ft_type_c.c ft_type_s.c ft_type_di.c ft_type_u.c ft_type_x.c ft_type_p.c ft_type_cent.c 
+SRCS = ft_printf.c ft_search_types.c ft_search_flags.c ft_sel_format_type.c functions_flags.c ft_utoa.c ft_ulltoa_base.c ft_type_c.c ft_type_s.c ft_type_di.c ft_type_u.c ft_type_x.c ft_type_p.c ft_type_cent.c
 
 OBJS = $(SRCS:.c=.o)
 

@@ -22,6 +22,9 @@
 # include <stdio.h>
 # include <limits.h>
 # include <errno.h>
+# include <sys/types.h>
+# include <dirent.h>
+
 typedef struct  s_comand
 {
 	char        *type;
@@ -61,5 +64,7 @@ int			ft_env(t_list **env);
 int			ft_unset(t_list **env, char *str);
 
 
-int			ft_pwd(t_list **env);
+int			ft_pwd();
+
+int         ft_cd();
 #endif
