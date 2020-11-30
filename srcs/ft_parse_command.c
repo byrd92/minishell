@@ -25,7 +25,7 @@ static int			ft_printlista(t_list **lista)
 	ft_lstiter(*lista, ft_printlist);
 	return (0);
 }*/
-
+/*
 void	list_commands(t_list **alter, char *command)
 {
 	char *tmp;
@@ -48,17 +48,84 @@ void	list_commands(t_list **alter, char *command)
 	t_list *new = ft_lstnew((const void *)value);
 	ft_lstadd_back(alter, new);
 }
+*/
+char		*ft_strdup_word(char *word)
+{
+	int i;
+	int j;
+	int k;
+	char *str;
 
+	j = 0;
+	i = 0;
+	while (ft_isspace(word[i]))
+		i++;
+	k = i;
+	while (word[k] && !ft_isspace(word[i]))
+	{
+		k++;
+		j++;
+	}
+	str = malloc(sizeof(char)* j + 1);
+	j = 0;
+	while (word[i] && !ft_isspace(word[i]))
+	{
+		str[j] = word[i];
+		j++;
+		i++;
+	}
+	str[j] = 0;
+	return (str);
+}
+
+void		ft_create_struct(t_mini *mini, char *command)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	mini->in = 0;
+	mini->out = 0;
+
+	mini->comand_list = ft_split(command, '|');
+	while (mini->comand_list[i])
+	{
+		
+		while (mini->comand_list[i][j])
+		{
+			if (mini->comand_list[i][j] == '>' && mini->comand_list[i][j + 1] == ' ')
+			{
+				mini->out = 1;
+				mini->output = ft_strdup_word(&mini->comand_list[i][j + 1]);
+			}
+			if (mini->comand_list[i][j] == '<')
+			{
+				mini->in = 1;
+				mini->input = ft_strdup_word(&mini->comand_list[i][j + 1]);
+			}
+			if (mini->comand_list[i][j] == '>'  && mini->comand_list[i][j + 1] == '>')
+			{
+				mini->out = 2;
+				mini->output = ft_strdup_word(&mini->comand_list[i][j + 1]);
+			}
+			j++;
+		}
+		
+	ft_printf("%s\n", mini->output); 
+	i++;
+	}
+}
 void        ft_parse_commands(char *command, t_list **env)
 {
 	char *alter;
-	t_list *alterlist;
+	t_mini	mini; 
 
+	ft_create_struct(&mini, command);
 	alter = NULL;
-	alterlist = NULL;
-	list_commands(&alterlist, command);
 	alter = command;
-	//ft_printlista(&alterlist);
+	(void)env;
+	/*
 	if(ft_strncmp(alter, "echo ", 5) == 0)
 		ft_echo(env ,&alter[5]);
     else if(ft_strncmp(alter, "export ", 7) == 0)
@@ -77,5 +144,5 @@ void        ft_parse_commands(char *command, t_list **env)
 	{
 		ft_cd(&alter[2]);
 	}
-	
+	*/
 }

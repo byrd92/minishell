@@ -25,11 +25,15 @@
 # include <sys/types.h>
 # include <dirent.h>
 
-typedef struct  s_comand
+typedef struct s_mini
 {
-	char        *type;
-	char		*value;
-}               t_comand;
+	char		*input;
+	int			in;
+	int			out;
+	char		*output;
+	char	**comand_list;
+}				t_mini;
+
 
 typedef struct s_env
 {
