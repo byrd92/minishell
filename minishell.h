@@ -27,11 +27,8 @@
 
 typedef struct s_mini
 {
-	char		*input;
-	int			in;
-	int			out;
-	char		*output;
-	char	**comand_list;
+		int		type;
+		char	**argv;
 }				t_mini;
 
 
@@ -43,7 +40,7 @@ typedef struct s_env
 
 void		ft_kill_commands(char ***commands);
 int			ft_read_commands(char ***commands);
-void		ft_echo(t_list **env, char *str);
+void        ft_echo(t_list **env, char **argv);
 char		*ft_search_word(char *str);
 int			ft_print_word(char *str);
 int			ft_strcmp(char *s1, char *s2);

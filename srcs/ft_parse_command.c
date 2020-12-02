@@ -11,123 +11,106 @@
 /* ************************************************************************** */
 
  #include "../minishell.h"
-/*
+
  static void		ft_printlist(void *content)
 {
-	char *env;
+	t_mini *env;
+	int i;
 
-	env = (char *)content;
-	ft_printf("%s\n",env);
+	i = 0;
+	env = (t_mini *)content;
+	ft_printf("%d ",env->type);	
+	while (env->argv[i])
+	{
+		ft_printf("%s ", env->argv[i]);
+		i++;
+	}
+	ft_printf("\n");
 }
 
-static int			ft_printlista(t_list **lista)
+int	ft_datatype(char *tmp, t_mini *data)
 {
-	ft_lstiter(*lista, ft_printlist);
-	return (0);
-}*/
-/*
-void	list_commands(t_list **alter, char *command)
+	if (*tmp == '|')
+		data->type = 1;
+	else if (*tmp == '<')
+		data->type = 2;
+	else if (*tmp == '>' && tmp[1] == ' ')
+		data->type = 3;
+	else if (*tmp == '>' && tmp[1] == '>')
+	{
+		data->type = 4;
+		return (2);
+	}
+	else
+	{
+		data->type = 0;
+		return (0);
+	}
+	return (1);
+
+}
+void		ft_new_token(t_list **mini, char *command)
 {
+	t_mini	*token;
+	int i;
 	char *tmp;
-	char *value;
-
-	tmp = command;
-	while (*command)
-	{
-		if (*command == '|')
-		{
-			*command = 0;
-			value = ft_strdup(tmp);
-			t_list *new = ft_lstnew((const void *)value);
-			ft_lstadd_back(alter, new);
-			tmp = command + 1;
-		}
-		command++;
-	}
-	value = ft_strdup(tmp);
-	t_list *new = ft_lstnew((const void *)value);
-	ft_lstadd_back(alter, new);
-}
-*/
-char		*ft_strdup_word(char *word)
-{
-	int i;
-	int j;
-	int k;
-	char *str;
-
-	j = 0;
-	i = 0;
-	while (ft_isspace(word[i]))
-		i++;
-	k = i;
-	while (word[k] && !ft_isspace(word[i]))
-	{
-		k++;
-		j++;
-	}
-	str = malloc(sizeof(char)* j + 1);
-	j = 0;
-	while (word[i] && !ft_isspace(word[i]))
-	{
-		str[j] = word[i];
-		j++;
-		i++;
-	}
-	str[j] = 0;
-	return (str);
-}
-
-void		ft_create_struct(t_mini *mini, char *command)
-{
-	int i;
-	int j;
 
 	i = 0;
-	j = 0;
-	mini->in = 0;
-	mini->out = 0;
+	
+	tmp = ft_strdup(command);
+	token = (t_mini *)malloc(sizeof(t_mini) * 1);
+	tmp += ft_datatype(tmp, token);
+	while (!(ft_strchr("<|>",tmp[i])) && tmp[i])
+		i++;
+	tmp[i] = 0;
+	token->argv = ft_split(tmp, ' ');
+	t_list *new = ft_lstnew((const void *)token);
+	ft_lstadd_back(mini, new);
+}
 
-	mini->comand_list = ft_split(command, '|');
-	while (mini->comand_list[i])
+void		ft_create_token(t_list **mini, char *command)
+{
+	int i;
+
+	i = 0;
+	ft_new_token(mini, command);
+	while (command[i])
 	{
-		
-		while (mini->comand_list[i][j])
+		if (ft_strchr("<|>", command[i]))
 		{
-			if (mini->comand_list[i][j] == '>' && mini->comand_list[i][j + 1] == ' ')
-			{
-				mini->out = 1;
-				mini->output = ft_strdup_word(&mini->comand_list[i][j + 1]);
-			}
-			if (mini->comand_list[i][j] == '<')
-			{
-				mini->in = 1;
-				mini->input = ft_strdup_word(&mini->comand_list[i][j + 1]);
-			}
-			if (mini->comand_list[i][j] == '>'  && mini->comand_list[i][j + 1] == '>')
-			{
-				mini->out = 2;
-				mini->output = ft_strdup_word(&mini->comand_list[i][j + 1]);
-			}
-			j++;
+			ft_new_token(mini, &command[i]);
+			if (command[i + 1] == '>')
+				i++;
 		}
-		
-	ft_printf("%s\n", mini->output); 
-	i++;
+		i++;
 	}
+	ft_lstiter(*mini,ft_printlist);
+	
 }
 void        ft_parse_commands(char *command, t_list **env)
 {
 	char *alter;
-	t_mini	mini; 
+	t_list	*mini; 
+	t_mini *content;
+	char **argv;
 
-	ft_create_struct(&mini, command);
+	mini = NULL;
+	ft_create_token(&mini, command);
 	alter = NULL;
 	alter = command;
+	
 	(void)env;
-	/*
-	if(ft_strncmp(alter, "echo ", 5) == 0)
-		ft_echo(env ,&alter[5]);
+	(void)argv;
+	
+	while (mini)
+	{
+		content = (t_mini *)mini->content;
+		ft_printf("->%s\n" , content->argv[0]);
+		if(ft_strncmp(content->argv[0], "echo", 5) == 0)
+			ft_echo(env ,content->argv);
+		mini = mini->next;
+	}
+  /*
     else if(ft_strncmp(alter, "export ", 7) == 0)
 		ft_export(env, &alter[6]);
 	else if(ft_strncmp(alter, "env", 3) == 0)
@@ -144,5 +127,5 @@ void        ft_parse_commands(char *command, t_list **env)
 	{
 		ft_cd(&alter[2]);
 	}
-	*/
+*/
 }

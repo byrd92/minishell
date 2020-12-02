@@ -125,24 +125,19 @@ void        ft_echo2(char *str ,int flag, t_list **env)
 	flag == 1 ? write(1, "", 1) : write(1, "\n", 1) ;
 }
 
-void        ft_echo(t_list **env, char *str)
+void        ft_echo(t_list **env, char **argv)
 {
 	int flag;
+	int i;
 
 	flag = 0;
-	while (ft_isspace(*str))
-		str++;
-	if (*str == '-' && str[1] == 'n')
+	i = 0;
+	if (ft_strncmp(argv[1], "-n", 2))
+		flag = 1;
+	(void)env;
+	while (argv[i])
 	{
-		if (str[2] == ' ' )
-		{
-		    flag = 1;
-		    str = &str[2];
-		}
-		else
-			return;     
-		while (ft_isspace(*str))
-			str++;
+		
 	}
-	ft_echo2(str,flag,env);
+	//ft_echo2(str,flag,env);
 }

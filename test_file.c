@@ -12,6 +12,8 @@ int     main(int argc, char **argv, char **envp)
         printf("Error opening the file\n"); 
     dup2(stdout,1);
     */
+   
+   quotes()
     execve("/bin/echo", argv, envp);
     close(stdout);
     return (0);
