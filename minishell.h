@@ -66,5 +66,5 @@ int			ft_unset(t_list **env, char *str);
 
 int			ft_pwd();
 
-int         ft_cd();
+int         ft_cd(t_list **env, char *str);
 #endif

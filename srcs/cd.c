@@ -6,7 +6,7 @@
 /*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 19:17:23 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/11/30 11:13:12 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/12/03 19:00:38 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,19 @@
 
 
 
-int         ft_cd(char *str)
+int         ft_cd(t_list **env, char *str)
 {
 	int i;
-
+	char *tmp;
+	
+	tmp = NULL;
 	i = 0;
-
 	while (str[i] && ft_isspace(str[i]))
 		i++;
-	return (chdir(&str[i]));
+	ft_export(env, ft_strjoin("OLDPWD=",getcwd(tmp,256)));
+	chdir(&str[i]);
+	ft_export(env, ft_strjoin("PWD=",(const char *)getcwd(tmp,256)));
+	return (0);
 }
 
 /*#include <sys/types.h>
