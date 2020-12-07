@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   search_path.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: jalcayne <jalcayne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 10:56:22 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/12/04 11:55:23 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/12/07 17:50:05 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static int search_in_dir(char *path, char *program)
 		if (direntp->d_type == 8 && !ft_strncmp(direntp->d_name, program, ft_strlen(program) + 1))
 			return (1);
 	}
+	return (0);
 	closedir(dirp);
 }
 
@@ -58,6 +59,7 @@ int     search_path(t_list **env, char *str)
 	path_directs = ft_split(path->value, ':');
 	while (path_directs[i])
 	{
+		printf("path = %s, program %s\n", path_directs[i], str);
 		if (search_in_dir(path_directs[i], ft_search_word(str)))
 			return(1);
 		i++;
