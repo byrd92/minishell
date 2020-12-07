@@ -6,7 +6,7 @@
 /*   By: jalcayne <jalcayne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 10:56:22 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/12/07 17:50:05 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/12/07 18:40:52 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int search_in_dir(char *path, char *program)
 	closedir(dirp);
 }
 
-int     search_path(t_list **env, char *str)
+char     *search_path(t_list **env, char *program)
 {
 	t_env *path;
 	char **path_directs;
@@ -59,11 +59,11 @@ int     search_path(t_list **env, char *str)
 	path_directs = ft_split(path->value, ':');
 	while (path_directs[i])
 	{
-		printf("path = %s, program %s\n", path_directs[i], str);
-		if (search_in_dir(path_directs[i], ft_search_word(str)))
-			return(1);
+		//printf("path = %s, program %s\n", path_directs[i], program);
+		if (search_in_dir(path_directs[i], ft_search_word(program)))
+			return(path_directs[i]);
 		i++;
 	}
-	return (0);
+	return (NULL);
 	
 }

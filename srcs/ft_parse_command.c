@@ -73,7 +73,7 @@ void        ft_parse_commands(char *command, t_list **env)
 		ft_cd(env, &alter[2]);
 	else
 	{
-		search_path(env, alter);
+		printf("%s\n",search_path(env, alter));
 	}
 	
 	
