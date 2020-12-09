@@ -49,6 +49,7 @@ int	ft_datatype(char *tmp, t_mini *data)
 	return (1);
 
 }
+
 void		ft_new_token(t_list **mini, char *command)
 {
 	t_mini	*token;
@@ -63,7 +64,7 @@ void		ft_new_token(t_list **mini, char *command)
 	while (!(ft_strchr("<|>",tmp[i])) && tmp[i])
 		i++;
 	tmp[i] = 0;
-	token->argv = ft_split(tmp, ' ');
+	token->argv = ft_split_mini(tmp, ' ');
 	t_list *new = ft_lstnew((const void *)token);
 	ft_lstadd_back(mini, new);
 }
@@ -78,14 +79,13 @@ void		ft_create_token(t_list **mini, char *command)
 	{
 		if (ft_strchr("<|>", command[i]))
 		{
-			ft_new_token(mini, &command[i]);
 			if (command[i + 1] == '>')
 				i++;
+			ft_new_token(mini, &command[i]);
 		}
 		i++;
 	}
 	ft_lstiter(*mini,ft_printlist);
-	
 }
 void        ft_parse_commands(char *command, t_list **env)
 {
