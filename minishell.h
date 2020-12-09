@@ -40,14 +40,14 @@ typedef struct s_env
 
 void		ft_kill_commands(char ***commands);
 int			ft_read_commands(char ***commands);
-void        ft_echo(t_list **env, char **argv);
+
 char		*ft_search_word(char *str);
 int			ft_print_word(char *str);
 int			ft_strcmp(char *s1, char *s2);
 void		ft_kill_commands(char ***commands);
 int			ft_read_commands(char ***commands);
 void        ft_parse_commands(char *command, t_list **env);
-void        ft_echo2(char *str ,int flag, t_list **env);
+
 int			ft_iscomma(char *str, int *comma);
 
 void			*ft_lstsearch_content(t_list *lst, int (*f)(void *, void *), void *to_search);
@@ -62,8 +62,16 @@ int			ft_export(t_list **env, char *str);
 */
 int			ft_env(t_list **env);
 
+/*
+** Command unset
+*/
 int			ft_unset(t_list **env, char *str);
 
+/*
+** Command echo
+*/
+void        ft_echo(t_list **env, char **argv);
+void        ft_echo2(char **argv ,int flag, t_list **env);
 
 int			ft_pwd();
 

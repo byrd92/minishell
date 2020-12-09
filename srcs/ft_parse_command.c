@@ -89,19 +89,19 @@ void		ft_create_token(t_list **mini, char *command)
 }
 void        ft_parse_commands(char *command, t_list **env)
 {
-	char *alter;
+
 	t_list	*mini; 
 	t_mini *content;
 	char **argv;
 
 	mini = NULL;
 	ft_create_token(&mini, command);
-	alter = NULL;
-	alter = command;
+
 	
 	(void)env;
 	(void)argv;
-	
+	(void)content;
+  /*	
 	while (mini)
 	{
 		content = (t_mini *)mini->content;
@@ -110,7 +110,7 @@ void        ft_parse_commands(char *command, t_list **env)
 			ft_echo(env ,content->argv);
 		mini = mini->next;
 	}
-  /*
+
     else if(ft_strncmp(alter, "export ", 7) == 0)
 		ft_export(env, &alter[6]);
 	else if(ft_strncmp(alter, "env", 3) == 0)
