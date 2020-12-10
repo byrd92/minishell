@@ -12,6 +12,7 @@
 
  #include "../minishell.h"
 
+/*
  static void		ft_printlist(void *content)
 {
 	t_mini *env;
@@ -27,7 +28,7 @@
 	}
 	ft_printf("\n");
 }
-
+*/
 int	ft_datatype(char *tmp, t_mini *data)
 {
 	if (*tmp == '|')
@@ -85,7 +86,72 @@ void		ft_create_token(t_list **mini, char *command)
 		}
 		i++;
 	}
-	ft_lstiter(*mini,ft_printlist);
+	//ft_lstiter(*mini,ft_printlist);
+}
+
+
+
+int		ft_strlen_token(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i] && str[i] != ' ' && str[i] != '>' && str[i] != ';' && str[i] != '|'
+	&& str[i] != '"' && str[i] != '\'' && str[i] != '=')
+	{
+		i++;
+	}
+	if (str[i] == '=')
+		i++;
+	return (i);
+}
+
+
+static	int		ft_change_env(char **str, int i, t_list **env)
+{
+	char *start;
+	char *env_var;
+	char *env_result;
+	char *aux;
+	char *end;
+	int len;
+
+	env_result = NULL;
+	len = ft_strlen_token(&(*str)[i]);
+	if (len == 0)
+		return (0);
+	env_var = ft_strldup(&(*str)[i], len);
+
+	env_result = ft_find_env(env_var, env);
+	if (!env_result)
+		return (0);
+	start = ft_strldup(*str, i);
+	aux = ft_strjoin(start,env_result);
+	len = ft_strlen(env_var);
+	end = ft_strdup(&(*str)[i + 1 + len]);
+	free(start);
+	start = ft_strjoin(aux,end);
+	//ft_printf("->%s\n", start);
+	str = &start;
+	return(len);
+
+	return 0;
+}
+void			ft_check_env(char **str, t_list **env)
+{
+	int i;
+	int quote;
+
+	quote = 0;
+	i = 0;
+	while ((*str)[i])
+	{
+		if ((*str)[i] == 34 || (*str)[i] == 39 )
+			quote = quote == 0 ? (*str)[i] : 0;
+		if ((*str)[i] == '$' && quote != 39)
+			i += ft_change_env(str, i ,env);
+		i++;
+	}
 }
 void        ft_parse_commands(char *command, t_list **env)
 {
@@ -95,22 +161,23 @@ void        ft_parse_commands(char *command, t_list **env)
 	char **argv;
 
 	mini = NULL;
+	ft_check_env(&command, env);
 	ft_create_token(&mini, command);
 
 	
 	(void)env;
 	(void)argv;
 	(void)content;
-  /*	
+
 	while (mini)
 	{
 		content = (t_mini *)mini->content;
-		ft_printf("->%s\n" , content->argv[0]);
+		//ft_printf("->%s\n" , content->argv[0]);
 		if(ft_strncmp(content->argv[0], "echo", 5) == 0)
 			ft_echo(env ,content->argv);
 		mini = mini->next;
 	}
-
+  /*	
     else if(ft_strncmp(alter, "export ", 7) == 0)
 		ft_export(env, &alter[6]);
 	else if(ft_strncmp(alter, "env", 3) == 0)

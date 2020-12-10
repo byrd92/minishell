@@ -58,8 +58,9 @@ void		*ft_lstsearch_content(t_list *lst, int (*f)(void *, void *), void *to_sear
 int			argv_size(char *str, int c);
 char		*ft_strdup_sep(char *str, int c);
 char		**ft_split_mini(char *str, int c);
-
-
+char		*ft_strldup(char *str, int i);
+char		*ft_find_env(char *str, t_list **env);
+int			ft_search_env(void	*content, void *to_search);
 
 void		ft_kill_env(void *content);
 /*

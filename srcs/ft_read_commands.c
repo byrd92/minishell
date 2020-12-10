@@ -38,6 +38,8 @@ int		ft_iscomma(char *str, int *comma)
 **	Funcion para leer los valores que se encirben en la terminal
 **	y separar los comandos 
 */
+
+
 int			ft_read_commands(char ***commands)
 {
 	int		ret;
