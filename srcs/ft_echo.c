@@ -73,76 +73,27 @@ int        ft_echo_env(char *str, t_list **env)
     return (size);
 }
 
-void        ft_echo2(char *str ,int flag, t_list **env)
+void        ft_echo2(char **argv ,int flag, t_list **env)
 {
 	int i;
-	int coma_simple;
-	int coma_hard;
 
-	coma_simple = 0;
-	coma_hard = 0;
-	i = 0;
-	while (str[i])
+	i = flag == 1 ? 2 : 1;
+	while (argv[i])
 	{
-		if (str[i] == 34)
-		{
-		   	if (coma_hard == 0 && coma_simple == 0)
-			{
-				coma_hard = 1;
-				i++;
-			}
-		   	else if (coma_hard == 1 && coma_simple == 0)
-			{
-				coma_hard = 0;
-				i++;
-			}
-		}
-		if (str[i] == 39)
-		{
-			if (coma_simple == 0 && coma_hard == 0)
-			{
-				coma_simple = 1;
-				i++;
-			}
-			else if (coma_simple == 1 && coma_hard == 0)
-			{
-				coma_simple = 0;
-				i++;
-			}
-		}
-        if (str[i] == '$')
-        {
-            if ((coma_simple == 0 && coma_hard == 0) || coma_hard == 1)
-            {
-                ft_echo_env(&str[i], env);
-                while (!(ft_isspace(str[i])) && str[i] && str[i] != 39)
-                    i++;
-            }
-        }
-		write(1, &str[i], 1);
+		ft_printf("%s ", argv[i]);
 		i++;
 	}
+	(void)env;
 	flag == 1 ? write(1, "", 1) : write(1, "\n", 1) ;
 }
 
-void        ft_echo(t_list **env, char *str)
+void        ft_echo(t_list **env, char **argv)
 {
-	int flag;
 
-	flag = 0;
-	while (ft_isspace(*str))
-		str++;
-	if (*str == '-' && str[1] == 'n')
-	{
-		if (str[2] == ' ' )
-		{
-		    flag = 1;
-		    str = &str[2];
-		}
-		else
-			return;     
-		while (ft_isspace(*str))
-			str++;
-	}
-	ft_echo2(str,flag,env);
+	if (ft_strncmp(argv[1], "-n", 2) == 0)	
+		ft_echo2(argv, 1, env);
+	else
+		ft_echo2(argv, 0, env);
+	
+	//ft_echo2(str,flag,env);
 }
