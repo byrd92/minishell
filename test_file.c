@@ -3,6 +3,11 @@
 #include <unistd.h>
 #include <fcntl.h>
 
+
+void    ft_alter(char *str)
+{
+    str = strdup("OTRA COSA");
+}
 int     main(int argc, char **argv, char **envp)
 {
     int stdout;
@@ -12,9 +17,11 @@ int     main(int argc, char **argv, char **envp)
         printf("Error opening the file\n"); 
     dup2(stdout,1);
     */
-   
-   quotes()
-    execve("/bin/echo", argv, envp);
-    close(stdout);
+
+   char str[5] = "HOLA";
+   printf("%s", str);
+
+   ft_alter(str);
+   printf("%s", str);
     return (0);
 }

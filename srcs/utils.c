@@ -6,7 +6,7 @@
 /*   By: egarcia- <emilioggo@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 22:13:09 by egarcia-          #+#    #+#             */
-/*   Updated: 2020/12/10 17:55:30 by egarcia-         ###   ########.fr       */
+/*   Updated: 2020/12/11 18:57:09 by egarcia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,11 @@ int			argv_size(char *str, int c)
 			words++;
 		}
 		if (str[i] == c)
+		{	
 			words++;
+			while (str[i] == c && str[i])
+				i++;
+		}
 		i++;
 	}
 	return (words);
@@ -75,18 +79,70 @@ char		*ft_strldup(char *str, int i)
 	ret[j] = 0;
 	return (ret);
 }
+static int		ft_strlen_char(char *str, char c)
+{
+	int i;
+
+	i = 0;
+	while (str[i] && str[i] != c)
+		i++;
+	return (i);
+}
+
+static int		ft_strlen_tokens(char *str)
+{
+	int		len;
+
+	len = 0;
+	while (*str && *str != ' ' && *str != '>' && *str != ';' && *str != '|'
+	&& *str != '"' && *str != '\'' && *str != '$' && *str != '=')
+	{
+		len++;
+		str++;
+	}
+	if (*str == '=')
+		len++;
+	return (len);
+}
+
+static int	ft_strlen_arg(char *str)
+{
+	int		i;
+
+	i = 0;
+	if (str[i] == '"' || str[i] == '\'')
+		i = ft_strlen_char(str + i + 1, str[i]) + 2;
+	else if (ft_strlen_char(str, ':') < ft_strlen_tokens(str))
+		i = ft_strlen(str);
+	else
+		i = ft_strlen_tokens(str);
+	return (i);
+}
+
 char		**ft_split_mini(char *str, int c)
 {
 	char **array;
 	int i;
-
+	int size;
+	int quote;
+	int len;
+	
 	i = 0;
-	while (str[i] == ' ')
+	len = 0;
+	quote = 0;
+	size = argv_size(str , ' ');
+	array = malloc(sizeof(char *) * size + 1);
+	while ( i < size)
+	{
+		while (*str == ' ')
+			str++;
+		len = ft_strlen_arg(str);
+		quote = (*str == '"' || *str == '\'') ? 1 : 0;
+		array[i] = ft_strldup(str + quote, len - quote * 2);
+		str += len;
 		i++;
-	if (str[i] == 34 || str[i] == 39)
-		array = ft_split(str, str[i]);
-	else
-		array = ft_split(str, c);
+	}
+	array[i] = 0;
 	return (array);
 }
 
