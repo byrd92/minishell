@@ -13,18 +13,7 @@
 #include "../minishell.h"
 
 
-static int			ft_search_env(void	*content, void *to_search)
-{
-	t_env	*env;
-	char	*name_to_search;
 
-	name_to_search = (char *)to_search;
-	env = (t_env *)content;
-
-	if (ft_strncmp(env->name,name_to_search, ft_strlen(name_to_search)) == 0)
-		return (1);
-	return (0);
-}
 void		ft_lstdelmiddle(t_list **lst, int (*f)(void *, void *), void *to_search)
 {
 	t_list	*ptr;

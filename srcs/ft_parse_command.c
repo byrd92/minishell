@@ -91,20 +91,6 @@ void		ft_create_token(t_list **mini, char *command)
 
 
 
-int		ft_strlen_token(char *str)
-{
-	int		i;
-
-	i = 0;
-	while (str[i] && str[i] != ' ' && str[i] != '>' && str[i] != ';' && str[i] != '|'
-	&& str[i] != '"' && str[i] != '\'' && str[i] != '=')
-	{
-		i++;
-	}
-	if (str[i] == '=')
-		i++;
-	return (i);
-}
 
 
 static	int		ft_change_env(char **str, int i, t_list **env)
@@ -152,6 +138,7 @@ void	ft_check_env(char **str, t_list **env)
 		i++;
 	}
 }
+
 void        ft_parse_commands(char *command, t_list **env)
 {
 

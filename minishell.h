@@ -32,7 +32,7 @@ typedef struct s_mini
 }				t_mini;
 
 
-typedef struct s_env
+typedef struct s_env 
 {
 	char		*name;
 	char		*value;
@@ -55,12 +55,23 @@ void		*ft_lstsearch_content(t_list *lst, int (*f)(void *, void *), void *to_sear
 /*
 ** Utils.c
 */
-int			argv_size(char *str, int c);
+
 char		*ft_strdup_sep(char *str, int c);
 char		**ft_split_mini(char *str, int c);
 char		*ft_strldup(char *str, int i);
 char		*ft_find_env(char *str, t_list **env);
 int			ft_search_env(void	*content, void *to_search);
+void		*ft_lstsearch_content(t_list *lst, int (*f)(void *, void *), void *to_search);
+/*
+** lens.c
+*/
+
+int			argv_size(char *str, int c);
+int		ft_strlen_char(char *str, char c);
+int		ft_strlen_tokens(char *str);
+int		ft_strlen_token(char *str);
+int		ft_strlen_arg(char *str);
+
 
 void		ft_kill_env(void *content);
 /*
@@ -81,7 +92,6 @@ int			ft_unset(t_list **env, char *str);
 ** Command echo
 */
 void        ft_echo(t_list **env, char **argv);
-void        ft_echo2(char **argv ,int flag, t_list **env);
 
 int			ft_pwd();
 

@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-static int			ft_search_env(void	*content, void *to_search)
+static int			ft_search_change_env(void	*content, void *to_search)
 {
 	t_env	*env;
 	t_env	*env_to_search;
