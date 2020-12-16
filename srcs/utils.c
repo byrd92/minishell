@@ -6,7 +6,7 @@
 /*   By: egarcia- <emilioggo@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 22:13:09 by egarcia-          #+#    #+#             */
-/*   Updated: 2020/12/15 20:18:16 by egarcia-         ###   ########.fr       */
+/*   Updated: 2020/12/16 17:41:48 by egarcia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int			ft_search_env(void	*content, void *to_search)
 	name_to_search = (char *)to_search;
 	env = (t_env *)content;
 
-	if (ft_strncmp(env->name,name_to_search, ft_strlen(name_to_search)) == 0)
+	if (ft_strncmp(env->name,name_to_search, ft_strlen(name_to_search) + 1) == 0)
 		return (1);
 	return (0);
 }
