@@ -96,4 +96,6 @@ void        ft_echo(t_list **env, char **argv);
 int			ft_pwd();
 
 int         ft_cd(t_list **env, char *str);
+
+char		*search_path(t_list **env, char *program);
 #endif

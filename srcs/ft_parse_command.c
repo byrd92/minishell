@@ -173,8 +173,11 @@ void        ft_parse_commands(char *command, t_list **env)
 	else if(ft_strncmp(alter, "pwd", 3) == 0)
 		ft_pwd(env);
 	else if(ft_strncmp(alter, "cd ", 3) == 0)
+		ft_cd(env, &alter[2]);
+	else
 	{
-		ft_cd(&alter[2]);
+		printf("%s\n",search_path(env, alter));
 	}
-*/
+	
+	
 }
