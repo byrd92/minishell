@@ -171,16 +171,10 @@ void        ft_parse_commands(char *command, t_list **env)
 			ft_pwd(env);
 		else if(ft_strncmp(content->argv[0], "cd\0", 3) == 0)
 			ft_cd(env, content->argv);
+		else
+			printf("%s\n",search_path(env, content->argv[0]));
 		mini = mini->next;
 	}
-  /*	
-    
-	else if(ft_strncmp(alter, "cd ", 3) == 0)
-		ft_cd(env, &alter[2]);
-	else
-	{
-		printf("%s\n",search_path(env, alter));
-	}*/
 	
 	
 }

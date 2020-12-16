@@ -6,7 +6,7 @@
 /*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 19:17:23 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/12/13 12:47:50 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/12/16 09:51:16 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,13 @@ int         ft_cd(t_list **env,  char **argv)
 {
 	int i;
 	char *tmp;
-	
 	tmp = NULL;
 
 	if (argv[1] != NULL)
 	{
-		ft_export(env, ft_strjoin("OLDPWD=",getcwd(tmp,256)));
-		printf("%s\n", getcwd(tmp,256));
+		//ft_export(env, ft_strjoin("OLDPWD=",getcwd(tmp,256)));
 		chdir(argv[1]);
-		printf("%s\n", getcwd(tmp,256));
-		ft_export(env, ft_strjoin("PWD=",(const char *)getcwd(tmp,256)));
+		//ft_export(env, ft_strjoin("PWD=",(const char *)getcwd(tmp,256)));
 	}
 	return (0);
 }
