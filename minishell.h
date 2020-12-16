@@ -77,7 +77,7 @@ void		ft_kill_env(void *content);
 /*
 **	Command export
 */
-int			ft_export(t_list **env, char *str);
+int			ft_export(t_list **env, char **argv);
 /*
 **	Command env
 */
@@ -86,7 +86,7 @@ int			ft_env(t_list **env);
 /*
 ** Command unset
 */
-int			ft_unset(t_list **env, char *str);
+int			ft_unset(t_list **env, char **argv);
 
 /*
 ** Command echo
@@ -95,7 +95,7 @@ void        ft_echo(t_list **env, char **argv);
 
 int			ft_pwd();
 
-int         ft_cd(t_list **env, char *str);
-
 char		*search_path(t_list **env, char *program);
+
+int         ft_cd(t_list **env,  char **argv);
 #endif

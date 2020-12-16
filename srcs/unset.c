@@ -13,7 +13,6 @@
 #include "../minishell.h"
 
 
-
 void		ft_lstdelmiddle(t_list **lst, int (*f)(void *, void *), void *to_search)
 {
 	t_list	*ptr;
@@ -51,13 +50,8 @@ void		ft_lstdelmiddle(t_list **lst, int (*f)(void *, void *), void *to_search)
 	return ;
 }
 
-int			ft_unset(t_list **env, char *str)
+int			ft_unset(t_list **env, char **argv)
 {
-	char	*word;
-
-	word = ft_search_word(str);
-
-	ft_lstdelmiddle(env,ft_search_env,word);
-
+	ft_lstdelmiddle(env,ft_search_env,argv[1]);
 	return (0);
 }
