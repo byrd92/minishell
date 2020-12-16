@@ -177,7 +177,7 @@ void        ft_parse_commands(char *command, t_list **env)
 	else
 	{
 		printf("%s\n",search_path(env, alter));
-	}
+	}*/
 	
 	
 }
