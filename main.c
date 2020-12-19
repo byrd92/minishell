@@ -103,6 +103,7 @@ int			main(int argc, char **argv, char **envp)
 	int i;
 	int pipes;
 
+	int **fd;
 
 	env = NULL;
 	mini = NULL;
@@ -119,15 +120,18 @@ int			main(int argc, char **argv, char **envp)
 			if ((pipes = ft_check_pipes(mini)))
 			{
 				printf("hay %d pipes\n", pipes);
+				ft_create_pipes(pipes, &fd);
+				ft_forker(mini, &fd, &env, envp);
 			}
 			else
 			{
-				ft_select_build_function(mini, &env);
+				ft_select_build_function(mini, &env, envp);
 			}
 			i++;
 		}
 		ft_lstclear(&mini, ft_kill_mini);
 		ft_kill_commands(&commands);
+		char *hola[] = {"ls", "-l", NULL};
 		ft_printf("minivid ");
 	}
 	//ft_kill_env;

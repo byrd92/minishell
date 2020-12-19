@@ -24,6 +24,11 @@
 # include <errno.h>
 # include <sys/types.h>
 # include <dirent.h>
+# include <string.h>
+# include <sys/wait.h>
+
+# define READ_END 0 //extremo de escritura
+# define WRITE_END 1 //extremo de lectura
 
 typedef struct s_mini
 {
@@ -47,8 +52,8 @@ int			ft_strcmp(char *s1, char *s2);
 void		ft_kill_commands(char ***commands);
 int			ft_read_commands(char ***commands);
 void        ft_parse_commands(char *command, t_list **env, t_list **mini);
-void		ft_select_build_function(t_list *mini,  t_list **env);
-
+void    	ft_select_build_function(t_list *mini,  t_list **env, char **envp);
+void	    ft_select_build_function_fork(t_list *mini,  t_list **env, char **envp);
 int			ft_iscomma(char *str, int *comma);
 
 int			ft_check_pipes(t_list *mini);
@@ -98,4 +103,11 @@ int			ft_pwd();
 
 char		*search_path(t_list **env, char *program);
 int         ft_cd(t_list **env,  char **argv);
+
+/*
+** forks
+*/
+
+void		ft_create_pipes(int num_pipes, int ***fd);
+void	ft_forker(t_mini *mini, int ***fd, t_list **env, char **envp);
 #endif
