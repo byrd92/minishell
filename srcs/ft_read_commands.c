@@ -70,7 +70,6 @@ int			ft_read_commands(char ***commands)
 			continue;
 		}
 		*commands = ft_split(str, ';');
-		//ft_separate_commands(commands, &str);
 		free(line);
 		return (ret);
 	}

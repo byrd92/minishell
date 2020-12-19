@@ -31,6 +31,8 @@ void		ft_kill_commands(char ***commands)
 	}	
 }
 
+
+
 void		ft_kill_env(void *content)
 {
 	t_env *env;
@@ -39,6 +41,23 @@ void		ft_kill_env(void *content)
 	free(env->name);
 	free(env->value);
 	free(env);
+}
+
+void		ft_kill_mini(void *content)
+{
+	t_mini *mini;
+
+	mini = (t_mini *)content;
+	int i;
+
+	i = 0;
+	while (mini->argv[i])
+	{
+		free(mini->argv[i]);
+		i++;
+	}
+	free(mini->argv);
+	free(mini);
 }
 
 /*
@@ -79,27 +98,39 @@ static void		ft_environment(t_list **env, char **envp)
 int			main(int argc, char **argv, char **envp)
 {
 	t_list	*env;
+	t_list	*mini;
 	char	**commands;
 	int i;
-	
+	int pipes;
+
+
 	env = NULL;
+	mini = NULL;
 	ft_environment(&env, envp);
 	ft_printf("minivid ");
 	while (ft_read_commands(&commands))
 	{
-		//ft_printf("> ");
 		i = 0;
+
 		while (commands[i])
 		{
-			ft_parse_commands(commands[i], &env);
-			//ft_printf("%s\n", commands[i]);
+			ft_parse_commands(commands[i], &env, &mini);
+
+			if ((pipes = ft_check_pipes(mini)))
+			{
+				printf("hay %d pipes\n", pipes);
+			}
+			else
+			{
+				ft_select_build_function(mini, &env);
+			}
 			i++;
 		}
-		//continuar programa
-		//siguente funcion()
+		ft_lstclear(&mini, ft_kill_mini);
 		ft_kill_commands(&commands);
 		ft_printf("minivid ");
 	}
+	//ft_kill_env;
 	(void)argc;
 	(void)argv;
 }

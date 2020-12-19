@@ -46,11 +46,12 @@ int			ft_print_word(char *str);
 int			ft_strcmp(char *s1, char *s2);
 void		ft_kill_commands(char ***commands);
 int			ft_read_commands(char ***commands);
-void        ft_parse_commands(char *command, t_list **env);
+void        ft_parse_commands(char *command, t_list **env, t_list **mini);
+void		ft_select_build_function(t_list *mini,  t_list **env);
 
 int			ft_iscomma(char *str, int *comma);
 
-void		*ft_lstsearch_content(t_list *lst, int (*f)(void *, void *), void *to_search);
+int			ft_check_pipes(t_list *mini);
 
 /*
 ** Utils.c
