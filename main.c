@@ -120,8 +120,8 @@ int			main(int argc, char **argv, char **envp)
 			if ((pipes = ft_check_pipes(mini)))
 			{
 				printf("hay %d pipes\n", pipes);
-				ft_create_pipes(pipes, &fd);
-				ft_forker(mini, &fd, &env, envp);
+				//ft_create_pipes(pipes, &fd);
+				//ft_forker(&mini, &fd, &env, envp);
 			}
 			else
 			{

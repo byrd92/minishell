@@ -109,5 +109,5 @@ int         ft_cd(t_list **env,  char **argv);
 */
 
 void		ft_create_pipes(int num_pipes, int ***fd);
-void	ft_forker(t_mini *mini, int ***fd, t_list **env, char **envp);
+void		ft_forker(t_list **mini, int ***fd, t_list **env, char **envp);
 #endif
