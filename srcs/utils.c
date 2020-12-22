@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egarcia- <emilioggo@gmail.com>             +#+  +:+       +#+        */
+/*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 22:13:09 by egarcia-          #+#    #+#             */
-/*   Updated: 2020/12/15 20:18:16 by egarcia-         ###   ########.fr       */
+/*   Updated: 2020/12/22 12:06:57 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ char		**ft_split_mini(char *str, int c)
 	int quote;
 	int len;
 	
+	(void)c;
 	i = 0;
 	len = 0;
 	quote = 0;

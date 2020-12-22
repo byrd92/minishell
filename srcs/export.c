@@ -33,6 +33,8 @@ int			ft_export(t_list **env, char **argv)
 	int		i;
 	t_env	*newenv;
 
+	(void)newenv;
+	(void)env;
 	i = 0;
 
 	while(argv[i])

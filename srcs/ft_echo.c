@@ -27,7 +27,7 @@ static void        ft_echo2(char **argv ,int flag)
 
 void        ft_echo(t_list **env, char **argv)
 {
-
+	(void)env;
 	if (ft_strncmp(argv[1], "-n", 2) == 0)	
 		ft_echo2(argv, 1);
 	else

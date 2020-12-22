@@ -23,45 +23,22 @@ int main (int argc, char **argv)
         dup2(fd1[write_END], STDOUT_FILENO);    /* lo que el comando ls escribe en stdout lo escribe tambien en fd1[write_end]*/
         close(fd1[write_END]);                  /*se cierra ese extremo porque no se va  a usar ya*/
 
-        execlp("/bin/ls", "ls", "-l", NULL);
+        execlp("/bin/ls", "ls", "-l"," ", NULL);
     }
     else    /*padre*/
     {
         close(fd1[write_END]); /* se cierra porque no se va a usar ya*/
-        
-        pipe(fd2);              /*comunica grep y wc*/
         pid = fork();
-        
-        if (pid == 0)           /*hijo 2*/
+        if (pid == 0)
         {
-            close(fd2[READ_END]);
-
             dup2(fd1[READ_END], STDIN_FILENO);
-            close(fd1[READ_END]);
+            close (fd1[READ_END]);
 
-            dup2(fd2[write_END], STDOUT_FILENO);
-            close (fd2[write_END]);
-
-            execlp("/bin/grep", "grep", "u", NULL);
-            }
-        else /*padre*/
-        {
-            close (fd1[READ_END]); /*no necesario*/
-            close (fd2[write_END]); /* no necesario*/
-
-            pid = fork();
-            if (pid == 0)
-            {
-                dup2(fd2[READ_END], STDIN_FILENO);
-                close (fd2[READ_END]);
-
-                execlp("/usr/bin/wc", "wc", "-l", NULL);
-            }
+            execlp("/usr/bin/wc", "wc", "-l", NULL);
         }
     
     }
-    close(fd2[READ_END]);
-    wait(&status);
+    close(fd1[READ_END]);
     wait(&status);
     wait(&status);
     return (0);

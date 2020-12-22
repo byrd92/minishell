@@ -23,7 +23,7 @@
 	ft_printf("%d ",env->type);	
 	while (env->argv[i])
 	{
-		ft_printf("%s ", env->argv[i]);
+		ft_printf("%s x", env->argv[i]);
 		i++;
 	}
 	ft_printf("\n");
@@ -141,10 +141,6 @@ void	ft_check_env(char **str, t_list **env)
 
 void        ft_parse_commands(char *command, t_list **env, t_list **mini)
 {
-
-	t_mini *content;
-	char **argv;
-
 	ft_check_env(&command, env);
 	ft_create_token(mini, command);
 }

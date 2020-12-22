@@ -6,7 +6,7 @@
 /*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 19:17:23 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/12/16 09:51:16 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/12/22 12:06:38 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@
 
 int         ft_cd(t_list **env,  char **argv)
 {
-	int i;
 	char *tmp;
 	tmp = NULL;
+
+	(void)tmp;
+	(void)env;
 
 	if (argv[1] != NULL)
 	{

@@ -6,7 +6,7 @@
 /*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 17:02:50 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/12/20 17:48:18 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/12/22 12:21:58 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,84 +28,52 @@ void	ft_create_pipes(int num_pipes, int ***fd)
 	i = 0;
 	while ((*fd)[i])
 		pipe((*fd)[i]);
-	
 }
 
-void	ft_one_pipe(t_list **mini, int ***fd, t_list **env, char **envp)
+static void	ft_one_pipe(t_list **mini, t_list **env, char **envp)
 {
+	int	status;
+	int	fd[2];
 	int pid;
-	int status;
-	int i;
-	t_list *mini_aux;
+	t_list	*aux;
+	aux = (*mini);
 
-	i = 0;
-	mini_aux = (*mini);
-	pid = fork();
-	if (pid == 0)  
-	{
-		close ((*fd)[i][READ_END]);
-		dup2((*fd)[i][WRITE_END], STDOUT_FILENO);
-		close((*fd)[i][WRITE_END]);
-		ft_select_build_function_fork(mini_aux, env, envp);
-		exit(0);
-	}
-	waitpid();
-
-}
-
-void	ft_forker(t_list **mini, int ***fd, t_list **env, char **envp)
-{
-	int		pid;
-	int		status;
-	int i;
-	t_list *mini_aux;
-
-	mini_aux = (*mini);
-	i = 0;
-/*
-** Hijo 1
-*/
-	pid = fork();
-	if (pid == 0)  
-	{
-		close ((*fd)[i][READ_END]);
-		dup2((*fd)[i][WRITE_END], STDOUT_FILENO);
-		close((*fd)[i][WRITE_END]);
-		ft_select_build_function_fork(mini_aux, env, envp);
-		exit(0);
-	}
-	wait(&status);
-	mini_aux = mini_aux->next;
-	i++;
-	close((*fd)[i - 1][WRITE_END]);
-	while ((*fd)[i] && (*fd)[i + 1] != NULL)
-	{
-		pid = fork();
-		if (pid == 0)
-		{
-			close((*fd)[i][READ_END]);
-			dup2((*fd)[i - 1][READ_END], STDIN_FILENO);
-			close((*fd)[i - 1][READ_END]);
-			dup2((*fd)[i][WRITE_END], STDOUT_FILENO);
-			close((*fd)[i][WRITE_END]);
-			ft_select_build_function_fork(mini_aux, env, envp);
-			exit(0);
-		}
-		else
-			wait(&status);
-		mini_aux = mini_aux->next;
-		close((*fd)[i - 1][READ_END]);
-		close((*fd)[i][WRITE_END]);
-		i++;
-	}
+	pipe(fd);
 	pid = fork();
 	if (pid == 0)
 	{
-		dup2((*fd)[i][READ_END], STDIN_FILENO);
-		close((*fd)[i][READ_END]);
-		ft_select_build_function_fork(mini, env, envp);
+		close (fd[READ_END]);
+		dup2(fd[WRITE_END],STDOUT_FILENO);
+		close(fd[WRITE_END]);
+		ft_select_build_function_fork(aux, env, envp);
 		exit(0);
 	}
-	wait(&status);
+	else
+	{
+		aux = aux->next;
+		close(fd[WRITE_END]);
+		pid = fork();
+		if (pid == 0)
+		{
+			dup2(fd[READ_END], STDIN_FILENO);
+			close(fd[READ_END]);
+			ft_select_build_function_fork(aux, env, envp);
+			exit(0);
+			//execlp("/usr/bin/wc", "wc", "-l", NULL);
 
+		}
+	}
+	close(fd[READ_END]);
+	wait(&status);
+	wait(&status);
+	return ;
+
+}
+
+void	ft_forker(t_list **mini, int pipes, t_list **env, char **envp)
+{
+	if (pipes == 1)
+	{
+		ft_one_pipe(mini, env, envp);
+	}
 }
