@@ -6,7 +6,7 @@
 /*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 17:02:50 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/12/22 12:21:58 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/12/22 15:09:38 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,5 @@ void	ft_forker(t_list **mini, int pipes, t_list **env, char **envp)
 	{
 		ft_one_pipe(mini, env, envp);
 	}
+	
 }

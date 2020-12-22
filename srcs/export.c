@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-/*static int			ft_search_env(void	*content, void *to_search)
+static int			ft_search_and_replace_env(void	*content, void *to_search)
 {
 	t_env	*env;
 	t_env	*env_to_search;
@@ -26,7 +26,9 @@
 		return (1);
 	}
 	return (0);
-}*/
+}
+
+
 
 int			ft_export(t_list **env, char *str)
 {
@@ -50,7 +52,7 @@ int			ft_export(t_list **env, char *str)
 	}
 	i++;
 	newenv->value = ft_strdup(&str[i]);
-	if (ft_lstsearch((*env),ft_search_env,newenv) == 0)
+	if (ft_lstsearch((*env),ft_search_and_replace_env,newenv) == 0)
 	{
 		ft_lstadd_back(env, ft_lstnew(newenv));
 	}

@@ -66,7 +66,7 @@ void		ft_new_token(t_list **mini, char *command)
 	while (!(ft_strchr("<|>",tmp[i])) && tmp[i])
 		i++;
 	tmp[i] = 0;
-	token->argv = ft_split_mini(tmp, ' ');
+	token->argv = ft_split_mini(tmp);
 	t_list *new = ft_lstnew((const void *)token);
 	ft_lstadd_back(mini, new);
 }

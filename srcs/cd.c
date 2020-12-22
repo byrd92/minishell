@@ -6,7 +6,7 @@
 /*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 19:17:23 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/12/22 15:04:30 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/12/22 15:12:29 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int         ft_cd(t_list **env,  char **argv)
 
 	if (argv[1] != NULL)
 	{
-		//ft_export(env, ft_strjoin("OLDPWD=",getcwd(tmp,256)));
+		ft_export(env, ft_strjoin("OLDPWD=",getcwd(tmp,256)));
 		chdir(argv[1]);
-		//ft_export(env, ft_strjoin("PWD=",(const char *)getcwd(tmp,256)));
+		ft_export(env, ft_strjoin("PWD=",(const char *)getcwd(tmp,256)));
 	}
 	return (0);
 }
