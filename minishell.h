@@ -30,6 +30,9 @@
 # define READ_END 0 //extremo de escritura
 # define WRITE_END 1 //extremo de lectura
 
+#include <sys/wait.h>
+
+
 typedef struct s_mini
 {
 		int		type;
@@ -83,7 +86,7 @@ void		ft_kill_env(void *content);
 /*
 **	Command export
 */
-int			ft_export(t_list **env, char **argv);
+int			ft_export(t_list **env, char *str);
 /*
 **	Command env
 */

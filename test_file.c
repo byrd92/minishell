@@ -17,11 +17,7 @@ int     main(int argc, char **argv, char **envp)
         printf("Error opening the file\n"); 
     dup2(stdout,1);
     */
-
-   char str[5] = "HOLA";
-   printf("%s", str);
-
-   ft_alter(str);
-   printf("%s", str);
+   
+    pid_t pid = fork();
     return (0);
 }

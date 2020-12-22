@@ -28,7 +28,7 @@
 	return (0);
 }*/
 
-int			ft_export(t_list **env, char **argv)
+int			ft_export(t_list **env, char *str)
 {
 	int		i;
 	t_env	*newenv;
@@ -37,12 +37,8 @@ int			ft_export(t_list **env, char **argv)
 	(void)env;
 	i = 0;
 
-	while(argv[i])
-	{
-		printf("%s\n", argv[1 + i]);
-		i++;
-	}
-	/*newenv = (t_env *)malloc(sizeof(t_env) * 1);
+
+	newenv = (t_env *)malloc(sizeof(t_env) * 1);
 	newenv->name = ft_search_word(str);
 	while(str[i] != '=')
 		i++;
@@ -57,6 +53,6 @@ int			ft_export(t_list **env, char **argv)
 	if (ft_lstsearch((*env),ft_search_env,newenv) == 0)
 	{
 		ft_lstadd_back(env, ft_lstnew(newenv));
-	}*/
+	}
 	return (0);
 }

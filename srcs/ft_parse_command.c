@@ -12,7 +12,7 @@
 
  #include "../minishell.h"
 
-
+/*
  static void		ft_printlist(void *content)
 {
 	t_mini *env;
@@ -28,6 +28,7 @@
 	}
 	ft_printf("\n");
 }
+*/
 
 int	ft_datatype(char *tmp, t_mini *data)
 {
@@ -86,7 +87,7 @@ void		ft_create_token(t_list **mini, char *command)
 		}
 		i++;
 	}
-	ft_lstiter(*mini,ft_printlist);
+	//ft_lstiter(*mini,ft_printlist);
 }
 
 
