@@ -12,8 +12,8 @@
 
  #include "../minishell.h"
 
-/*
- static void		ft_printlist(void *content)
+
+/*static void		ft_printlist(void *content)
 {
 	t_mini *env;
 	int i;
@@ -27,8 +27,8 @@
 		i++;
 	}
 	ft_printf("\n");
-}
-*/
+}*/
+
 
 int	ft_datatype(char *tmp, t_mini *data)
 {

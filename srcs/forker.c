@@ -6,7 +6,7 @@
 /*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 17:02:50 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/12/22 15:55:42 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/12/22 16:43:04 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	ft_forker(t_list **mini, int pipes, t_list **env, char **envp)
 {
 
 
-	if (pipes == 1)
+	if (pipes > 30)
 	{
 		ft_one_pipe(mini, env, envp);
 	}
@@ -83,7 +83,9 @@ void	ft_forker(t_list **mini, int pipes, t_list **env, char **envp)
 		int pid;
 		int status;
 		t_list *aux;
+		int j;
 
+		j = 0;
 		aux = (*mini);
 		i = 0;
 		fd = (int **)malloc(sizeof(int *) * pipes);
@@ -105,28 +107,47 @@ void	ft_forker(t_list **mini, int pipes, t_list **env, char **envp)
 		else
 		{
 			close(fd[i][WRITE_END]);
-			i++;
 			aux = aux->next;
-			while (pipe > 2)
+			while (j < (pipes - 2))
 			{
+				i++;
 				pid = fork();
 				if (pid == 0)
 				{
-
-
+					close(fd[i][READ_END]);
+					dup2(fd[i - 1][READ_END],STDIN_FILENO);
+					close(fd[i - 1][READ_END]);
+					dup2(fd[i][WRITE_END], STDOUT_FILENO);
+					close(fd[i][WRITE_END]);
+					ft_select_build_function_fork(aux, env, envp);
 					exit(0);
 				}
+				close(fd[i - 1][READ_END]);
+				close(fd[i][WRITE_END]);
+				j++;
+				aux = aux->next;
+
+			}
+			pid = fork();
+			if (pid == 0)
+			{
+				dup2(fd[i][READ_END], STDIN_FILENO);
+				close(fd[i][READ_END]);
+				ft_select_build_function_fork(aux, env, envp);
+				exit(0);
 			}
 		}
-		
-		
-		
+		j = 0;
+		wait(&status);
+		while (j < (pipes - 2))
+			wait(&status);
+		wait(&status);
 	}
 	
 }
 
 
-int processes = 5;
+/*int processes = 5;
 int i;
 for (i = 0; i < processes; ++i) {
     if (fork() == 0) {
@@ -139,4 +160,4 @@ for (i = 0; i < processes; ++i) {
 // wait all child processes
 int status;
 for (i = 0; i < processes; ++i)
-    wait(&status);
+    wait(&status);*/
