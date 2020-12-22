@@ -22,7 +22,8 @@ int			argv_size(char *str, int c)
 	/* words es = 1 porque como minimo hay 1 argv) */
 	words = 1;
 	i = 0;
-
+	while (str[i] == ' ')
+		i++;
 	while (str[i])
 	{
 		if (str[i] == 34 || str[i] == 39)
@@ -36,10 +37,13 @@ int			argv_size(char *str, int c)
 		if (str[i] == c)
 		{	
 			words++;
-			while (str[i] == c && str[i])
+			while (str[i] == c)
 				i++;
+			if (!str[i])
+				words--;
 		}
-		i++;
+		if (str[i])
+			i++;
 	}
 	return (words);
 }

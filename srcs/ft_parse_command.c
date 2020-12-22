@@ -12,7 +12,7 @@
 
  #include "../minishell.h"
 
-
+/*
  static void		ft_printlist(void *content)
 {
 	t_mini *env;
@@ -28,6 +28,7 @@
 	}
 	ft_printf("\n");
 }
+*/
 
 int	ft_datatype(char *tmp, t_mini *data)
 {
@@ -86,7 +87,7 @@ void		ft_create_token(t_list **mini, char *command)
 		}
 		i++;
 	}
-	ft_lstiter(*mini,ft_printlist);
+	//ft_lstiter(*mini,ft_printlist);
 }
 
 
@@ -157,7 +158,7 @@ void        ft_parse_commands(char *command, t_list **env)
 	while (mini)
 	{
 		content = (t_mini *)mini->content;
-		ft_printf("->%s\n" , content->argv[0]);
+		//ft_printf("->%s\n" , content->argv[0]);
 		if(ft_strncmp(content->argv[0], "echo\0", 6) == 0)
 			ft_echo(env ,content->argv);
 		else if(ft_strncmp(content->argv[0], "export\0", 7) == 0)
