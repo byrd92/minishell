@@ -115,11 +115,10 @@ int			main(int argc, char **argv, char **envp)
 		while (commands[i])
 		{
 			ft_parse_commands(commands[i], &env, &mini);
-
-			if ((pipes = ft_check_pipes(mini)) >= 1)
+			pipes = ft_check_pipes(mini);
+			ft_printf("hay %d pipes\n", pipes);
+			if (pipes)
 			{
-				printf("hay %d pipes\n", pipes);
-				//ft_create_pipes(pipes, &fd);
 				ft_forker(&mini, pipes, &env, envp);
 			}
 			else
