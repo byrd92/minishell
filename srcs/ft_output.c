@@ -3,19 +3,19 @@
 int     ft_output(t_mini *mini)
 {
     t_token *content;
-    int     newout;
+    t_list  *token;
 
-    newout = 0;
-    while (mini->tokens)
+    token = mini->tokens;
+    while (token)
 	{
-		content = (t_token *)mini->tokens->content;
+		content = (t_token *)token->content;
 		if (content->type == 3)
 		{
             mini->newout = open(content->argv[0],O_CREAT|O_TRUNC|O_WRONLY, 0644);
             dup2(mini->newout, 1);
-
+            return (1);
         }
-		mini->tokens = mini->tokens->next;
+		token = token->next;
 	}
     return (0);
 }

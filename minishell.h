@@ -36,6 +36,7 @@ typedef struct s_mini
 {
 		int		newin;
 		int		newout;
+		int		mainout;
 		int		in;
 		int		out;
 		char	*strcmd;

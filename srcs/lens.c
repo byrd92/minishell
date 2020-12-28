@@ -64,7 +64,7 @@ int		ft_strlen_tokens(char *str)
 
 	len = 0;
 	while (*str && *str != ' ' && *str != '>' && *str != ';' && *str != '|'
-	&& *str != '"' && *str != '\'' && *str != '$' )
+	&& *str != '"' && *str != '\'' && *str != '$'  && *str != '\n')
 	{
 		len++;
 		str++;
