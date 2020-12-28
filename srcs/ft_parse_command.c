@@ -30,13 +30,13 @@
 }*/
 
 
-int	ft_datatype(char *tmp, t_mini *data)
+int	ft_datatype(char *tmp, t_token *data)
 {
 	if (*tmp == '|')
 		data->type = 1;
 	else if (*tmp == '<')
 		data->type = 2;
-	else if (*tmp == '>' && tmp[1] == ' ')
+	else if (*tmp == '>' && tmp[1] != '>')
 		data->type = 3;
 	else if (*tmp == '>' && tmp[1] == '>')
 	{
@@ -52,46 +52,44 @@ int	ft_datatype(char *tmp, t_mini *data)
 
 }
 
-void		ft_new_token(t_list **mini, char *command)
+void		ft_new_token(t_mini *mini,char *command)
 {
-	t_mini	*token;
+	t_token	*token;
 	int i;
 	char *tmp;
 
 	i = 0;
 	
 	tmp = ft_strdup(command);
-	token = (t_mini *)malloc(sizeof(t_mini) * 1);
+	token = (t_token *)malloc(sizeof(t_token) * 1);
 	tmp += ft_datatype(tmp, token);
 	while (!(ft_strchr("<|>",tmp[i])) && tmp[i])
 		i++;
 	tmp[i] = 0;
 	token->argv = ft_split_mini(tmp);
 	t_list *new = ft_lstnew((const void *)token);
-	ft_lstadd_back(mini, new);
+	ft_lstadd_back(&mini->tokens, new);
 }
 
-void		ft_create_token(t_list **mini, char *command)
+void		ft_create_token(t_mini *mini, int i)
 {
-	int i;
+	int j;
 
-	i = 0;
-	ft_new_token(mini, command);
-	while (command[i])
+	j = 0;
+	ft_new_token(mini, &mini->commands[i][j]);
+	while (mini->commands[i][j])
 	{
-		if (ft_strchr("<|>", command[i]))
+		if (ft_strchr("<|>", mini->commands[i][j]))
 		{
-			if (command[i + 1] == '>')
-				i++;
-			ft_new_token(mini, &command[i]);
+			if (mini->commands[i][j + 1] == '>')
+				j++;
+			ft_new_token(mini ,&mini->commands[i][j]);
 		}
-		i++;
+		j++;
 	}
 	//ft_lstiter(*mini,ft_printlist);
+	
 }
-
-
-
 
 
 static	int		ft_change_env(char **str, int i, t_list **env)
@@ -140,8 +138,8 @@ void	ft_check_env(char **str, t_list **env)
 	}
 }
 
-void        ft_parse_commands(char *command, t_list **env, t_list **mini)
+void        ft_parse_commands(t_mini *mini , t_list **env, int i)
 {
-	ft_check_env(&command, env);
-	ft_create_token(mini, command);
+	ft_check_env(&mini->commands[i], env);
+	ft_create_token(mini , i);
 }

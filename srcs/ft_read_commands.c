@@ -40,7 +40,7 @@ int		ft_iscomma(char *str, int *comma)
 */
 
 
-int			ft_read_commands(char ***commands)
+int			ft_read_commands(t_mini *mini)
 {
 	int		ret;
 	char	*line;
@@ -69,7 +69,7 @@ int			ft_read_commands(char ***commands)
 			str = aux;
 			continue;
 		}
-		*commands = ft_split(str, ';');
+		mini->commands = ft_split(str, ';');
 		free(line);
 		return (ret);
 	}

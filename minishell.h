@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
 #ifndef MINISHELL_H
 # define MINISHELL_H
 //# include "srcs/getnextline/get_next_line.h"
@@ -26,6 +24,7 @@
 # include <dirent.h>
 # include <string.h>
 # include <sys/wait.h>
+# include <fcntl.h>
 
 # define READ_END 0 //extremo de escritura
 # define WRITE_END 1 //extremo de lectura
@@ -35,10 +34,20 @@
 
 typedef struct s_mini
 {
-		int		type;
-		char	**argv;
+		int		newin;
+		int		newout;
+		int		in;
+		int		out;
+		char	*strcmd;
+		char	**commands;
+		t_list	*tokens;
 }				t_mini;
 
+typedef struct s_token
+{
+		int		type;
+		char	**argv;		
+}				t_token;
 
 typedef struct s_env 
 {
@@ -46,15 +55,14 @@ typedef struct s_env
 	char		*value;
 }				t_env;
 
-void		ft_kill_commands(char ***commands);
-int			ft_read_commands(char ***commands);
+
+void		ft_kill_commands(t_mini *mini);
+int			ft_read_commands(t_mini *mini);
 
 char		*ft_search_word(char *str);
 int			ft_print_word(char *str);
 int			ft_strcmp(char *s1, char *s2);
-void		ft_kill_commands(char ***commands);
-int			ft_read_commands(char ***commands);
-void        ft_parse_commands(char *command, t_list **env, t_list **mini);
+void        ft_parse_commands(t_mini *mini , t_list **env, int i);
 void    	ft_select_build_function(t_list *mini,  t_list **env, char **envp);
 void	    ft_select_build_function_fork(t_list *mini,  t_list **env, char **envp);
 int			ft_iscomma(char *str, int *comma);
@@ -113,5 +121,7 @@ int         ft_cd(t_list **env,  char **argv);
 
 void		ft_create_pipes(int num_pipes, int ***fd);
 void	ft_forker(t_list **mini, int pipes, t_list **env, char **envp);
+
+int     ft_output(t_mini *mini);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forker.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: egarcia- <emilioggo@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 17:02:50 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/12/23 09:34:08 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/12/27 18:53:53 by egarcia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	ft_forker(t_list **mini, int pipes, t_list **env, char **envp)
 	t_list *aux;
 	int j;
 
+
 	j = 0;
 	aux = (*mini);
 	i = 0;
@@ -133,7 +134,7 @@ void	ft_forker(t_list **mini, int pipes, t_list **env, char **envp)
 	while (j < (pipes - 2))
 		wait(&status);
 	wait(&status);
-	
+
 }
 
 

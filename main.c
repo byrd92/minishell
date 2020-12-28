@@ -18,15 +18,15 @@
 ** Funcion barra borrar la variable que guarda los comandos
 */
 
-void		ft_kill_commands(char ***commands)
+void		ft_kill_commands(t_mini *mini)
 {
 	int i;
 
 	i = 0;
 
-	while ((*commands)[i])
+	while ((mini->commands)[i])
 	{
-		free((*commands)[i]);
+		free((mini->commands)[i]);
 		i++;
 	}	
 }
@@ -45,9 +45,9 @@ void		ft_kill_env(void *content)
 
 void		ft_kill_mini(void *content)
 {
-	t_mini *mini;
+	t_token *mini;
 
-	mini = (t_mini *)content;
+	mini = (t_token *)content;
 	int i;
 
 	i = 0;
@@ -95,43 +95,52 @@ static void		ft_environment(t_list **env, char **envp)
 **		Es donde sigue el programa
 */
 
+void		init_mini(t_mini *mini)
+{
+	mini->commands = 0;
+	mini->tokens = NULL;
+	mini->in = 0;
+	mini->out = 0;
+	mini->newin = 0;
+	mini->newout = 0;
+	mini->strcmd = NULL;
+}
+
 int			main(int argc, char **argv, char **envp)
 {
 	t_list	*env;
-	t_list	*mini;
-	char	**commands;
+	t_mini	mini;
 	int i;
 	int pipes;
 
-
+	init_mini(&mini);
 	env = NULL;
-	mini = NULL;
 	ft_environment(&env, envp);
 	ft_printf("minivid ");
-	while (ft_read_commands(&commands))
+	while (ft_read_commands(&mini))
 	{
 		i = 0;
-
-		while (commands[i])
-		{
-			ft_parse_commands(commands[i], &env, &mini);
-			pipes = ft_check_pipes(mini);
-			ft_printf("hay %d pipes\n", pipes);
+		while (mini.commands[i])
+		{	
+			ft_parse_commands(&mini, &env, i);
+			//mini.out = ft_output(&mini);
+			pipes = ft_check_pipes(mini.tokens);
 			if (pipes)
 			{
-				ft_forker(&mini, pipes, &env, envp);
+				ft_forker(&mini.tokens, pipes, &env, envp);
 			}
 			else
 			{
-				ft_select_build_function(mini, &env, envp);
+				ft_select_build_function(mini.tokens, &env, envp);
 			}
-			i++;
-			ft_lstclear(&mini, ft_kill_mini);
 
+			i++;
+			ft_lstclear(&mini.tokens, ft_kill_mini);
+			
 		}
-		ft_lstclear(&mini, ft_kill_mini);
-		ft_kill_commands(&commands);
-		//char *hola[] = {"ls", "-l", NULL};
+		ft_lstclear(&mini.tokens, ft_kill_mini);
+		ft_kill_commands(&mini);
+
 		ft_printf("minivid ");
 	}
 	//ft_kill_env;

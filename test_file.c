@@ -4,20 +4,19 @@
 #include <fcntl.h>
 
 
-void    ft_alter(char *str)
+int     main(void)
 {
-    str = strdup("OTRA COSA");
-}
-int     main(int argc, char **argv, char **envp)
-{
-    int stdout;
-    /*
-    stdout = open("output2.txt",O_WRONLY | O_CREAT);
-     if(stdout < 0) 
-        printf("Error opening the file\n"); 
-    dup2(stdout,1);
-    */
-   
-    pid_t pid = fork();
+    int stdout1;
+    int stdout2;
+    int stdoutback;
+    stdout1 = open("out1.txt",O_WRONLY | O_CREAT);
+    stdout2 = open("out2.txt",O_WRONLY | O_CREAT);
+     if(stdout1 < 0) 
+        printf("Error opening the file\n");
+    stdoutback = dup(1);
+    dup2(stdout1,1);
+    dup2(stdout2,1);
+    printf("hola files");
+    close (stdout1);
     return (0);
 }

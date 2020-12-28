@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   select_build_function.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: egarcia- <emilioggo@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 16:07:51 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/12/22 15:13:39 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/12/28 11:40:56 by egarcia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void    ft_select_build_function(t_list *mini,  t_list **env, char **envp)
 {
-   	t_mini *content;
+   	t_token *content;
 	t_list *aux;
 	int pid;
 	int status;
@@ -22,8 +22,8 @@ void    ft_select_build_function(t_list *mini,  t_list **env, char **envp)
 	aux = mini;
 	while (aux)
 	{
-		content = (t_mini *)aux->content;
-		ft_printf("->%s\n" , content->argv[1]);
+		content = (t_token *)aux->content;
+		//ft_printf("->%s\n" , content->argv[1]);
 		if(ft_strncmp(content->argv[0], "echo\0", 6) == 0)
 			ft_echo(env ,content->argv);
 		else if(ft_strncmp(content->argv[0], "export\0", 7) == 0)
@@ -53,9 +53,9 @@ void    ft_select_build_function(t_list *mini,  t_list **env, char **envp)
 
 void    ft_select_build_function_fork(t_list *mini,  t_list **env, char **envp)
 {
-   	t_mini *content;
+   	t_token *content;
 	
-	content = (t_mini *)mini->content;
+	content = (t_token *)mini->content;
 	if(ft_strncmp(content->argv[0], "echo\0", 6) == 0)
 		ft_echo(env ,content->argv);
 	else if(ft_strncmp(content->argv[0], "export\0", 7) == 0)
