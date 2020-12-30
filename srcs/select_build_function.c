@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   select_build_function.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egarcia- <emilioggo@gmail.com>             +#+  +:+       +#+        */
+/*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 16:07:51 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/12/28 11:40:56 by egarcia-         ###   ########.fr       */
+/*   Updated: 2020/12/30 18:16:48 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void    ft_select_build_function(t_list *mini,  t_list **env, char **envp)
+int    ft_select_build_function(t_list *mini,  t_list **env, char **envp)
 {
    	t_token *content;
 	t_list *aux;
@@ -25,17 +25,17 @@ void    ft_select_build_function(t_list *mini,  t_list **env, char **envp)
 		content = (t_token *)aux->content;
 		//ft_printf("->%s\n" , content->argv[1]);
 		if(ft_strncmp(content->argv[0], "echo\0", 6) == 0)
-			ft_echo(env ,content->argv);
+			return (ft_echo(env ,content->argv));
 		else if(ft_strncmp(content->argv[0], "export\0", 7) == 0)
-			ft_export(env, content->argv[1]);
+			return (ft_export(env, content->argv[1]));
 		else if(ft_strncmp(content->argv[0], "env\0", 4) == 0)
-			ft_env(env);
+			return (ft_env(env));
 		else if(ft_strncmp(content->argv[0], "unset\0", 6) == 0)
-			ft_unset(env, content->argv);
+			return (ft_unset(env, content->argv));
 		else if(ft_strncmp(content->argv[0], "pwd\0", 4) == 0)
-			ft_pwd(env);
+			return (ft_pwd(env));
 		else if(ft_strncmp(content->argv[0], "cd\0", 3) == 0)
-			ft_cd(env, content->argv);
+			return (ft_cd(env, content->argv));
 		else
 		{
 			pid = fork();

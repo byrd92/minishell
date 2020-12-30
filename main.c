@@ -104,6 +104,7 @@ void		init_mini(t_mini *mini)
 	mini->newin = 0;
 	mini->newout = 0;
 	mini->strcmd = NULL;
+	mini->dolar = 0;
 }
 
 int			main(int argc, char **argv, char **envp)
@@ -129,11 +130,11 @@ int			main(int argc, char **argv, char **envp)
 			pipes = ft_check_pipes(mini.tokens);
 			if (pipes)
 			{
-				ft_forker(&mini.tokens, pipes, &env, envp);
+				mini.dolar = ft_forker(&mini.tokens, pipes, &env, envp);
 			}
 			else
 			{
-				ft_select_build_function(mini.tokens, &env, envp);
+				mini.dolar = ft_select_build_function(mini.tokens, &env, envp);
 			}
 			i++;
 			ft_lstclear(&mini.tokens, ft_kill_mini);

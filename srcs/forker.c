@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forker.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egarcia- <emilioggo@gmail.com>             +#+  +:+       +#+        */
+/*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 17:02:50 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/12/28 15:59:40 by egarcia-         ###   ########.fr       */
+/*   Updated: 2020/12/30 18:27:34 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_create_pipes(int num_pipes, int ***fd)
 }
 
 
-void	ft_forker(t_list **tokens, int pipes, t_list **env, char **envp)
+int		ft_forker(t_list **tokens, int pipes, t_list **env, char **envp)
 {
 	int **fd;
 	int i;
@@ -52,7 +52,9 @@ void	ft_forker(t_list **tokens, int pipes, t_list **env, char **envp)
 	}
 	i = 0;
 	pid = fork();
-	if (pid == 0)
+	if (pid == -1)
+		return (1);
+	else if (pid == 0)
 	{
 		close(fd[i][READ_END]);
 		dup2(fd[i][WRITE_END],STDOUT_FILENO);
@@ -67,7 +69,9 @@ void	ft_forker(t_list **tokens, int pipes, t_list **env, char **envp)
 		while (j < (pipes - 1))
 		{
 			pid = fork();
-			if (pid == 0)
+			if (pid == -1)
+				return (1);
+			else if (pid == 0)
 			{
 				close(fd[i + 1][READ_END]);
 				dup2(fd[i][READ_END],STDIN_FILENO);
@@ -84,7 +88,9 @@ void	ft_forker(t_list **tokens, int pipes, t_list **env, char **envp)
 			i++;
 		}
 		pid = fork();
-		if (pid == 0)
+		if (pid == -1)
+			return (1);
+		else if (pid == 0)
 		{
 			dup2(fd[i][READ_END], STDIN_FILENO);
 			close(fd[i][READ_END]);
@@ -97,21 +103,5 @@ void	ft_forker(t_list **tokens, int pipes, t_list **env, char **envp)
 	while (j < (pipes - 2))
 		wait(&status);
 	wait(&status);
-
+	return (0);
 }
-
-
-/*int processes = 5;
-int i;
-for (i = 0; i < processes; ++i) {
-    if (fork() == 0) {
-        // do the job specific to the child process
-        ...
-        // don't forget to exit from the child
-        exit(0);
-    }
-}
-// wait all child processes
-int status;
-for (i = 0; i < processes; ++i)
-    wait(&status);*/

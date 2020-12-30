@@ -26,11 +26,12 @@ static void        ft_echo2(char **argv ,int flag)
 	flag == 1 ? write(1, "", 1) : write(1, "\n", 1) ;
 }
 
-void        ft_echo(t_list **env, char **argv)
+int        ft_echo(t_list **env, char **argv)
 {
 	(void)env;
 	if (ft_strncmp(argv[1], "-n", 2) == 0)	
 		ft_echo2(argv, 1);
 	else
 		ft_echo2(argv, 0);
+	return (0);
 }

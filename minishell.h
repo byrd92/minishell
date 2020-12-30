@@ -40,6 +40,7 @@ typedef struct s_mini
 		int		mainin;
 		int		in;
 		int		out;
+		int		dolar;
 		char	*strcmd;
 		char	**commands;
 		t_list	*tokens;
@@ -65,7 +66,7 @@ char		*ft_search_word(char *str);
 int			ft_print_word(char *str);
 int			ft_strcmp(char *s1, char *s2);
 void        ft_parse_commands(t_mini *mini , t_list **env, int i);
-void    	ft_select_build_function(t_list *mini,  t_list **env, char **envp);
+int    		ft_select_build_function(t_list *mini,  t_list **env, char **envp);
 void	    ft_select_build_function_fork(t_list *mini,  t_list **env, char **envp);
 int			ft_iscomma(char *str, int *comma);
 
@@ -110,7 +111,7 @@ int			ft_unset(t_list **env, char **argv);
 /*
 ** Command echo
 */
-void        ft_echo(t_list **env, char **argv);
+int        ft_echo(t_list **env, char **argv);
 
 int			ft_pwd();
 
@@ -122,7 +123,7 @@ int         ft_cd(t_list **env,  char **argv);
 */
 
 void		ft_create_pipes(int num_pipes, int ***fd);
-void	ft_forker(t_list **mini, int pipes, t_list **env, char **envp);
+int			ft_forker(t_list **mini, int pipes, t_list **env, char **envp);
 
 /*
 ** ft_io
