@@ -6,7 +6,7 @@
 /*   By: egarcia- <emilioggo@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 17:02:50 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/12/27 18:53:53 by egarcia-         ###   ########.fr       */
+/*   Updated: 2020/12/28 15:59:40 by egarcia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,45 +30,8 @@ void	ft_create_pipes(int num_pipes, int ***fd)
 		pipe((*fd)[i]);
 }
 
-/*static void	ft_one_pipe(t_list **mini, t_list **env, char **envp)
-{
-	int	status;
-	int	fd[2];
-	int pid;
-	t_list	*aux;
-	aux = (*mini);
 
-	pipe(fd);
-	pid = fork();
-	if (pid == 0)
-	{
-		close (fd[READ_END]);
-		dup2(fd[WRITE_END],STDOUT_FILENO);
-		close(fd[WRITE_END]);
-		ft_select_build_function_fork(aux, env, envp);
-		exit(0);
-	}
-	else
-	{
-		aux = aux->next;
-		close(fd[WRITE_END]);
-		pid = fork();
-		if (pid == 0)
-		{
-			dup2(fd[READ_END], STDIN_FILENO);
-			close(fd[READ_END]);
-			ft_select_build_function_fork(aux, env, envp);
-			exit(0);
-		}
-	}
-	close(fd[READ_END]);
-	wait(&status);
-	wait(&status);
-	return ;
-
-}*/
-
-void	ft_forker(t_list **mini, int pipes, t_list **env, char **envp)
+void	ft_forker(t_list **tokens, int pipes, t_list **env, char **envp)
 {
 	int **fd;
 	int i;
@@ -79,7 +42,7 @@ void	ft_forker(t_list **mini, int pipes, t_list **env, char **envp)
 
 
 	j = 0;
-	aux = (*mini);
+	aux = (*tokens);
 	i = 0;
 	fd = (int **)malloc(sizeof(int *) * pipes);
 	while(i < pipes)

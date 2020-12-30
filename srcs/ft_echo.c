@@ -17,11 +17,12 @@ static void        ft_echo2(char **argv ,int flag)
 	int i;
 
 	i = flag == 1 ? 2 : 1;
-	while (argv[i])
+	while (argv[i + 1] != 0)
 	{
-		ft_printf("%s", argv[i]);
+		ft_printf("%s ", argv[i]);
 		i++;
 	}
+	ft_printf("%s", argv[i]);
 	flag == 1 ? write(1, "", 1) : write(1, "\n", 1) ;
 }
 

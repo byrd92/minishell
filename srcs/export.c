@@ -35,11 +35,7 @@ int			ft_export(t_list **env, char *str)
 	int		i;
 	t_env	*newenv;
 
-	(void)newenv;
-	(void)env;
 	i = 0;
-
-
 	newenv = (t_env *)malloc(sizeof(t_env) * 1);
 	newenv->name = ft_search_word(str);
 	while(str[i] != '=')

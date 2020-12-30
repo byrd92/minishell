@@ -117,14 +117,15 @@ int			main(int argc, char **argv, char **envp)
 	env = NULL;
 	ft_environment(&env, envp);
 	ft_printf("minivid ");
-	mini.mainout = dup(1);
+	ft_save_stdio(&mini);
 	while (ft_read_commands(&mini))
 	{
 		i = 0;
 		while (mini.commands[i])
 		{	
 			ft_parse_commands(&mini, &env, i);
-			mini.out = ft_output(&mini);
+			ft_check_io(&mini);
+			//mini.out = ft_output(&mini);
 			pipes = ft_check_pipes(mini.tokens);
 			if (pipes)
 			{
@@ -134,13 +135,10 @@ int			main(int argc, char **argv, char **envp)
 			{
 				ft_select_build_function(mini.tokens, &env, envp);
 			}
-
 			i++;
 			ft_lstclear(&mini.tokens, ft_kill_mini);
-			
 		}
-		if (mini.out == 1)
-			dup2(mini.mainout, 1);
+		ft_reset_io(&mini);
 		ft_lstclear(&mini.tokens, ft_kill_mini);
 		ft_kill_commands(&mini);
 		free(mini.commands);

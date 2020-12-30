@@ -37,6 +37,7 @@ typedef struct s_mini
 		int		newin;
 		int		newout;
 		int		mainout;
+		int		mainin;
 		int		in;
 		int		out;
 		char	*strcmd;
@@ -123,6 +124,11 @@ int         ft_cd(t_list **env,  char **argv);
 void		ft_create_pipes(int num_pipes, int ***fd);
 void	ft_forker(t_list **mini, int pipes, t_list **env, char **envp);
 
-int     ft_output(t_mini *mini);
+/*
+** ft_io
+*/
+void	ft_check_io(t_mini *mini);
+void     ft_save_stdio(t_mini *mini);
+void    ft_reset_io(t_mini *mini);
 
 #endif

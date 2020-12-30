@@ -36,7 +36,7 @@ int	ft_datatype(char *tmp, t_token *data)
 		data->type = 1;
 	else if (*tmp == '<')
 		data->type = 2;
-	else if (*tmp == '>' && tmp[1] != '>')
+	else if (*tmp == '>' && *(tmp + 1) != '>')
 		data->type = 3;
 	else if (*tmp == '>' && tmp[1] == '>')
 	{
@@ -81,9 +81,9 @@ void		ft_create_token(t_mini *mini, int i)
 	{
 		if (ft_strchr("<|>", mini->commands[i][j]))
 		{
+			ft_new_token(mini ,&mini->commands[i][j]);
 			if (mini->commands[i][j + 1] == '>')
 				j++;
-			ft_new_token(mini ,&mini->commands[i][j]);
 		}
 		j++;
 	}
@@ -98,26 +98,22 @@ static	int		ft_change_env(char **str, int i, t_list **env)
 	char *env_var;
 	char *env_result;
 	char *aux;
-	char *end;
 	int len;
 
 	env_result = NULL;
-	len = ft_strlen_token(&(*str)[i]);
-	if (len == 0)
+	if ((len = ft_strlen_token(&(*str)[i])) == 0)
 		return (0);
 	env_var = ft_strldup(&(*str)[i], len);
-	env_result = ft_find_env(env_var, env);
-	if (!env_result)
+	if (!(env_result = ft_find_env(env_var, env)))
 		return (0);
+	free(env_var);
 	start = ft_strldup(*str, i);
 	aux = ft_strjoin(start,env_result);
 	len = ft_strlen(env_var);
-	end = ft_strdup(&(*str)[i  + len]);
 	free(start);
-	start = ft_strjoin(aux,end);
+	start = ft_strjoin(aux,ft_strdup(&(*str)[i  + len]));
 	free(*str);
 	*str = start;
-	//ft_printf("->%s\n", str);
 	return(len);
 
 }
