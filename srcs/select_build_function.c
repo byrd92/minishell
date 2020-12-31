@@ -6,7 +6,7 @@
 /*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 16:07:51 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/12/30 18:16:48 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/12/31 10:38:31 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,11 @@ int    ft_select_build_function(t_list *mini,  t_list **env, char **envp)
 			}
 			else
 				wait(&status);
-			
+			return (0);
 		}
 		aux = aux->next;
 	}
+	return (0);
 }
 
 void    ft_select_build_function_fork(t_list *mini,  t_list **env, char **envp)

@@ -132,6 +132,8 @@ int			main(int argc, char **argv, char **envp)
 			{
 				mini.dolar = ft_forker(&mini.tokens, pipes, &env, envp);
 			}
+			else if (ft_dolar(mini.commands[i], &mini))
+				;
 			else
 			{
 				mini.dolar = ft_select_build_function(mini.tokens, &env, envp);

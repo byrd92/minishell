@@ -6,7 +6,7 @@
 /*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 19:17:23 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/12/30 18:19:34 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/12/31 10:38:11 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int         ft_cd(t_list **env,  char **argv)
 	char	*tmp;
 	int		ret;
 	
+	tmp = NULL;
 	if (argv[1] != NULL)
 	{
 		ft_export(env, ft_strjoin("OLDPWD=",getcwd(tmp,256)));
