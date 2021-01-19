@@ -29,9 +29,19 @@ static void        ft_echo2(char **argv ,int flag)
 int        ft_echo(t_list **env, char **argv)
 {
 	(void)env;
+<<<<<<< Updated upstream
 	if (ft_strncmp(argv[1], "-n", 2) == 0)	
 		ft_echo2(argv, 1);
 	else
 		ft_echo2(argv, 0);
 	return (0);
+=======
+	if (argv[1])
+	{	
+		if (ft_strncmp(argv[1], "-n", 2) == 0)	
+			ft_echo2(argv, 1);
+		else
+			ft_echo2(argv, 0);
+	}
+>>>>>>> Stashed changes
 }
