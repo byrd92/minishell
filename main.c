@@ -107,6 +107,24 @@ void		init_mini(t_mini *mini)
 	mini->dolar = 0;
 }
 
+void sighandler(const int sig, void *mini)
+{
+	t_mini *saved;
+
+	saved = NULL;
+	if (saved == NULL)
+     saved = mini;
+	if (sig == SIGINT)
+	{
+			write(STDOUT_FILENO, "\033[2D\033[J", 7);
+			ft_printf("\nminivid >");
+	}
+	if (sig == SIGQUIT)
+		write(STDOUT_FILENO, "\033[2D\033[J", 7);
+	if (sig == 1)
+		saved = NULL;
+}
+
 int			main(int argc, char **argv, char **envp)
 {
 	t_list	*env;
@@ -116,6 +134,12 @@ int			main(int argc, char **argv, char **envp)
 	
 	init_mini(&mini);
 	env = NULL;
+	/*
+	signal(SIGINT, (void (*)(int))sighandler);
+	sighandler(1, &mini);
+    signal(SIGQUIT, (void (*)(int))sighandler);
+	sighandler(1, &mini);
+	*/
 	ft_environment(&env, envp);
 	ft_printf("minivid ");
 	ft_save_stdio(&mini);
@@ -144,7 +168,7 @@ int			main(int argc, char **argv, char **envp)
 		ft_reset_io(&mini);
 		ft_lstclear(&mini.tokens, ft_kill_mini);
 		ft_kill_commands(&mini);
-		free(mini.commands);
+		init_mini(&mini);
 		ft_printf("minivid ");
 	}
 	//ft_kill_env;
