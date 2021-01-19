@@ -66,7 +66,7 @@ char		*ft_search_word(char *str);
 int			ft_print_word(char *str);
 int			ft_strcmp(char *s1, char *s2);
 void        ft_parse_commands(t_mini *mini , t_list **env, int i);
-int    		ft_select_build_function(t_list *mini,  t_list **env, char **envp);
+int    		ft_select_build_function(t_mini *mini,  t_list **env, char **envp);
 void	    ft_select_build_function_fork(t_list *mini,  t_list **env, char **envp);
 int			ft_iscomma(char *str, int *comma);
 
@@ -94,6 +94,8 @@ int		ft_strlen_arg(char *str);
 
 
 void		ft_kill_env(void *content);
+void		ft_kill_mini(void *content);
+
 /*
 **	Command export
 */
@@ -125,7 +127,7 @@ int     ft_dolar(char *comand, t_mini *mini);
 */
 
 void		ft_create_pipes(int num_pipes, int ***fd);
-int			ft_forker(t_list **mini, int pipes, t_list **env, char **envp);
+int			ft_forker(t_mini *mini, int pipes, t_list **env, char **envp);
 
 /*
 ** ft_io
@@ -133,5 +135,7 @@ int			ft_forker(t_list **mini, int pipes, t_list **env, char **envp);
 void	ft_check_io(t_mini *mini);
 void     ft_save_stdio(t_mini *mini);
 void    ft_reset_io(t_mini *mini);
+
+int     ft_exit(t_mini *mini, t_list **env);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 17:02:50 by jalcayne          #+#    #+#             */
-/*   Updated: 2021/01/01 09:53:44 by jalcayne         ###   ########.fr       */
+/*   Updated: 2021/01/19 11:40:45 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_create_pipes(int num_pipes, int ***fd)
 }
 
 
-int		ft_forker(t_list **tokens, int pipes, t_list **env, char **envp)
+int		ft_forker(t_mini *mini, int pipes, t_list **env, char **envp)
 {
 	int **fd;
 	int i;
@@ -42,7 +42,7 @@ int		ft_forker(t_list **tokens, int pipes, t_list **env, char **envp)
 
 
 	j = 0;
-	aux = (*tokens);
+	aux = mini->tokens;
 	i = 0;
 	fd = (int **)malloc(sizeof(int *) * pipes);
 	while(i < pipes)
@@ -103,5 +103,9 @@ int		ft_forker(t_list **tokens, int pipes, t_list **env, char **envp)
 	while (j < (pipes - 2))
 		wait(&status);
 	wait(&status);
+	i = 0;
+	while(i < pipes)
+		free(fd[i++]);
+	free(fd);
 	return (0);
 }

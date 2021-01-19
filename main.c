@@ -130,13 +130,13 @@ int			main(int argc, char **argv, char **envp)
 			pipes = ft_check_pipes(mini.tokens);
 			if (pipes)
 			{
-				mini.dolar = ft_forker(&mini.tokens, pipes, &env, envp);
+				mini.dolar = ft_forker(&mini, pipes, &env, envp);
 			}
 			else if (ft_dolar(mini.commands[i], &mini))
 				;
 			else
 			{
-				mini.dolar = ft_select_build_function(mini.tokens, &env, envp);
+				mini.dolar = ft_select_build_function(&mini, &env, envp);
 			}
 			i++;
 			ft_lstclear(&mini.tokens, ft_kill_mini);
@@ -147,7 +147,7 @@ int			main(int argc, char **argv, char **envp)
 		free(mini.commands);
 		ft_printf("minivid ");
 	}
-	//ft_kill_env;
+	ft_lstclear(&env, ft_kill_env);
 	(void)argc;
 	(void)argv;
 }

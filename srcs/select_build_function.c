@@ -6,20 +6,20 @@
 /*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 16:07:51 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/12/31 10:38:31 by jalcayne         ###   ########.fr       */
+/*   Updated: 2021/01/19 12:02:48 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int    ft_select_build_function(t_list *mini,  t_list **env, char **envp)
+int    ft_select_build_function(t_mini *mini,  t_list **env, char **envp)
 {
    	t_token *content;
 	t_list *aux;
 	int pid;
 	int status;
 	
-	aux = mini;
+	aux = mini->tokens;
 	while (aux)
 	{
 		content = (t_token *)aux->content;
@@ -36,6 +36,8 @@ int    ft_select_build_function(t_list *mini,  t_list **env, char **envp)
 			return (ft_pwd(env));
 		else if(ft_strncmp(content->argv[0], "cd\0", 3) == 0)
 			return (ft_cd(env, content->argv));
+		else if (ft_strncmp(content->argv[0], "exit\0", 5) == 0)
+			ft_exit(mini, env);
 		else
 		{
 			pid = fork();
@@ -69,6 +71,8 @@ void    ft_select_build_function_fork(t_list *mini,  t_list **env, char **envp)
 		ft_pwd(env);
 	else if(ft_strncmp(content->argv[0], "cd\0", 3) == 0)
 		ft_cd(env, content->argv);
+	else if (ft_strncmp(content->argv[0], "exit\0", 5) == 0)
+		;
 	else
 		execve(ft_strjoin(search_path(env, content->argv[0]),ft_strjoin("/", content->argv[0])), content->argv, envp);	
 	exit(0);
