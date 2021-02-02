@@ -12,6 +12,7 @@
 
 #include "../minishell.h"
 
+int g_sig;
 int		ft_iscomma(char *str, int *comma)
 {
 	int i;
@@ -28,6 +29,24 @@ int		ft_iscomma(char *str, int *comma)
 		i++;
 	}
 	return (*comma);
+}
+/*
+crl + c = sigint, borra lo que tiene y lanza  nueva linea.
+ctrl + d = sigexit, si no hay nada escrito sale, si hay algo escrito no permite
+*/
+void sighandler(const int sig)
+{
+
+	if (sig == SIGINT)
+	{
+			write(STDOUT_FILENO, "\033[2D\033[J", 7);
+			//write(STDOUT_FILENO, "\b \b", 2);
+			write(1,"\nminivid > ", 11);
+			
+	}
+	if (sig == SIGQUIT && g_sig == 0)
+		write(STDOUT_FILENO, "\033[2D\033[J", 7);
+
 }
 
 /*
@@ -51,12 +70,17 @@ int			ft_read_commands(t_mini *mini)
 	ret = 1;
 	str = NULL;
 	comma = 0;
+
+	//signal(SIGQUIT, (void (*)(int))sighandler);
 	while (ret > 0)
 	{
+		g_sig = 0; 
+
 		if (str == NULL)
 			str = ft_strdup("");
-		ft_printf("> ");
 		ret = get_next_line(0, &line);
+
+		g_sig = 1;
 		if (ret < 0)
 			return(-1);
 		aux = ft_strjoin(str, line);

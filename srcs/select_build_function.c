@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   select_build_function.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: egarcia- <emilioggo@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 16:07:51 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/12/31 10:38:31 by jalcayne         ###   ########.fr       */
+/*   Updated: 2021/02/01 17:57:40 by egarcia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int    ft_select_build_function(t_list *mini,  t_list **env, char **envp)
 	t_list *aux;
 	int pid;
 	int status;
-	
+
 	aux = mini;
 	while (aux)
 	{
@@ -38,14 +38,17 @@ int    ft_select_build_function(t_list *mini,  t_list **env, char **envp)
 			return (ft_cd(env, content->argv));
 		else
 		{
-			pid = fork();
-			if (pid == 0)
+			if (search_path(env, content->argv[0]))
 			{
-				execve(ft_strjoin(search_path(env, content->argv[0]),ft_strjoin("/", content->argv[0])), content->argv, envp);
+				pid = fork();
+				if (pid == 0)
+				{
+					execve(ft_strjoin(search_path(env, content->argv[0]),ft_strjoin("/", content->argv[0])), content->argv, envp);
+				}
+				else
+					wait(&status);
+				return (0);
 			}
-			else
-				wait(&status);
-			return (0);
 		}
 		aux = aux->next;
 	}

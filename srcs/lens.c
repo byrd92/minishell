@@ -63,9 +63,10 @@ int		ft_strlen_tokens(char *str)
 	int		len;
 
 	len = 0;
-	while (*str && *str != ' ' && *str != '>' && *str != ';' && *str != '|'
-	&& *str != '"' && *str != '\'' && *str != '$'  && *str != '\n')
+	while (*str && *str != ' ')
 	{
+		if (*str == '\\' && *(str + 1) != '\\')
+			len--;
 		len++;
 		str++;
 	}
@@ -79,9 +80,8 @@ int		ft_strlen_token(char *str)
 	int		i;
 
 	i = 0;
-	while (str[i] && str[i] != ' ' && str[i] != '>' && str[i] != ';' && str[i] != '|'
-	&& str[i] != '"' && str[i] != '\'' && str[i] != '=')
-		i++;
+	while (str[i] && str[i] != ' ')
+			i++;
 	if (str[i] == '=')
 		i++;
 	return (i);

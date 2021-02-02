@@ -3,46 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: egarcia- <emilioggo@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 22:13:09 by egarcia-          #+#    #+#             */
-/*   Updated: 2020/12/22 15:06:14 by jalcayne         ###   ########.fr       */
+/*   Updated: 2021/02/02 20:52:57 by egarcia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 
-char		*ft_strdup_sep(char *str, int c)
-{
-	char *ret;
-	int i;
 
-	i = 0;
-	while (str[i] != c && str[i])
-		i++;
-	ret = malloc(sizeof(char *) * i + 1);
-	i = 0;
-	while (str[i] != c && str[i])
-	{
-		ret[i] = str[i];
-		i++;
-	}
-	ret[i] = 0;
-	return (ret);
-}
 
 char		*ft_strldup(char *str, int i)
 {
 	char *ret;
+	int k;
 	int j;
 
 	j = 0;
+	k = 0;
+
 	ret = malloc(sizeof(char *) * i + 1);
 
 	while (j < i)
 	{
-		ret[j] = str[j];
+		if (str[k] == '\\')
+			k++;
+		ret[j] = str[k];
+		k++;
 		j++;
 	}
 	ret[j] = 0;

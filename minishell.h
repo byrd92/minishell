@@ -32,6 +32,7 @@
 #include <sys/wait.h>
 
 
+
 typedef struct s_mini
 {
 		int		newin;
@@ -75,7 +76,7 @@ int			ft_check_pipes(t_list *mini);
 /*
 ** Utils.c
 */
-
+void		sighandler(const int sig);
 char		*ft_strdup_sep(char *str, int c);
 char		**ft_split_mini(char *str);
 char		*ft_strldup(char *str, int i);
@@ -111,7 +112,7 @@ int			ft_unset(t_list **env, char **argv);
 /*
 ** Command echo
 */
-int        ft_echo(t_list **env, char **argv);
+int      	ft_echo(t_list **env, char **argv);
 
 int			ft_pwd();
 
@@ -134,4 +135,6 @@ void	ft_check_io(t_mini *mini);
 void     ft_save_stdio(t_mini *mini);
 void    ft_reset_io(t_mini *mini);
 
+int		ft_isvalid(char *str);
+extern int g_sig;
 #endif
