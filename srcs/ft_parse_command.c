@@ -41,13 +41,13 @@ int ft_isvalid(char *str)
 
 int	ft_datatype(char *tmp, t_token *data)
 {
-	if (*tmp == '|' && ft_isvalid(tmp))
+	if (*tmp == '|' && *(tmp - 1) != '\\')
 		data->type = 1;
-	else if (*tmp == '<' && ft_isvalid(tmp))
+	else if (*tmp == '<' && *(tmp - 1) != '\\')
 		data->type = 2;
-	else if (*tmp == '>' && *(tmp + 1) != '>' && ft_isvalid(tmp))
+	else if (*tmp == '>' && *(tmp + 1) != '>' && *(tmp - 1) != '\\')
 		data->type = 3;
-	else if (*tmp == '>' && tmp[1] == '>' && ft_isvalid(tmp))
+	else if (*tmp == '>' && tmp[1] == '>' && *(tmp - 1) != '\\')
 	{
 		data->type = 4;
 		return (2);

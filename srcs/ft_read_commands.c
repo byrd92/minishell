@@ -71,7 +71,6 @@ int			ft_read_commands(t_mini *mini)
 	str = NULL;
 	comma = 0;
 
-	//signal(SIGQUIT, (void (*)(int))sighandler);
 	while (ret > 0)
 	{
 		g_sig = 0; 

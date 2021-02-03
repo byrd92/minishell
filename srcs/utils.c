@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egarcia- <emilioggo@gmail.com>             +#+  +:+       +#+        */
+/*   By: egarcia- <egarcia-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 22:13:09 by egarcia-          #+#    #+#             */
-/*   Updated: 2021/02/02 20:52:57 by egarcia-         ###   ########.fr       */
+/*   Updated: 2021/02/03 19:46:17 by egarcia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,21 @@ char		*ft_strldup(char *str, int i)
 	ret[j] = 0;
 	return (ret);
 }
+int			ft_slash_number(char *str)
+{
+	int i;
+	int ret;
 
+	i = 0;
+	ret = 0;
+	while (str[i] != ' ' && str[i])
+	{
+		if (str[i] == '\\' && str[i + 1] != '\\')
+			ret++;
+		i++;
+	}
+	return (ret);
+}
 char		**ft_split_mini(char *str)
 {
 	char **array;
@@ -55,11 +69,13 @@ char		**ft_split_mini(char *str)
 	{
 		while (*str == ' ')
 			str++;
-		len = ft_strlen_arg(str);
+		len = ft_strlen_arg(str) ;
 		quote = (*str == '"' || *str == '\'') ? 1 : 0;
-		array[i] = ft_strldup(str + quote, len - quote * 2);
-		str += len;
+		array[i] = ft_strldup(str + quote, len - quote * 2 -  ft_slash_number(str));
+		//ft_printf("len:%d %d->%s\n",len, i, array[i]);
+		str += len + ft_slash_number(str);
 		i++;
+
 	}
 	array[i] = 0;
 	return (array);
