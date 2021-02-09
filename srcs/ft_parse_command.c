@@ -112,11 +112,11 @@ static	int		ft_change_env(char **str, int i, t_list **env)
 	env_result = NULL;
 	if ((len = ft_strlen_tokens(&(*str)[i])) == 0)
 		return (0);
-	env_var = ft_strldup(&(*str)[i], len);
+	env_var = ft_strldup(&(*str)[i], len, 1 );
 	if (!(env_result = ft_find_env(env_var, env)))
 		return (0);
 	free(env_var);
-	start = ft_strldup(*str, i);
+	start = ft_strldup(*str, i, 0);
 	aux = ft_strjoin(start,env_result);
 	len = ft_strlen(env_var);
 	free(start);
@@ -137,7 +137,7 @@ void	ft_check_env(char **str, t_list **env)
 	{
 		if ((*str)[i] == 34 || (*str)[i] == 39 )
 			quote = quote == 0 ? (*str)[i] : 0;
-		if ((*str)[i] == '$' && quote != 39 && ft_isvalid(&(*str)[i - 1]))
+		if ((*str)[i] == '$' && quote != 39 && (*str)[i - 1] != '\\')
 			i += ft_change_env(str, i ,env);
 		i++;
 	}

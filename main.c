@@ -121,9 +121,10 @@ int			main(int argc, char **argv, char **envp)
 	ft_printf("minivid > ");
 	ft_save_stdio(&mini);
 	signal(SIGINT, (void (*)(int))sighandler);
+
 	while (ft_read_commands(&mini))
 	{
-
+		signal(SIGQUIT, (void (*)(int))sighandler);
 		i = 0;
 		while (mini.commands[i])
 		{	

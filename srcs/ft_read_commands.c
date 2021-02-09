@@ -40,12 +40,13 @@ void sighandler(const int sig)
 	if (sig == SIGINT)
 	{
 			write(STDOUT_FILENO, "\033[2D\033[J", 7);
-			//write(STDOUT_FILENO, "\b \b", 2);
 			write(1,"\nminivid > ", 11);
 			
 	}
 	if (sig == SIGQUIT && g_sig == 0)
+	{
 		write(STDOUT_FILENO, "\033[2D\033[J", 7);
+	}	
 
 }
 
@@ -71,7 +72,7 @@ int			ft_read_commands(t_mini *mini)
 	str = NULL;
 	comma = 0;
 
-	while (ret > 0)
+	while (1)
 	{
 		g_sig = 0; 
 

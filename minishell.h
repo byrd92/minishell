@@ -79,7 +79,7 @@ int			ft_check_pipes(t_list *mini);
 void		sighandler(const int sig);
 char		*ft_strdup_sep(char *str, int c);
 char		**ft_split_mini(char *str);
-char		*ft_strldup(char *str, int i);
+char		*ft_strldup(char *str, int i, int quote);
 char		*ft_find_env(char *str, t_list **env);
 int			ft_search_env(void	*content, void *to_search);
 void		*ft_lstsearch_content(t_list *lst, int (*f)(void *, void *), void *to_search);
