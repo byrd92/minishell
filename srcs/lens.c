@@ -27,7 +27,7 @@ int			argv_size(char *str, int c)
 		i++;
 	while (str[i])
 	{
-		if (str[i] == c)
+		if (str[i] == c && str[i + 1])
 		{
 			while (str[i] == c)
 				i++;
@@ -45,7 +45,7 @@ int			argv_size(char *str, int c)
 		else
 			i++;
 	}
-	ft_printf("%d ", words);
+	//ft_printf("%d ", words);
 	return (words);
 }
 
@@ -65,7 +65,7 @@ int		ft_strlen_tokens(char *str)
 	int		quote;
 
 	i = 0;
-	while ( str[i] && str[i] != ' ')
+	while (str[i] && str[i] != ' ')
 	{
 		if (str[i] == 34 || str[i] == 39)
 			{

@@ -29,7 +29,12 @@ char		*ft_strldup(char *str, int i, int quotes)
 	while (j < i)
 	{
 		if (str[k] == '\\' || ((str[k] == '\'' || str[k] == '"') && quotes == 1))
+		{
+			if (str[k] == '\\' )
+				i--;
 			k++;
+
+		}
 		ret[j] = str[k];
 		k++;
 		j++;
