@@ -114,7 +114,7 @@ static	int		ft_change_env(char **str, int i, t_list **env)
 		return (0);
 	env_var = ft_strldup(&(*str)[i], len, 0);
 	if (!(env_result = ft_find_env(env_var, env)))
-		env_result = "";
+		env_result = ft_strdup("");
 	free(env_var);
 	start = ft_strldup(*str , i , 0);
 	aux = ft_strjoin(start,env_result);
