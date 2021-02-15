@@ -15,7 +15,7 @@
 
 
 
-char		*ft_strldup(char *str, int i, int quote)
+char		*ft_strldup(char *str, int i, int quotes)
 {
 	char *ret;
 	int k;
@@ -28,7 +28,7 @@ char		*ft_strldup(char *str, int i, int quote)
 
 	while (j < i)
 	{
-		if (str[k] == '\\' || (quote == 1 && (str[k] == '"' || str[k] == '\'')))
+		if (str[k] == '\\' || ((str[k] == '\'' || str[k] == '"') && quotes == 1))
 			k++;
 		ret[j] = str[k];
 		k++;
@@ -70,12 +70,12 @@ char		**ft_split_mini(char *str)
 		while (*str == ' ')
 			str++;
 		len = ft_strlen_arg(str);
+		//ft_printf("%d " , len);
 		quote = (*str == '"' || *str == '\'') ? 1 : 0;
 		array[i] = ft_strldup(str + quote, len - quote * 2 , quote);
 		//ft_printf("len:%d %d->%s\n",len, i, array[i]);
-		str += len ;
+		str += len;
 		i++;
-
 	}
 	array[i] = 0;
 	return (array);

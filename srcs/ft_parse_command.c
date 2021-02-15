@@ -110,21 +110,19 @@ static	int		ft_change_env(char **str, int i, t_list **env)
 	int len;
 
 	env_result = NULL;
-	if ((len = ft_strlen_tokens(&(*str)[i])) == 0)
+	if ((len = ft_strlen_env(&(*str)[i])) <= 1 )
 		return (0);
-	env_var = ft_strldup(&(*str)[i], len, 1 );
+	env_var = ft_strldup(&(*str)[i], len, 0);
 	if (!(env_result = ft_find_env(env_var, env)))
-		return (0);
+		env_result = "";
 	free(env_var);
-	start = ft_strldup(*str, i, 0);
+	start = ft_strldup(*str , i , 0);
 	aux = ft_strjoin(start,env_result);
-	len = ft_strlen(env_var);
 	free(start);
 	start = ft_strjoin(aux,ft_strdup(&(*str)[i  + len]));
 	free(*str);
 	*str = start;
 	return(len);
-
 }
 void	ft_check_env(char **str, t_list **env)
 {
