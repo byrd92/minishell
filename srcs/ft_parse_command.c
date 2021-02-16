@@ -12,23 +12,6 @@
 
  #include "../minishell.h"
 
-/*
-static void		ft_printlist(void *content)
-{
-	t_mini *env;
-	int i;
-
-	i = 0;
-	env = (t_mini *)content;
-	ft_printf("%d ",env->type);	
-	while (env->argv[i])
-	{
-		ft_printf("%s x", env->argv[i]);
-		i++;
-	}
-	ft_printf("\n");
-}
-*/
 int ft_isvalid(char *str)
 {
 	if (*str)

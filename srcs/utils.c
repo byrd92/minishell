@@ -12,29 +12,31 @@
 
 #include "../minishell.h"
 
-
-
-
 char		*ft_strldup(char *str, int i, int quotes)
 {
 	char *ret;
 	int k;
 	int j;
 	int bol;
+	
 	j = 0;
 	k = 0;
-
 	bol = 0;
+	while (str[k] && str[k] != '\'' && str[k] != '"')
+		k++;
+	if (str[k])
+		bol = str[k];
+	k = 0;
 	ret = malloc(sizeof(char *) * i + 1);
 	while (j < i)
 	{
-		if (str[k] == '\\' || ((str[k] == '\'' || str[k] == '"') && quotes == 1) && str[k] == bol )
+		if (str[k] == '\\' || (str[k] == bol && quotes == 1))
 		{
 			bol = str[k];
 			if (str[k] == '\\' )
 				i--;
 			k++;
-
+			quotes = 0;
 		}
 		ret[j] = str[k];
 		k++;
@@ -71,16 +73,13 @@ char		**ft_split_mini(char *str)
 	quote = 0;
 	size = argv_size(str , ' ');
 	array = malloc(sizeof(char *) * size + 1);
-	
 	while ( i < size)
 	{
 		while (*str == ' ')
 			str++;
-		len = ft_strlen_arg(str);
-		//ft_printf("%d " , len);
+		len = ft_strlen_tokens(str);
 		quote = (*str == '"' || *str == '\'') ? 1 : 0;
 		array[i] = ft_strldup(str + quote, len - quote * 2 , quote);
-		//ft_printf("len:%d %d->%s\n",len, i, array[i]);
 		str += len;
 		i++;
 	}
@@ -97,7 +96,6 @@ int			ft_search_env(void	*content, void *to_search)
 
 	name_to_search = (char *)to_search;
 	env = (t_env *)content;
-
 	if (ft_strncmp(env->name,name_to_search, ft_strlen(name_to_search) + 1) == 0)
 		return (1);
 	return (0);

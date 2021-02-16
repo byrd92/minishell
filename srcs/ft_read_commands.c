@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-int g_sig;
+
 int		ft_iscomma(char *str, int *comma)
 {
 	int i;
@@ -41,24 +41,8 @@ void sighandler(const int sig)
 	{
 			write(STDOUT_FILENO, "\033[2D\033[J", 7);
 			write(1,"\nminivid > ", 11);
-			
 	}
-	if (sig == SIGQUIT && g_sig == 0)
-	{
-		write(STDOUT_FILENO, "\033[2D\033[J", 7);
-	}	
-
 }
-
-/*
-**	Funcion que separa los comandos, separados por <;>, de la frase escrita en la terminal
-*/
-
-/*
-**	Funcion para leer los valores que se encirben en la terminal
-**	y separar los comandos 
-*/
-
 
 int			ft_read_commands(t_mini *mini)
 {

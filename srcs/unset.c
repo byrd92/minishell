@@ -41,10 +41,10 @@ void		ft_lstdelmiddle(t_list **lst, int (*f)(void *, void *), void *to_search)
 		}
 		if (f(ptr->content, to_search) > 0)
 		{
-				next = ptr->next;
-				ft_lstdelone(ptr, ft_kill_env);
-				prevptr->next = next;
-				return ;
+			next = ptr->next;
+			ft_lstdelone(ptr, ft_kill_env);
+			prevptr->next = next;
+			return ;
 		}
 	}
 	return ;

@@ -14,9 +14,6 @@
 
 #include "minishell.h"
 
-/*
-** Funcion barra borrar la variable que guarda los comandos
-*/
 
 void		ft_kill_commands(t_mini *mini)
 {
@@ -30,8 +27,6 @@ void		ft_kill_commands(t_mini *mini)
 		i++;
 	}	
 }
-
-
 
 void		ft_kill_env(void *content)
 {
@@ -60,10 +55,6 @@ void		ft_kill_mini(void *content)
 	free(mini);
 }
 
-/*
-** Funcion para guardar las variables de entorno en una variable
-*/
-
 static void		ft_environment(t_list **env, char **envp)
 {
 	t_env	*newenv;
@@ -87,13 +78,6 @@ static void		ft_environment(t_list **env, char **envp)
 		ft_lstadd_back(env, new);
 	}
 }
-
-/*
-** Funcion inicial del programa
-** Se guardan las variables de entorno
-** Funcion donde se guardan los comandos de cada linea escrita en la terminal
-**		Es donde sigue el programa
-*/
 
 void		init_mini(t_mini *mini)
 {
@@ -133,15 +117,11 @@ int			main(int argc, char **argv, char **envp)
 			//mini.out = ft_output(&mini);
 			pipes = ft_check_pipes(mini.tokens);
 			if (pipes)
-			{
 				mini.dolar = ft_forker(&mini, pipes, &env, envp);
-			}
 			else if (ft_dolar(mini.commands[i], &mini))
 				;
 			else
-			{
 				mini.dolar = ft_select_build_function(&mini, &env, envp);
-			}
 			i++;
 			ft_lstclear(&mini.tokens, ft_kill_mini);
 		}

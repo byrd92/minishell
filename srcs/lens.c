@@ -19,10 +19,8 @@ int			argv_size(char *str, int c)
 	int words;
 
 	quote = 0;
-	/* words es = 1 porque como minimo hay 1 argv) */
 	words = 1;
 	i = 0;
-	//ft_printf("\n-->%s--<\n", str);
 	while (str[i] == ' ')
 		i++;
 	while (str[i])
@@ -45,7 +43,6 @@ int			argv_size(char *str, int c)
 		else
 			i++;
 	}
-	//ft_printf("%d ", words);
 	return (words);
 }
 
@@ -94,12 +91,4 @@ int		ft_strlen_env(char *str)
 		i++;
 	return (i); 
 }
-int		ft_strlen_arg(char *str)
-{
-	int		i;
-	i = 0;
-	//if (str[i] == '"' || str[i] == '\'')
-	//	i = ft_strlen_char(str + i + 1, str[i]) + 2;
-	i = ft_strlen_tokens(str);
-	return (i);
-}
+
