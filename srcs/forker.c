@@ -100,7 +100,7 @@ int		ft_forker(t_mini *mini, int pipes, t_list **env, char **envp)
 	}
 	j = 0;
 	wait(&status);
-	while (j < (pipes - 2))
+	while (j++ < (pipes - 2))
 		wait(&status);
 	wait(&status);
 	i = 0;
