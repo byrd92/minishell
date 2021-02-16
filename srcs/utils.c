@@ -20,16 +20,17 @@ char		*ft_strldup(char *str, int i, int quotes)
 	char *ret;
 	int k;
 	int j;
-
+	int bol;
 	j = 0;
 	k = 0;
 
+	bol = 0;
 	ret = malloc(sizeof(char *) * i + 1);
-
 	while (j < i)
 	{
-		if (str[k] == '\\' || ((str[k] == '\'' || str[k] == '"') && quotes == 1))
+		if (str[k] == '\\' || ((str[k] == '\'' || str[k] == '"') && quotes == 1) && str[k] == bol )
 		{
+			bol = str[k];
 			if (str[k] == '\\' )
 				i--;
 			k++;
@@ -70,6 +71,7 @@ char		**ft_split_mini(char *str)
 	quote = 0;
 	size = argv_size(str , ' ');
 	array = malloc(sizeof(char *) * size + 1);
+	
 	while ( i < size)
 	{
 		while (*str == ' ')
