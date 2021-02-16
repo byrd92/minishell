@@ -12,11 +12,16 @@
 
 #include "../minishell.h"
 
-static void        ft_echo2(char **argv ,int flag)
+int        ft_echo(t_list **env, char **argv)
 {
+	
 	int i;
+	int flag;
 
-	i = flag == 1 ? 2 : 1;
+	if (argv[1])
+	{
+	flag = ft_strncmp(argv[1], "-n", 2) == 0 ? 1 : 0 ;
+	i =  flag == 1 ? 2 : 1;
 	while (argv[i + 1] != 0)
 	{
 		ft_printf("%s ", argv[i]);
@@ -24,17 +29,7 @@ static void        ft_echo2(char **argv ,int flag)
 	}
 	ft_printf("%s", argv[i]);
 	flag == 1 ? write(1, "", 1) : write(1, "\n", 1) ;
-}
-
-int        ft_echo(t_list **env, char **argv)
-{
-	(void)env;
-	if (argv[1])
-	{	
-		if (ft_strncmp(argv[1], "-n", 2) == 0)	
-			ft_echo2(argv, 1);
-		else
-			ft_echo2(argv, 0);
 	}
+	(void)env;
 	return (0);
 }

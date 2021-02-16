@@ -22,29 +22,30 @@ int			argv_size(char *str, int c)
 	/* words es = 1 porque como minimo hay 1 argv) */
 	words = 1;
 	i = 0;
+	//ft_printf("\n-->%s--<\n", str);
 	while (str[i] == ' ')
 		i++;
 	while (str[i])
 	{
-		if (str[i] == 34 || str[i] == 39)
+		if (str[i] == c && str[i + 1])
 		{
-			quote = str[i] == 34 ?  34 : 39;
-			i++;
-			while (str[i] != quote && str[i])
-				i++;
-			words++;
-		}
-		if (str[i] == c)
-		{	
-			words++;
 			while (str[i] == c)
 				i++;
-			if (!str[i])
-				words--;
+			if (str[i] == 34 || str[i] == 39)
+			{
+				quote = str[i] == 34 ?  34 : 39;
+				i++;
+				while (str[i] != quote)
+					i++;
+				while (str[i] && str[i] != c)
+					i++;
+			}
+			words++;
 		}
-		if (str[i])
+		else
 			i++;
 	}
+	//ft_printf("%d ", words);
 	return (words);
 }
 
@@ -60,43 +61,45 @@ int		ft_strlen_char(char *str, char c)
 
 int		ft_strlen_tokens(char *str)
 {
-	int		len;
-
-	len = 0;
-	while (*str && *str != ' ' && *str != '>' && *str != ';' && *str != '|'
-	&& *str != '"' && *str != '\'' && *str != '$'  && *str != '\n')
-	{
-		len++;
-		str++;
-	}
-	if (*str == '=')
-		len++;
-	return (len);
-}
-
-int		ft_strlen_token(char *str)
-{
 	int		i;
+	int		quote;
 
 	i = 0;
-	while (str[i] && str[i] != ' ' && str[i] != '>' && str[i] != ';' && str[i] != '|'
-	&& str[i] != '"' && str[i] != '\'' && str[i] != '=')
+	while (str[i] && str[i] != ' ')
+	{
+		if (str[i] == 34 || str[i] == 39)
+			{
+				quote = str[i] == 34 ?  34 : 39;
+				i++;
+				while (str[i] != quote)
+					i++;
+				while (str[i] && str[i] != ' ')
+					i++;
+				return (i);
+			}
 		i++;
-	if (str[i] == '=')
-		i++;
+	}
 	return (i);
 }
 
-int	ft_strlen_arg(char *str)
+int		ft_strlen_env(char *str)
 {
-	int		i;
+	int i;
 
 	i = 0;
-	if (str[i] == '"' || str[i] == '\'')
-		i = ft_strlen_char(str + i + 1, str[i]) + 2;
-	else if (ft_strlen_char(str, ':') < ft_strlen_tokens(str))
-		i = ft_strlen(str);
-	else
-		i = ft_strlen_tokens(str);
+
+	if (str[i] == ' ')
+		return (0);
+	while (str[i] && str[i] != '\'' && str[i] != '"' && str[i] != ' ')
+		i++;
+	return (i); 
+}
+int		ft_strlen_arg(char *str)
+{
+	int		i;
+	i = 0;
+	//if (str[i] == '"' || str[i] == '\'')
+	//	i = ft_strlen_char(str + i + 1, str[i]) + 2;
+	i = ft_strlen_tokens(str);
 	return (i);
 }

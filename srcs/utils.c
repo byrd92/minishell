@@ -13,42 +13,51 @@
 #include "../minishell.h"
 
 
-char		*ft_strdup_sep(char *str, int c)
+
+
+char		*ft_strldup(char *str, int i, int quotes)
 {
 	char *ret;
-	int i;
-
-	i = 0;
-	while (str[i] != c && str[i])
-		i++;
-	ret = malloc(sizeof(char *) * i + 1);
-	i = 0;
-	while (str[i] != c && str[i])
-	{
-		ret[i] = str[i];
-		i++;
-	}
-	ret[i] = 0;
-	return (ret);
-}
-
-char		*ft_strldup(char *str, int i)
-{
-	char *ret;
+	int k;
 	int j;
-
+	int bol;
 	j = 0;
-	ret = malloc(sizeof(char *) * i + 1);
+	k = 0;
 
+	bol = 0;
+	ret = malloc(sizeof(char *) * i + 1);
 	while (j < i)
 	{
-		ret[j] = str[j];
+		if (str[k] == '\\' || ((str[k] == '\'' || str[k] == '"') && quotes == 1) && str[k] == bol )
+		{
+			bol = str[k];
+			if (str[k] == '\\' )
+				i--;
+			k++;
+
+		}
+		ret[j] = str[k];
+		k++;
 		j++;
 	}
 	ret[j] = 0;
 	return (ret);
 }
+int			ft_slash_number(char *str)
+{
+	int i;
+	int ret;
 
+	i = 0;
+	ret = 0;
+	while (str[i] != ' ' && str[i])
+	{
+		if (str[i] == '\\' && str[i + 1] != '\\')
+			ret++;
+		i++;
+	}
+	return (ret);
+}
 char		**ft_split_mini(char *str)
 {
 	char **array;
@@ -62,13 +71,16 @@ char		**ft_split_mini(char *str)
 	quote = 0;
 	size = argv_size(str , ' ');
 	array = malloc(sizeof(char *) * size + 1);
+	
 	while ( i < size)
 	{
 		while (*str == ' ')
 			str++;
 		len = ft_strlen_arg(str);
+		//ft_printf("%d " , len);
 		quote = (*str == '"' || *str == '\'') ? 1 : 0;
-		array[i] = ft_strldup(str + quote, len - quote * 2);
+		array[i] = ft_strldup(str + quote, len - quote * 2 , quote);
+		//ft_printf("len:%d %d->%s\n",len, i, array[i]);
 		str += len;
 		i++;
 	}

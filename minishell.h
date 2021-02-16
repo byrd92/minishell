@@ -32,6 +32,7 @@
 #include <sys/wait.h>
 
 
+
 typedef struct s_mini
 {
 		int		newin;
@@ -75,10 +76,10 @@ int			ft_check_pipes(t_list *mini);
 /*
 ** Utils.c
 */
-
+void		sighandler(const int sig);
 char		*ft_strdup_sep(char *str, int c);
 char		**ft_split_mini(char *str);
-char		*ft_strldup(char *str, int i);
+char		*ft_strldup(char *str, int i, int quotes);
 char		*ft_find_env(char *str, t_list **env);
 int			ft_search_env(void	*content, void *to_search);
 void		*ft_lstsearch_content(t_list *lst, int (*f)(void *, void *), void *to_search);
@@ -87,10 +88,10 @@ void		*ft_lstsearch_content(t_list *lst, int (*f)(void *, void *), void *to_sear
 */
 
 int			argv_size(char *str, int c);
-int		ft_strlen_char(char *str, char c);
-int		ft_strlen_tokens(char *str);
-int		ft_strlen_token(char *str);
-int		ft_strlen_arg(char *str);
+int			ft_strlen_char(char *str, char c);
+int			ft_strlen_tokens(char *str);
+int			ft_strlen_arg(char *str);
+int			ft_strlen_env(char *str);
 
 
 void		ft_kill_env(void *content);
@@ -113,7 +114,7 @@ int			ft_unset(t_list **env, char **argv);
 /*
 ** Command echo
 */
-int        ft_echo(t_list **env, char **argv);
+int      	ft_echo(t_list **env, char **argv);
 
 int			ft_pwd();
 
