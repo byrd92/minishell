@@ -100,15 +100,15 @@ int			main(int argc, char **argv, char **envp)
 
 	init_mini(&mini);
 	env = NULL;
-
+	signal(SIGQUIT, (void (*)(int))sighandler);
 	ft_environment(&env, envp);
 	ft_printf("minivid > ");
 	ft_save_stdio(&mini);
 	signal(SIGINT, (void (*)(int))sighandler);
-
+	
 	while (ft_read_commands(&mini))
 	{
-		signal(SIGQUIT, (void (*)(int))sighandler);
+
 		i = 0;
 		while (mini.commands[i])
 		{	

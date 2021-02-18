@@ -12,53 +12,51 @@
 
 #include "../minishell.h"
 
-char		*ft_strldup(char *str, int i, int quotes)
+char		*ft_strldup(char *str, int i)
 {
 	char *ret;
 	int k;
 	int j;
-	int bol;
+
 	
 	j = 0;
-	k = 0;
-	bol = 0;
-	while (str[k] && str[k] != '\'' && str[k] != '"')
-		k++;
-	if (str[k])
-		bol = str[k];
 	k = 0;
 	ret = malloc(sizeof(char *) * i + 1);
 	while (j < i)
 	{
-		if (str[k] == '\\' || (str[k] == bol && quotes == 1))
-		{
-			bol = str[k];
-			if (str[k] == '\\' )
-				i--;
-			k++;
-			quotes = 0;
-		}
 		ret[j] = str[k];
-		k++;
 		j++;
+		k++;
 	}
 	ret[j] = 0;
 	return (ret);
 }
-int			ft_slash_number(char *str)
+
+static int	ft_strlen_arg(char *str)
 {
 	int i;
-	int ret;
 
 	i = 0;
-	ret = 0;
-	while (str[i] != ' ' && str[i])
+	if (str[i] == '<' || str[i] == '>' || str[i] == '=' || str[i] == '|')
+		i = (str[i] == '>' && str[i + 1] == '>') ? 2 : 1;
+	else
 	{
-		if (str[i] == '\\' && str[i + 1] != '\\')
-			ret++;
-		i++;
+		while (str[i] && !ft_isspace(str[i]) && str[i] != '<' &&
+		str[i] != '>' && str[i] != '=' && str[i] != '|')
+		{
+			if (str[i] == '\'' || str[i] == '"')
+			{
+				i++;
+				i += ft_strlen_char(str + i, str[i - 1]);
+				if (!(str[i]))
+					return (i);
+			}
+			i++;
+		}
+		if (str[i] == '=')
+			i++;
 	}
-	return (ret);
+	return (i);
 }
 char		**ft_split_mini(char *str)
 {
@@ -77,9 +75,9 @@ char		**ft_split_mini(char *str)
 	{
 		while (*str == ' ')
 			str++;
-		len = ft_strlen_tokens(str);
-		quote = (*str == '"' || *str == '\'') ? 1 : 0;
-		array[i] = ft_strldup(str + quote, len - quote * 2 , quote);
+		len = ft_strlen_arg(str);
+		array[i] = ft_strldup(str, len);
+		rm_token(&(array[i]));
 		str += len;
 		i++;
 	}

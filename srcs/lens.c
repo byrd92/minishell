@@ -12,6 +12,16 @@
 
 #include "../minishell.h"
 
+int			skip_space(char *str)
+{
+	int i;
+
+	i = 0 ;
+	while (ft_isspace(str[i]))
+		i++;
+	return (i);
+}
+
 int			argv_size(char *str, int c)
 {
 	int i;
@@ -21,14 +31,12 @@ int			argv_size(char *str, int c)
 	quote = 0;
 	words = 1;
 	i = 0;
-	while (str[i] == ' ')
-		i++;
+	i += skip_space(str);
 	while (str[i])
 	{
 		if (str[i] == c && str[i + 1])
 		{
-			while (str[i] == c)
-				i++;
+			i += skip_space(&str[i]);
 			if (str[i] == 34 || str[i] == 39)
 			{
 				quote = str[i] == 34 ?  34 : 39;
@@ -56,29 +64,32 @@ int		ft_strlen_char(char *str, char c)
 	return (i);
 }
 
-int		ft_strlen_tokens(char *str)
+int	ft_strlen_arg(char *str)
 {
-	int		i;
-	int		quote;
+	int i;
 
 	i = 0;
-	while (str[i] && str[i] != ' ')
+	if (str[i] == '<' || str[i] == '>' || str[i] == '=' || str[i] == '|')
+		i = (str[i] == '>' && str[i + 1] == '>') ? 2 : 1;
+	else
 	{
-		if (str[i] == 34 || str[i] == 39)
+		while (str[i] && !ft_isspace(str[i]) && str[i] != '<' &&
+		str[i] != '>' && str[i] != '=' && str[i] != '|')
+		{
+			if (str[i] == '\'' || str[i] == '"')
 			{
-				quote = str[i] == 34 ?  34 : 39;
 				i++;
-				while (str[i] != quote)
-					i++;
-				while (str[i] && str[i] != ' ')
-					i++;
-				return (i);
+				i += ft_strlen_char(str + i, str[i - 1]);
+				if (!(str[i]))
+					return (i);
 			}
-		i++;
+			i++;
+		}
+		if (str[i] == '=')
+			i++;
 	}
 	return (i);
 }
-
 int		ft_strlen_env(char *str)
 {
 	int i;

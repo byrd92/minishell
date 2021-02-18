@@ -95,11 +95,11 @@ static	int		ft_change_env(char **str, int i, t_list **env)
 	env_result = NULL;
 	if ((len = ft_strlen_env(&(*str)[i])) <= 1 )
 		return (0);
-	env_var = ft_strldup(&(*str)[i], len, 0);
+	env_var = ft_strldup(&(*str)[i], len);
 	if (!(env_result = ft_find_env(env_var, env)))
 		env_result = ft_strdup("");
 	free(env_var);
-	start = ft_strldup(*str , i , 0);
+	start = ft_strldup(*str , i );
 	aux = ft_strjoin(start,env_result);
 	free(start);
 	start = ft_strjoin(aux,ft_strdup(&(*str)[i  + len]));
