@@ -83,12 +83,13 @@ char		*ft_strldup(char *str, int i);
 char		*ft_find_env(char *str, t_list **env);
 int			ft_search_env(void	*content, void *to_search);
 void		*ft_lstsearch_content(t_list *lst, int (*f)(void *, void *), void *to_search);
+int			skip_space(char *str);
 /*
 ** lens.c
 */
-int			argv_size(char *str, int c);
+int			argc_size(char *str);
 int			ft_strlen_char(char *str, char c);
-
+int			ft_strlen_arg(char *str);
 int			ft_strlen_env(char *str);
 
 

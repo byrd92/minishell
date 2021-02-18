@@ -12,16 +12,6 @@
 
  #include "../minishell.h"
 
-int ft_isvalid(char *str)
-{
-	if (*str)
-	{
-		if (*str != '\\')
-			return (1);
-	}
-	return (0);
-}
-
 int	ft_datatype(char *tmp, t_token *data)
 {
 	if (*tmp == '|' && *(tmp - 1) != '\\')
@@ -53,7 +43,6 @@ void		ft_new_token(t_mini *mini,char *command)
 	i = 0;
 	
 	tmp = ft_strdup(command);
-	
 	token = (t_token *)malloc(sizeof(t_token) * 1) ;
 	tmp += ft_datatype(tmp, token);
 	while (!(ft_strchr("<|>",tmp[i]) && tmp[i - 1] != '\\') && tmp[i])
@@ -80,29 +69,27 @@ void		ft_create_token(t_mini *mini, int i)
 		}
 		j++;
 	}
-	
 }
 
 
 static	int		ft_change_env(char **str, int i, t_list **env)
 {
 	char *start;
-	char *env_var;
+	char *tmp;
 	char *env_result;
-	char *aux;
 	int len;
 
 	env_result = NULL;
 	if ((len = ft_strlen_env(&(*str)[i])) <= 1 )
 		return (0);
-	env_var = ft_strldup(&(*str)[i], len);
-	if (!(env_result = ft_find_env(env_var, env)))
+	tmp = ft_strldup(&(*str)[i], len);
+	if (!(env_result = ft_find_env(tmp, env)))
 		env_result = ft_strdup("");
-	free(env_var);
+	free(tmp);
 	start = ft_strldup(*str , i );
-	aux = ft_strjoin(start,env_result);
+	tmp = ft_strjoin(start,env_result);
 	free(start);
-	start = ft_strjoin(aux,ft_strdup(&(*str)[i  + len]));
+	start = ft_strjoin(tmp,ft_strdup(&(*str)[i  + len]));
 	free(*str);
 	*str = start;
 	return(len);

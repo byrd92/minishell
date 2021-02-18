@@ -2,15 +2,15 @@
 
 void		rm_char(char **str, int j)
 {
-	char *bef;
+	char *start;
 	char *aux;
 
-	bef = ft_strldup(*str, j);
+	start = ft_strldup(*str, j);
 	aux = ft_strdup(*str + j + 1);
 	free(*str);
-	*str = ft_strjoin(bef, aux);
+	*str = ft_strjoin(start, aux);
 	free(aux);
-	free(bef);
+	free(start);
 }
 
 static int		is_token(char c)
@@ -32,27 +32,27 @@ static void	rm_backslash(char **arg, int *i)
 	}
 }
 
-void		rm_token(char **arg)
+void		rm_token(char **argv)
 {
 	int		i;
 
 	i = 0;
-	while ((*arg)[i])
+	while ((*argv)[i])
 	{
-		if ((*arg)[i] == '\'')
+		if ((*argv)[i] == '\'')
 		{
-			rm_char(arg, i);
-			i += ft_strlen_char(*arg + i, '\'');
-			rm_char(arg, i);
+			rm_char(argv, i);
+			i += ft_strlen_char(*argv + i, '\'');
+			rm_char(argv, i);
 		}
-		else if ((*arg)[i] == '"')
+		else if ((*argv)[i] == '"')
 		{
-			rm_char(arg, i);
-			rm_backslash(arg, &i);
-			rm_char(arg, i);
+			rm_char(argv, i);
+			rm_backslash(argv, &i);
+			rm_char(argv, i);
 		}
-		else if (((*arg)[i] == '\\'))
-			rm_char(arg, i++);
+		else if (((*argv)[i] == '\\'))
+			rm_char(argv, i++);
 		else
 			i++;
 	}

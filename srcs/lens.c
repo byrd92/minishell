@@ -22,7 +22,7 @@ int			skip_space(char *str)
 	return (i);
 }
 
-int			argv_size(char *str, int c)
+int			argc_size(char *str, int c)
 {
 	int i;
 	int quote;
@@ -34,7 +34,7 @@ int			argv_size(char *str, int c)
 	i += skip_space(str);
 	while (str[i])
 	{
-		if (str[i] == c && str[i + 1])
+		if (str[i] == ' ' && str[i + 1])
 		{
 			i += skip_space(&str[i]);
 			if (str[i] == 34 || str[i] == 39)
@@ -43,7 +43,7 @@ int			argv_size(char *str, int c)
 				i++;
 				while (str[i] != quote)
 					i++;
-				while (str[i] && str[i] != c)
+				while (str[i] && str[i] != ' ')
 					i++;
 			}
 			words++;
@@ -85,8 +85,6 @@ int	ft_strlen_arg(char *str)
 			}
 			i++;
 		}
-		if (str[i] == '=')
-			i++;
 	}
 	return (i);
 }
