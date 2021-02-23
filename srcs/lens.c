@@ -22,7 +22,7 @@ int			skip_space(char *str)
 	return (i);
 }
 
-int			argc_size(char *str, int c)
+int			argc_size(char *str)
 {
 	int i;
 	int quote;

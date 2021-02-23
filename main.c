@@ -111,19 +111,20 @@ int			main(int argc, char **argv, char **envp)
 
 		i = 0;
 		while (mini.commands[i])
-		{	
-			ft_parse_commands(&mini, &env, i);
-			ft_check_io(&mini);
-			//mini.out = ft_output(&mini);
-			pipes = ft_check_pipes(mini.tokens);
-			if (pipes)
-				mini.dolar = ft_forker(&mini, pipes, &env, envp);
-			else if (ft_dolar(mini.commands[i], &mini))
-				;
+		{	if (ft_dolar(mini.commands[i], &mini))
+				i++;
 			else
-				mini.dolar = ft_select_build_function(&mini, &env, envp);
-			i++;
-			ft_lstclear(&mini.tokens, ft_kill_mini);
+			{	ft_parse_commands(&mini, &env, i);
+				ft_check_io(&mini);
+				//mini.out = ft_output(&mini);
+				pipes = ft_check_pipes(mini.tokens);
+				if (pipes)
+					mini.dolar = ft_forker(&mini, pipes, &env, envp);
+				else
+					mini.dolar = ft_select_build_function(&mini, &env, envp);
+				i++;
+				ft_lstclear(&mini.tokens, ft_kill_mini);
+			}	
 		}
 		ft_reset_io(&mini);
 		ft_lstclear(&mini.tokens, ft_kill_mini);

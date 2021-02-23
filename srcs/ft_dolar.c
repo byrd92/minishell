@@ -16,7 +16,6 @@ int     ft_dolar(char *comand, t_mini *mini)
 {
 	int i;
 	int flag;
-	
 	i = 0;
 	flag = 0;
 	while ((ft_isalpha(comand[i] == 0)) && comand[i])
