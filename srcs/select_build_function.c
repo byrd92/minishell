@@ -38,10 +38,8 @@ int    ft_select_build_function(t_mini *mini,  t_list **env, char **envp)
 			return (ft_cd(env, content->argv));
 		else if (ft_strncmp(content->argv[0], "exit\0", 5) == 0)
 			ft_exit(mini, env);
-		else
+		else if (search_path(env, content->argv[0]))
 		{
-			if (search_path(env, content->argv[0]))
-			{	
 				pid = fork();
 				if (pid == 0)
 				{
@@ -50,8 +48,13 @@ int    ft_select_build_function(t_mini *mini,  t_list **env, char **envp)
 					else
 					wait(&status);
 				return (0);
-			}
 		}
+		else
+		{
+			ft_printf("%s: command not found\n", content->argv[0]);
+			return (127);
+		}
+		
 		aux = aux->next;
 	}
 	return (0);
@@ -76,7 +79,16 @@ void    ft_select_build_function_fork(t_list *mini,  t_list **env, char **envp)
 		ft_cd(env, content->argv);
 	else if (ft_strncmp(content->argv[0], "exit\0", 5) == 0)
 		;
+	else if (search_path(env, content->argv[0]))
+		execve(ft_strjoin(search_path(env, content->argv[0]),ft_strjoin("/", content->argv[0])), content->argv, envp);
 	else
-		execve(ft_strjoin(search_path(env, content->argv[0]),ft_strjoin("/", content->argv[0])), content->argv, envp);	
+	{
+		ft_printf("%s: command not found\n", content->argv[0]);
+	}
+	/*else
+	{
+		execve(ft_strjoin(search_path(env, content->argv[0]),ft_strjoin("/", content->argv[0])), content->argv, envp);
+	}*/
+	
 	exit(0);
 }
