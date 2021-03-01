@@ -54,6 +54,17 @@ int    ft_select_build_function(t_mini *mini,  t_list **env, char **envp)
 					return (0);
 
 		}
+		else if (search_path(env, content->argv[0]))
+		{
+				pid = fork();
+				if (pid == 0)
+				{
+					execve(ft_strjoin(search_path(env, content->argv[0]),ft_strjoin("/", content->argv[0])), content->argv, envp);
+				}
+					else
+					wait(&status);
+				return (0);
+		}
 		else
 		{
 			ft_printf("%s: command not found\n", content->argv[0]);

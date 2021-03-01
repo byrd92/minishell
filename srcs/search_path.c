@@ -54,20 +54,14 @@ char     *search_path(t_list **env, char *program)
 	char **path_directs;
 	int i;
 
-	i = 0;
+	i = 0;	
 	path = ft_lstsearch_content(*env, ft_search_env_path, (void *)"PATH");
 	path_directs = ft_split(path->value, ':');
 	while (path_directs[i])
 	{
-		if ((ft_strncmp(path_directs[i], program, ft_strlen(path_directs[i]))) == 0)
-		{		
-			//printf("inicial = %s path = %s program  = %s\n", program, path_directs[i], &program[1 + ft_strlen(path_directs[i])]);
-			if (search_in_dir(path_directs[i], ft_search_word(&program[1 + ft_strlen(path_directs[i])])))
-			{
-				return(path_directs[i]);
-
-			}
-		}
+		//printf("path = %s, program %s\n", path_directs[i], program);
+		if (search_in_dir(path_directs[i], ft_search_word(program)))
+			return(path_directs[i]);
 		i++;
 	}
 	return (NULL);
