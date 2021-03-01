@@ -130,7 +130,7 @@ int			main(int argc, char **argv, char **envp)
 		ft_lstclear(&mini.tokens, ft_kill_mini);
 		ft_kill_commands(&mini);
 		init_mini(&mini);
-		ft_printf("minivid >x ");
+		ft_printf("minivid > ");
 	}
 	ft_lstclear(&env, ft_kill_env);
 	(void)argc;

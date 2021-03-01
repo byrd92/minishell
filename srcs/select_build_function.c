@@ -18,7 +18,8 @@ int    ft_select_build_function(t_mini *mini,  t_list **env, char **envp)
 	t_list *aux;
 	int pid;
 	int status;
-	
+	char *comando;
+
 	aux = mini->tokens;
 	while (aux)
 	{
@@ -38,16 +39,22 @@ int    ft_select_build_function(t_mini *mini,  t_list **env, char **envp)
 			return (ft_cd(env, content->argv));
 		else if (ft_strncmp(content->argv[0], "exit\0", 5) == 0)
 			ft_exit(mini, env);
-		else if (search_path(env, content->argv[0]))
+		else if (ft_strncmp(content->argv[0], "/", 1) == 0 ||
+				ft_strncmp(content->argv[0], "./", 2) == 0 ||
+				ft_strncmp(content->argv[0], "../", 3) == 0)
 		{
-				pid = fork();
-				if (pid == 0)
+				if ((search_path(env, content->argv[0])) != NULL)
 				{
-					execve(ft_strjoin(search_path(env, content->argv[0]),ft_strjoin("/", content->argv[0])), content->argv, envp);
-				}
+					pid = fork();
+					if (pid == 0)
+					{
+						execve(content->argv[0], content->argv, envp);
+					}
 					else
 					wait(&status);
-				return (0);
+					return (0);
+				}
+				ft_printf("bash: %s: No such file or directory\n", content->argv[0]);
 		}
 		else
 		{

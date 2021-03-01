@@ -17,6 +17,6 @@ int			ft_pwd()
 	char *tmp;
 	
 	tmp = NULL;
-	ft_printf("%s\n", getcwd(tmp,256));
+	ft_printf("%s\n", getcwd(tmp,4096));
 	return (0);
 }
