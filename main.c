@@ -81,14 +81,13 @@ static void		ft_environment(t_list **env, char **envp)
 
 void		init_mini(t_mini *mini)
 {
-	mini->commands = 0;
+	mini->commands = NULL;
 	mini->tokens = NULL;
 	mini->in = 0;
 	mini->out = 0;
 	mini->newin = 0;
 	mini->newout = 0;
 	mini->strcmd = NULL;
-	mini->dolar = 0;
 }
 
 int			main(int argc, char **argv, char **envp)
@@ -99,6 +98,7 @@ int			main(int argc, char **argv, char **envp)
 	int pipes;
 
 	init_mini(&mini);
+	mini.dolar = 0;
 	env = NULL;
 	signal(SIGQUIT, (void (*)(int))sighandler);
 	ft_environment(&env, envp);

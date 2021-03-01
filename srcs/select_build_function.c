@@ -12,11 +12,19 @@
 
 #include "../minishell.h"
 
+static void	child_sig_handler_bash(int sig)
+{
+	if (sig == SIGINT)
+	{
+		write(2, "\n", 1);
+		exit(0);
+	}
+}
+
 int    ft_select_build_function(t_mini *mini,  t_list **env, char **envp)
 {
    	t_token *content;
 	t_list *aux;
-	int pid;
 	int status;
 	char *comando;
 
@@ -43,27 +51,27 @@ int    ft_select_build_function(t_mini *mini,  t_list **env, char **envp)
 				ft_strncmp(content->argv[0], "./", 2) == 0 ||
 				ft_strncmp(content->argv[0], "../", 3) == 0)
 		{
-
-					pid = fork();
-					if (pid == 0)
+					if (!fork())
 					{
-						execve(content->argv[0], content->argv, envp);
+						signal(SIGINT, child_sig_handler_bash);
+						if (execve(content->argv[0], content->argv, envp))
+							ft_printf("bash: %s: No such file or directory\n");
+						exit(127);
 					}
 					else
-					wait(&status);
-					return (0);
+					wait(&mini->dolar);
+					return (mini->dolar);
 
 		}
 		else if (search_path(env, content->argv[0]))
 		{
-				pid = fork();
-				if (pid == 0)
+				if (!fork())
 				{
 					execve(ft_strjoin(search_path(env, content->argv[0]),ft_strjoin("/", content->argv[0])), content->argv, envp);
 				}
 					else
-					wait(&status);
-				return (0);
+					wait(&mini->dolar);
+				return (mini->dolar);
 		}
 		else
 		{
