@@ -43,8 +43,7 @@ int    ft_select_build_function(t_mini *mini,  t_list **env, char **envp)
 				ft_strncmp(content->argv[0], "./", 2) == 0 ||
 				ft_strncmp(content->argv[0], "../", 3) == 0)
 		{
-				if ((search_path(env, content->argv[0])) != NULL)
-				{
+
 					pid = fork();
 					if (pid == 0)
 					{
@@ -53,8 +52,7 @@ int    ft_select_build_function(t_mini *mini,  t_list **env, char **envp)
 					else
 					wait(&status);
 					return (0);
-				}
-				ft_printf("bash: %s: No such file or directory\n", content->argv[0]);
+
 		}
 		else
 		{
