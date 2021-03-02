@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-static int			ft_search_and_replace_env(void	*content, void *to_search)
+static int			ft_search_export(void	*content, void *to_search)
 {
 	t_env	*env;
 	t_env	*env_to_search;
@@ -28,14 +28,14 @@ static int			ft_search_and_replace_env(void	*content, void *to_search)
 	return (0);
 }
 
-
-
 int			ft_export(t_list **env, char *str)
 {
 	int		i;
 	t_env	*newenv;
 
 	i = 0;
+
+
 	newenv = (t_env *)malloc(sizeof(t_env) * 1);
 	newenv->name = ft_search_word(str);
 	while(str[i] != '=')
@@ -48,7 +48,7 @@ int			ft_export(t_list **env, char *str)
 	}
 	i++;
 	newenv->value = ft_strdup(&str[i]);
-	if (ft_lstsearch((*env),ft_search_and_replace_env,newenv) == 0)
+	if (ft_lstsearch((*env),ft_search_export,newenv) == 0)
 	{
 		ft_lstadd_back(env, ft_lstnew(newenv));
 	}

@@ -69,12 +69,12 @@ int	ft_strlen_arg(char *str)
 	int i;
 
 	i = 0;
-	if (str[i] == '<' || str[i] == '>' || str[i] == '=' || str[i] == '|')
+	if (str[i] == '<' || str[i] == '>'|| str[i] == '|')
 		i = (str[i] == '>' && str[i + 1] == '>') ? 2 : 1;
 	else
 	{
 		while (str[i] && !ft_isspace(str[i]) && str[i] != '<' &&
-		str[i] != '>' && str[i] != '=' && str[i] != '|')
+		str[i] != '>' && str[i] != '|')
 		{
 			if (str[i] == '\'' || str[i] == '"')
 			{

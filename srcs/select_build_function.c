@@ -27,9 +27,18 @@ int    ft_select_build_function(t_mini *mini,  t_list **env, char **envp)
 	t_list *aux;
 	char *path;
 	aux = mini->tokens;
+
+	int i;
+
+	i = 0;
 	while (aux)
 	{
+		i = 0;
 		content = (t_token *)aux->content;
+		while(content->argv[i] != NULL)
+		{
+			ft_printf("content: %s\n", content->argv[i++]);
+		}
 		//ft_printf("->%s\n" , content->argv[1]);
 		if(ft_strncmp(content->argv[0], "echo\0", 6) == 0)
 			return (ft_echo(env ,content->argv));
