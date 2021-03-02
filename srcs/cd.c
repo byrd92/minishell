@@ -16,18 +16,30 @@
 
 int         ft_cd(t_list **env,  char **argv)
 {
-	char	*tmp;
-	int		ret;
-	
-	tmp = NULL;
-	if (argv[1] != NULL)
+	char cwd[4096];
+	char oldpwd[4096];
+	int i;
+
+	i = 0;
+	while (argv[i] != NULL)
+		i++;
+	if (i > 2)
 	{
-		ft_export(env, ft_strjoin("OLDPWD=",getcwd(tmp,256)));
-		ret = chdir(argv[1]);
-		ft_export(env, ft_strjoin("PWD=",(const char *)getcwd(tmp,256)));
-	}
-	if (ret < 0)
+		ft_printf("bash: cd: too many arguments\n");
 		return (1);
+	}
+	getcwd(oldpwd, 4096);
+	if (chdir(argv[1]) == 0)
+	{
+		ft_export(env, ft_strjoin("OLDPWD=",oldpwd));
+		ft_export(env, ft_strjoin("PWD=",(const char *)getcwd(cwd,256)));
+	}
+	else
+	{
+		ft_printf("bash: cd: %s: No such file or directory\n", argv[1]);
+		return(1);
+	}
+	
 	return (0);
 }
 
