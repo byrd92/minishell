@@ -43,7 +43,7 @@ unset
 Variables de entorno
 - Ejecute echo con variables "$" como argumento
 - Compruebe que las comillas alrededor de las $variables funcionan correctamente (como en el bash)
-cd
+#cd
 - Utilice el comando cd para desplazarse por el árbol de los directorios y utilice /bin/ls para comprobar que se encuentra en el directorio correcto
 - Repita varias veces con cd que funcionen y que no funcionen
 - Pruebe '.' y '..' como argumento
