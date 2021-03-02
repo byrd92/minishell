@@ -28,22 +28,14 @@ int    ft_select_build_function(t_mini *mini,  t_list **env, char **envp)
 	char *path;
 	aux = mini->tokens;
 
-	int i;
-
-	i = 0;
 	while (aux)
 	{
-		i = 0;
 		content = (t_token *)aux->content;
-		while(content->argv[i] != NULL)
-		{
-			ft_printf("content: %s\n", content->argv[i++]);
-		}
 		//ft_printf("->%s\n" , content->argv[1]);
 		if(ft_strncmp(content->argv[0], "echo\0", 6) == 0)
 			return (ft_echo(env ,content->argv));
 		else if(ft_strncmp(content->argv[0], "export\0", 7) == 0)
-			return (ft_export(env, content->argv[1]));
+			return (ft_export(env, content->argv[1], content->argv[2]));
 		else if(ft_strncmp(content->argv[0], "env\0", 4) == 0)
 			return (ft_env(env));
 		else if(ft_strncmp(content->argv[0], "unset\0", 6) == 0)
@@ -105,7 +97,7 @@ void    ft_select_build_function_fork(t_list *mini,  t_list **env, char **envp)
 	if(ft_strncmp(content->argv[0], "echo\0", 6) == 0)
 		ft_echo(env ,content->argv);
 	else if(ft_strncmp(content->argv[0], "export\0", 7) == 0)
-		ft_export(env, content->argv[1]);
+		ft_export(env, content->argv[1],content->argv[2]);
 	else if(ft_strncmp(content->argv[0], "env\0", 4) == 0)
 		ft_env(env);
 	else if(ft_strncmp(content->argv[0], "unset\0", 6) == 0)

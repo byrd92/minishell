@@ -59,13 +59,10 @@ void		ft_create_token(t_mini *mini, int i)
 
 	j = 0;
 	ft_new_token(mini, &mini->commands[i][j]);
-	write(1, "zzzzz", 5);
 	while (mini->commands[i][j])
 	{
-		write(1, "x", 1);
 		if (ft_strchr("<|>", mini->commands[i][j]) && mini->commands[i][j - 1] != '\\')
 		{
-			write(1, "zzzzz", 5);
 			ft_new_token(mini ,&mini->commands[i][j]);
 			if (mini->commands[i][j + 1] == '>')
 				j++;

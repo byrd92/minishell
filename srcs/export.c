@@ -28,23 +28,27 @@ static int			ft_search_export(void	*content, void *to_search)
 	return (0);
 }
 
-int			ft_export(t_list **env, char *str)
+int			ft_export(t_list **env, char *str, char *str2)
 {
 	int		i;
 	t_env	*newenv;
 
 	i = 0;
-
-
+	if (str == NULL)
+		return(0);
+	if ((str2 != NULL && str2[0] == '=') || (str != NULL && str[0] == '='))
+	{
+		ft_printf("bash: export: `=': not a valid identifier\n");
+		return(1);
+	}
 	newenv = (t_env *)malloc(sizeof(t_env) * 1);
 	newenv->name = ft_search_word(str);
-	while(str[i] != '=')
+	ft_printf("%s",str);
+	while(str[i] != '=' && str[i])
 		i++;
-	if (!ft_isalnum(str[i - 1]))
+	if (str[i] != '=')
 	{
-		printf("bash: %s error en el comando\n", ft_strdup(&str[i]));
-		return(1);//error
-
+		return (0);
 	}
 	i++;
 	newenv->value = ft_strdup(&str[i]);
