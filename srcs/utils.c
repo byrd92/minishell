@@ -61,7 +61,7 @@ void			*ft_lstsearch_content(t_list *lst, int (*f)(void *, void *), void *to_sea
 	}
 	else
 	{
-		while (ptr->next)
+		while (ptr->next != NULL)
 		{
 			if (f(ptr->content, to_search) > 0)
 				return(ptr->content);

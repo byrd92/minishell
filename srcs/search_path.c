@@ -20,7 +20,6 @@ static int			ft_search_env_path(void	*content, void *to_search)
 
 	name_to_search = (char *)to_search;
 	env = (t_env *)content;
-
 	if (ft_strncmp(env->name,name_to_search, ft_strlen(name_to_search)) == 0)
 		return (1);
 	return (0);
@@ -54,16 +53,21 @@ char     *search_path(t_list **env, char *program)
 	char **path_directs;
 	int i;
 
-	i = 0;	
-	path = ft_lstsearch_content(*env, ft_search_env_path, (void *)"PATH");
-	path_directs = ft_split(path->value, ':');
-	while (path_directs[i])
+	i = 0;
+	if ((path = ft_lstsearch_content(*env, ft_search_env_path, (void *)"PATH")) != NULL)
 	{
-		//printf("path = %s, program %s\n", path_directs[i], program);
-		if (search_in_dir(path_directs[i], ft_search_word(program)))
-			return(path_directs[i]);
-		i++;
+		ft_printf("%s",path);
+		write(1, "x" ,1);
+		path_directs = ft_split(path->value, ':');
+		while (path_directs[i])
+		{
+			//printf("path = %s, program %s\n", path_directs[i], program);
+			if (search_in_dir(path_directs[i], ft_search_word(program)))
+				return(path_directs[i]);
+			i++;
+		}
+		return (NULL);
 	}
-	return (NULL);
+	return ("bash:");
 	
 }

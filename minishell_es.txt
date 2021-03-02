@@ -55,7 +55,7 @@ PATH relativo
 - Repita varias veces en otros directorios con un PATH relativo complejo (con muchos ..)
 PATH de entorno
 - Ejecute comandos pero sin PATH (ls, wc, awk, etc...)
-- Retire el $PATH y compruebe si sigue funcionando
+########- Retire el $PATH y compruebe si sigue funcionando
 - Añada varios directorios a PATH (directory1:directory2) y compruebe que se llama a los directorios de izquierda a derecha
 Comillas simples
 - Ejecute comandos con comillas simples como argumento
