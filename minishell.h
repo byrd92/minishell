@@ -136,6 +136,6 @@ void	ft_check_io(t_mini *mini);
 void     ft_save_stdio(t_mini *mini);
 void    ft_reset_io(t_mini *mini);
 
-int     ft_exit(t_mini *mini, t_list **env);
+int     ft_exit(t_mini *mini, t_list **env, char **content);
 
 #endif

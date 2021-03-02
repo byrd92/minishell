@@ -25,8 +25,6 @@ int    ft_select_build_function(t_mini *mini,  t_list **env, char **envp)
 {
    	t_token *content;
 	t_list *aux;
-	int status;
-	char *comando;
 	char *path;
 	aux = mini->tokens;
 	while (aux)
@@ -46,7 +44,7 @@ int    ft_select_build_function(t_mini *mini,  t_list **env, char **envp)
 		else if(ft_strncmp(content->argv[0], "cd\0", 3) == 0)
 			return (ft_cd(env, content->argv));
 		else if (ft_strncmp(content->argv[0], "exit\0", 5) == 0)
-			ft_exit(mini, env);
+			ft_exit(mini, env, content->argv);
 		else if (ft_strncmp(content->argv[0], "/", 1) == 0 ||
 				ft_strncmp(content->argv[0], "./", 2) == 0 ||
 				ft_strncmp(content->argv[0], "../", 3) == 0)

@@ -56,8 +56,6 @@ char     *search_path(t_list **env, char *program)
 	i = 0;
 	if ((path = ft_lstsearch_content(*env, ft_search_env_path, (void *)"PATH")) != NULL)
 	{
-		ft_printf("%s",path);
-		write(1, "x" ,1);
 		path_directs = ft_split(path->value, ':');
 		while (path_directs[i])
 		{
