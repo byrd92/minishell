@@ -68,7 +68,7 @@ int			ft_print_word(char *str);
 int			ft_strcmp(char *s1, char *s2);
 void        ft_parse_commands(t_mini *mini , t_list **env, int i);
 int    		ft_select_build_function(t_mini *mini,  t_list **env, char **envp);
-void	    ft_select_build_function_fork(t_list *mini,  t_list **env, char **envp);
+int		    ft_select_build_function_fork(t_list *mini,  t_list **env, char **envp);
 int			ft_iscomma(char *str, int *comma);
 
 int			ft_check_pipes(t_list *mini);

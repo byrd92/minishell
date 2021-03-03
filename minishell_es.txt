@@ -33,7 +33,7 @@ Señales
 - No lo intente con líneas múltiples
 env
 - Compruebe que env le muestra las variables de entorno correctas
-export
+#export
 - Exporte variables de entorno, nuevas y remplace las antiguas
 - Compruebe el resultado con env
 unset

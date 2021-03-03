@@ -36,10 +36,8 @@ int		ft_forker(t_mini *mini, int pipes, t_list **env, char **envp)
 	int **fd;
 	int i;
 	int pid;
-	int status;
 	t_list *aux;
 	int j;
-
 
 	j = 0;
 	aux = mini->tokens;
@@ -78,8 +76,7 @@ int		ft_forker(t_mini *mini, int pipes, t_list **env, char **envp)
 				close(fd[i][READ_END]);
 				dup2(fd[i + 1][WRITE_END], STDOUT_FILENO);
 				close(fd[i + 1][WRITE_END]);
-				ft_select_build_function_fork(aux, env, envp);
-				exit(0);
+				exit(ft_select_build_function_fork(aux, env, envp));
 			}
 			close(fd[i][READ_END]);
 			close(fd[i + 1][WRITE_END]);
@@ -99,13 +96,14 @@ int		ft_forker(t_mini *mini, int pipes, t_list **env, char **envp)
 		}
 	}
 	j = 0;
-	wait(&status);
-	while (j++ < (pipes - 2))
-		wait(&status);
-	wait(&status);
+	wait(&mini->dolar);
+	while (j++ < (pipes - 1))
+		wait(&mini->dolar);
+	wait(&mini->dolar);
+	mini->dolar /= 256;
 	i = 0;
 	while(i < pipes)
 		free(fd[i++]);
 	free(fd);
-	return (0);
+	return (mini->dolar);
 }
