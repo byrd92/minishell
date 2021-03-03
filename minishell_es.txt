@@ -65,7 +65,7 @@ Redirección
 - Ejecute comandos con redirecciones < y/o >
 - Repita varias veces con distintos comandos y argumentos y, de vez en cuando, remplace > por >>
 - Compruebe si varias instancias de la misma redirección fallan
-Tuberías
+#Tuberías
 - Ejecute comandos con tuberías (también llamadas "pipes") como 'cat file | grep bla | more'
 - Repita varias veces con distintos comandos y argumentos
 - Pruebe comandos que fallen como 'ls archivonulo | grep bla | more'
