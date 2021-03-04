@@ -35,7 +35,7 @@ int    ft_select_build_function(t_mini *mini,  t_list **env, char **envp)
 		if(ft_strncmp(content->argv[0], "echo\0", 6) == 0)
 			return (ft_echo(env ,content->argv));
 		else if(ft_strncmp(content->argv[0], "export\0", 7) == 0)
-			return (ft_export(env, content->argv[1], content->argv[2]));
+			return (ft_export(env, content->argv));
 		else if(ft_strncmp(content->argv[0], "env\0", 4) == 0)
 			return (ft_env(env));
 		else if(ft_strncmp(content->argv[0], "unset\0", 6) == 0)
@@ -98,7 +98,7 @@ int    ft_select_build_function_fork(t_list *mini,  t_list **env, char **envp)
 	if(ft_strncmp(content->argv[0], "echo\0", 6) == 0)
 		return(ft_echo(env ,content->argv));
 	else if(ft_strncmp(content->argv[0], "export\0", 7) == 0)
-		return(ft_export(env, content->argv[1],content->argv[2]));
+		return(ft_export(env, content->argv));
 	else if(ft_strncmp(content->argv[0], "env\0", 4) == 0)
 		return(ft_env(env));
 	else if(ft_strncmp(content->argv[0], "unset\0", 6) == 0)

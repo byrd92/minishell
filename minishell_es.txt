@@ -31,12 +31,12 @@ Señales
 - Ejecute un comando sencillo con un PATH absoluto y con argumento, pero esta vez utilice comillas (Añada ';' y espacios en el interior de las comillas)
 - Utilice argumentos vacíos y '\'
 - No lo intente con líneas múltiples
-env
+#env
 - Compruebe que env le muestra las variables de entorno correctas
 #export
 - Exporte variables de entorno, nuevas y remplace las antiguas
 - Compruebe el resultado con env
-unset
+#unset
 - Exporte variables de entorno, nuevas y remplace las antiguas
 - Utilice "unset" para retirar algunas
 - Compruebe el resultado con env
@@ -47,7 +47,7 @@ Variables de entorno
 - Utilice el comando cd para desplazarse por el árbol de los directorios y utilice /bin/ls para comprobar que se encuentra en el directorio correcto
 - Repita varias veces con cd que funcionen y que no funcionen
 - Pruebe '.' y '..' como argumento
-pwd
+#pwd
 - Utilice el comando 'pwd', con y sin argumento
 - Repita varias veces en directorios distintos
 #PATH relativo

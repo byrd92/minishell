@@ -28,33 +28,43 @@ static int			ft_search_export(void	*content, void *to_search)
 	return (0);
 }
 
-int			ft_export(t_list **env, char *str, char *str2)
+int			ft_export(t_list **env, char **argv)
 {
 	int		i;
 	t_env	*newenv;
+	char *str;
+	int j;
 
-	i = 0;
-	if (str == NULL)
-		return(0);
-	if ((str2 != NULL && str2[0] == '=') || (str != NULL && str[0] == '='))
+	j = 1;
+	while (argv[j])
 	{
-		ft_printf("bash: export: `=': not a valid identifier\n");
-		return(1);
-	}
-	newenv = (t_env *)malloc(sizeof(t_env) * 1);
-	newenv->name = ft_search_word(str);
-	ft_printf("%s",str);
-	while(str[i] != '=' && str[i])
+		str = ft_strdup(argv[j]);
+
+		i = 0;
+		if (str == NULL)
+			return(0);
+		if ((argv[j + 1] != NULL && argv[j + 1][0] == '=') || (str != NULL && str[0] == '='))
+		{
+			ft_printf("bash: export: `=': not a valid identifier\n");
+			return(1);
+		}
+		newenv = (t_env *)malloc(sizeof(t_env) * 1);
+		newenv->name = ft_search_word(str);
+		ft_printf("%s",str);
+		while(str[i] != '=' && str[i])
+			i++;
+		if (str[i] != '=')
+		{
+			return (0);
+		}
 		i++;
-	if (str[i] != '=')
-	{
-		return (0);
-	}
-	i++;
-	newenv->value = ft_strdup(&str[i]);
-	if (ft_lstsearch((*env),ft_search_export,newenv) == 0)
-	{
-		ft_lstadd_back(env, ft_lstnew(newenv));
+		newenv->value = ft_strdup(&str[i]);
+		if (ft_lstsearch((*env),ft_search_export,newenv) == 0)
+		{
+			ft_lstadd_back(env, ft_lstnew(newenv));
+		}
+		j++;
+		free(str);
 	}
 	return (0);
 }

@@ -99,7 +99,7 @@ void		ft_kill_mini(void *content);
 /*
 **	Command export
 */
-int			ft_export(t_list **env, char *str, char *str2);
+int			ft_export(t_list **env, char **argv);
 /*
 **	Command env
 */

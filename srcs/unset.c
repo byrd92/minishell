@@ -52,6 +52,9 @@ void		ft_lstdelmiddle(t_list **lst, int (*f)(void *, void *), void *to_search)
 
 int			ft_unset(t_list **env, char **argv)
 {
-	ft_lstdelmiddle(env,ft_search_env,argv[1]);
+	int i;
+	i = 1;
+	while (argv[i])
+		ft_lstdelmiddle(env,ft_search_env,argv[i++]);
 	return (0);
 }
