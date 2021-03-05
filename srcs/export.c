@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-static int			ft_search_export(void	*content, void *to_search)
+int			ft_search_export(void	*content, void *to_search)
 {
 	t_env	*env;
 	t_env	*env_to_search;
@@ -50,7 +50,6 @@ int			ft_export(t_list **env, char **argv)
 		}
 		newenv = (t_env *)malloc(sizeof(t_env) * 1);
 		newenv->name = ft_search_word(str);
-		ft_printf("%s",str);
 		while(str[i] != '=' && str[i])
 			i++;
 		if (str[i] != '=')

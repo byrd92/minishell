@@ -84,6 +84,7 @@ char		*ft_find_env(char *str, t_list **env);
 int			ft_search_env(void	*content, void *to_search);
 void		*ft_lstsearch_content(t_list *lst, int (*f)(void *, void *), void *to_search);
 int			skip_space(char *str);
+int			ft_search_export(void	*content, void *to_search);
 /*
 ** lens.c
 */

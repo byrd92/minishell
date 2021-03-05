@@ -12,6 +12,34 @@
 
 #include "../minishell.h"
 
+static int			ft_export_cd(t_list **env, char *argv)
+{
+	int		i;
+	t_env	*newenv;
+	char *str;
+
+		str = ft_strdup(argv);
+
+		i = 0;
+		if (str == NULL)
+			return(0);
+		newenv = (t_env *)malloc(sizeof(t_env) * 1);
+		newenv->name = ft_search_word(str);
+		while(str[i] != '=' && str[i])
+			i++;
+		if (str[i] != '=')
+		{
+			return (0);
+		}
+		i++;
+		newenv->value = ft_strdup(&str[i]);
+		if (ft_lstsearch((*env),ft_search_export,newenv) == 0)
+		{
+			ft_lstadd_back(env, ft_lstnew(newenv));
+		}
+		free(str);
+	return (0);
+}
 
 
 int         ft_cd(t_list **env,  char **argv)
@@ -31,8 +59,8 @@ int         ft_cd(t_list **env,  char **argv)
 	getcwd(oldpwd, 4096);
 	if (chdir(argv[1]) == 0)
 	{
-		ft_export(env, ft_strjoin("OLDPWD=",oldpwd));
-		ft_export(env, ft_strjoin("PWD=",(const char *)getcwd(cwd,256)));
+		ft_export_cd(env, ft_strjoin("OLDPWD=",oldpwd));
+		ft_export_cd(env, ft_strjoin("PWD=",(const char *)getcwd(cwd,256)));
 	}
 	else
 	{
