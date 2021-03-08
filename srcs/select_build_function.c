@@ -31,7 +31,6 @@ int    ft_select_build_function(t_mini *mini,  t_list **env, char **envp)
 	while (aux)
 	{
 		content = (t_token *)aux->content;
-		//ft_printf("->%s\n" , content->argv[1]);
 		if(ft_strncmp(content->argv[0], "echo\0", 6) == 0)
 			return (ft_echo(env ,content->argv));
 		else if(ft_strncmp(content->argv[0], "export\0", 7) == 0)
@@ -80,10 +79,9 @@ int    ft_select_build_function(t_mini *mini,  t_list **env, char **envp)
 		}
 		else
 		{
-			ft_printf("%s: command not found\n", content->argv[0]);
-			return (127);
+		ft_printf("%s: command not found\n", content->argv[0]);
+		//return (127);
 		}
-		
 		aux = aux->next;
 	}
 	return (0);

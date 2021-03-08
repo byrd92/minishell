@@ -36,10 +36,8 @@ static int search_in_dir(char *path, char *program)
 		printf("Error: No se puede abrir el directorio\n");
 		return (0);
 	}
-	//printf("i-nodo\toffset\t\tlong\ttype\tnombre\n");
 	while ((direntp = readdir(dirp)) != NULL)
 	{
-	//	printf("%ld\t%ld\t%d\t%u\t%s\n", direntp->d_ino, direntp->d_off, direntp->d_reclen, direntp->d_type, direntp->d_name);
 		if (direntp->d_type == 8 && !ft_strncmp(direntp->d_name, program, ft_strlen(program) + 1))
 			return (1);
 	}

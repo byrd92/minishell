@@ -57,10 +57,16 @@ int         ft_cd(t_list **env,  char **argv)
 		return (1);
 	}
 	getcwd(oldpwd, 4096);
-	if (chdir(argv[1]) == 0)
+	if (argv[1] == NULL)
+	{
+		chdir(ft_find_env("$HOME", env));;
+		ft_export_cd(env, ft_strjoin("OLDPWD=",oldpwd));
+		ft_export_cd(env, ft_strjoin("PWD=",(const char *)getcwd(cwd,4096)));
+	}
+	else if (chdir(argv[1]) == 0)
 	{
 		ft_export_cd(env, ft_strjoin("OLDPWD=",oldpwd));
-		ft_export_cd(env, ft_strjoin("PWD=",(const char *)getcwd(cwd,256)));
+		ft_export_cd(env, ft_strjoin("PWD=",(const char *)getcwd(cwd,4096)));
 	}
 	else
 	{
