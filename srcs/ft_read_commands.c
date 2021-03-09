@@ -20,11 +20,11 @@ int		ft_iscomma(char *str, int *comma)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == 39 && *comma == 0)
+		if (str[i] == 39  && str[i - 1] != 92 && *comma == 0)
 			*comma = 1;
-		else if (str[i] == 34 && *comma == 0)
+		else if (str[i] == 34 && str[i - 1] != 92 && *comma == 0)
 			*comma = 2;
-		else if((str[i] == 34 || str[i] == 39) && *comma > 0)
+		else if((str[i] == 34 || str[i] == 39) && str[i - 1] != 92 && *comma > 0)
 			*comma = 0;
 		i++;
 	}

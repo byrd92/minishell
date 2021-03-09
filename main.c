@@ -9,93 +9,73 @@
 /*   Updated: 2020/11/19 18:26:21 by egarcia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
-
 #include "minishell.h"
 
-
-void		ft_kill_commands(t_mini *mini)
+static void	hace_todo(t_mini *mini, t_list **env, char **envp, int *i)
 {
-	int i;
+	int	pipes;
 
-	i = 0;
-
-	while ((mini->commands)[i])
-	{
-		free((mini->commands)[i]);
-		i++;
-	}	
+	ft_parse_commands(mini, env, *i);
+	ft_check_io(mini);
+	pipes = ft_check_pipes(mini->tokens);
+	if (pipes)
+		mini->dolar = ft_forker(mini, pipes, env, envp);
+	else
+		mini->dolar = ft_select_build_function(mini, env, envp);
+	*i = *i + 1;
+	ft_lstclear(&mini->tokens, ft_kill_mini);
 }
 
-void		ft_kill_env(void *content)
+static void	bucle_main(t_mini *mini, t_list **env, char **envp)
 {
-	t_env *env;
-	
-	env = (t_env *)content;
-	free(env->name);
-	free(env->value);
-	free(env);
-}
-
-void		ft_kill_mini(void *content)
-{
-	t_token *mini;
-
-	mini = (t_token *)content;
-	int i;
+	int	i;
 
 	i = 0;
-	while (mini->argv[i])
+	while (ft_read_commands(mini))
 	{
-		free(mini->argv[i]);
-		i++;
+		i = 0;
+		while (mini->commands[i])
+		{
+			if (ft_dolar(mini->commands[i], mini))
+				i++;
+			else
+			{	
+				hace_todo(mini, env, envp, &i);
+			}	
+		}
+		ft_reset_io(mini);
+		ft_lstclear(&mini->tokens, ft_kill_mini);
+		ft_kill_commands(mini);
+		init_mini(mini);
+		ft_printf("minivid > ");
 	}
-	free(mini->argv);
-	free(mini);
 }
 
-static void		ft_environment(t_list **env, char **envp)
+static void	ft_environment(t_list **env, char **envp)
 {
 	t_env	*newenv;
-
-	int i;
-	int j;
+	int		i;
+	int		j;
 
 	i = -1;
 	j = 0;
-
-	while(envp[++i])
+	while (envp[++i])
 	{
 		j = 0;
 		newenv = (t_env *)malloc(sizeof(t_env) * 1);
 		newenv->name = ft_search_word(envp[i]);
-		while(envp[i][j] != '=')
+		while (envp[i][j] != '=')
 			j++;
 		j++;
 		newenv->value = ft_strdup(&envp[i][j]);
-		t_list *new = ft_lstnew((const void *)newenv);
-		ft_lstadd_back(env, new);
+		ft_lstadd_back(env, ft_lstnew((const void *)newenv));
 	}
 }
 
-void		init_mini(t_mini *mini)
-{
-	mini->commands = NULL;
-	mini->tokens = NULL;
-	mini->in = 0;
-	mini->out = 0;
-	mini->newin = 0;
-	mini->newout = 0;
-	mini->strcmd = NULL;
-}
-
-int			main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
 	t_list	*env;
 	t_mini	mini;
-	int i;
-	int pipes;
 
 	init_mini(&mini);
 	mini.dolar = 0;
@@ -105,33 +85,7 @@ int			main(int argc, char **argv, char **envp)
 	ft_printf("minivid > ");
 	ft_save_stdio(&mini);
 	signal(SIGINT, (void (*)(int))sighandler);
-	
-	while (ft_read_commands(&mini))
-	{
-
-		i = 0;
-		while (mini.commands[i])
-		{	if (ft_dolar(mini.commands[i], &mini))
-				i++;
-			else
-			{	ft_parse_commands(&mini, &env, i);
-				ft_check_io(&mini);
-				//mini.out = ft_output(&mini);
-				pipes = ft_check_pipes(mini.tokens);
-				if (pipes)
-					mini.dolar = ft_forker(&mini, pipes, &env, envp);
-				else
-					mini.dolar = ft_select_build_function(&mini, &env, envp);
-				i++;
-				ft_lstclear(&mini.tokens, ft_kill_mini);
-			}	
-		}
-		ft_reset_io(&mini);
-		ft_lstclear(&mini.tokens, ft_kill_mini);
-		ft_kill_commands(&mini);
-		init_mini(&mini);
-		ft_printf("minivid > ");
-	}
+	bucle_main(&mini, &env, envp);
 	ft_lstclear(&env, ft_kill_env);
 	(void)argc;
 	(void)argv;

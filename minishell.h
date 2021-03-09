@@ -96,6 +96,7 @@ int			ft_strlen_env(char *str);
 
 void		ft_kill_env(void *content);
 void		ft_kill_mini(void *content);
+void		init_mini(t_mini *mini);
 
 /*
 **	Command export

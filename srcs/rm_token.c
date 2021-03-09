@@ -51,7 +51,7 @@ void		rm_token(char **argv)
 			rm_backslash(argv, &i);
 			rm_char(argv, i);
 		}
-		else if (((*argv)[i] == '\\'))
+		else if ((*argv)[i] == 92)
 			rm_char(argv, i++);
 		else
 			i++;
