@@ -10,10 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
 #include "minishell.h"
-
 
 void		ft_kill_commands(t_mini *mini)
 {
@@ -100,11 +97,11 @@ int			main(int argc, char **argv, char **envp)
 	init_mini(&mini);
 	mini.dolar = 0;
 	env = NULL;
-	signal(SIGQUIT, (void (*)(int))sighandler);
+	signal(SIGQUIT, &sighandler);
 	ft_environment(&env, envp);
 	ft_printf("minivid > ");
 	ft_save_stdio(&mini);
-	signal(SIGINT, (void (*)(int))sighandler);
+	signal(SIGINT, &sighandler);
 	
 	while (ft_read_commands(&mini))
 	{

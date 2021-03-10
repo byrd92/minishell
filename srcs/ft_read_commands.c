@@ -36,12 +36,35 @@ ctrl + d = sigexit, si no hay nada escrito sale, si hay algo escrito no permite
 */
 void	sighandler(const int sig)
 {
+	int		child;
+	int		i;
+
+	i = 0;
+	child = 0;
 
 	if (sig == SIGINT)
 	{
-			write(STDOUT_FILENO, "\033[2D\033[J", 7);
+		ft_putstr_fd("\0", 0);
+		ft_putstr_fd("\b\b  \b\b", 0);
+		while ((child = wait(NULL)) > 0)
+			i++;
+		if (i)
+			ft_putstr_fd("^C\n", 1);
+		else
 			write(1,"\nminivid > ", 11);
 	}
+	else if (sig == SIGQUIT)
+	{
+		while ((child = wait(NULL)) > 0)
+			i++;
+		if (i)
+		{
+			ft_putstr_fd("Quit: 3\n", 1);
+			return ;
+		}
+		ft_putstr_fd("\b\b  \b\b", 2);
+	}
+	
 }
 
 int			ft_read_commands(t_mini *mini)
