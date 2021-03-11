@@ -15,6 +15,19 @@
 #include <fcntl.h>
 #include <stdio.h>
 
+static void	ft_bzero(void *s, size_t n)
+{
+	char	*ptr;
+
+	ptr = (char*)s;
+	while (n)
+	{
+		*ptr = '\0';
+		ptr++;
+		n--;
+	}
+}
+
 char	*ft_strchr_get(const char *s, int c)
 {
 	int	i;
@@ -53,28 +66,36 @@ int		appendline(int ret, int fd, char **rest, char **line)
 	return (0);
 }
 
-int		get_next_line(int fd, char **line)
+int		get_next_line(int fd, char **line, int salir)
 {
-	char		*buffer;
+	char		buffer[2];
 	static char	*rest[4096];
 	int			ret;
 	char		*temp;
 
-	if (fd < 0 || line == NULL || BUFFER_SIZE <= 0 ||
-	(!(buffer = (char *)malloc(BUFFER_SIZE + 1))))
+	ft_bzero(buffer, 2);
+	if (fd < 0 || line == NULL || BUFFER_SIZE <= 0)
 		return (-1);
-	if (rest[fd] == NULL)
-		rest[fd] = ft_strdup_get("");
-	while ((ret = read(fd, buffer, BUFFER_SIZE)) > 0)
+	while (1)
 	{
-		buffer[ret] = '\0';
-		temp = ft_strjoin_get(rest[fd], buffer);
-		free(rest[fd]);
-		rest[fd] = ft_strdup_get(temp);
-		free(temp);
-		if (ft_strchr_get(rest[fd], '\n'))
+		if (rest[fd] == NULL)
+		rest[fd] = ft_strdup_get("");
+		while ((ret = read(fd, buffer, 1)) && !salir)
+		{
+			buffer[ret] = '\0';
+			temp = ft_strjoin_get(rest[fd], buffer);
+			free(rest[fd]);
+			rest[fd] = ft_strdup_get(temp);
+			free(temp);
+			if (ft_strchr_get(rest[fd], '\n'))
+				break ;
+		}
+			write(1, "x", 1);
+			write(1, *line, ft_strlen_get(*line));
+			write(1, "x", 1);
+		if (ret || (!ret && !ft_strlen_get(*line)))
 			break ;
 	}
-	free(buffer);
+	write(1, "x", 1);
 	return (appendline(ret, fd, rest, line));
 }

@@ -13,7 +13,7 @@
 #include "../minishell.h"
 
 
-int		ft_iscomma(char *str, int *comma)
+/*int		ft_iscomma(char *str, int *comma)
 {
 	int i;
 	
@@ -29,7 +29,7 @@ int		ft_iscomma(char *str, int *comma)
 		i++;
 	}
 	return (*comma);
-}
+}*/
 /*
 crl + c = sigint, borra lo que tiene y lanza  nueva linea.
 ctrl + d = sigexit, si no hay nada escrito sale, si hay algo escrito no permite
@@ -48,10 +48,12 @@ void	sighandler(const int sig)
 		ft_putstr_fd("\b\b  \b\b", 0);
 		while ((child = wait(NULL)) > 0)
 			i++;
+		salir_d = 1;
 		if (i)
 			ft_putstr_fd("^C\n", 1);
 		else
 			write(1,"\nminivid > ", 11);
+		ft_putstr_fd("\0", 0);
 	}
 	else if (sig == SIGQUIT)
 	{
@@ -70,36 +72,35 @@ void	sighandler(const int sig)
 int			ft_read_commands(t_mini *mini)
 {
 	int		ret;
-	char	*line;
 	char	*str;
 	char	*aux;
-	int		comma;
+	char buf[2];
 
 	ret = 1;
-	str = NULL;
-	comma = 0;
-
+	ft_bzero(buf, 2);
+	str = ft_calloc(1, sizeof(char));
 	while (1)
 	{
+		salir_d = 0;
 		if (str == NULL)
-			str = ft_strdup("");
-		ret = get_next_line(0, &line);
-
-		if (ret < 0)
-			return(-1);
-		aux = ft_strjoin(str, line);
-		free(str);
-		str = aux;
-		if (ft_iscomma(line, &comma))
+			ft_strdup("");
+		while((ret = read(0, buf, 1)) && !salir_d)
 		{
-			aux = ft_strjoin(str, "\n");
-			free(str);
-			str = aux;
-			continue;
+			if ((*buf == '\n' || *buf == 0x04))
+			{
+				break ;
+			}
+			aux = str;
+			str = ft_strjoin(str, buf);
+			free(aux);
+			salir_d = 0;
 		}
-		mini->commands = ft_split(str, ';');
-		free(line);
-		return (ret);
+		if (ret || (!ret && !ft_strlen(str)))
+		{
+			break ;
+		}
 	}
-	return (0);
+	mini->commands = ft_split(str, ';');
+	free(str);
+	return (ret);
 }

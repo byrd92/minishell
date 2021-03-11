@@ -27,7 +27,12 @@
 # include <fcntl.h>
 # include <sys/wait.h>
 
-typedef struct	s_mini
+# define READ_END 0 //extremo de escritura
+# define WRITE_END 1 //extremo de lectura
+
+int salir_d;
+
+typedef struct s_mini
 {
 	int		newin;
 	int		newout;

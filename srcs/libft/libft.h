@@ -81,6 +81,6 @@ char				*ft_strcpy(char *dest, const char *src);
 char				*ft_search_word(char *str);
 
 int					ft_printf(const char *format, ...);
-int					get_next_line(int fd, char **line);
+int					get_next_line(int fd, char **line, int salir);
 
 #endif
