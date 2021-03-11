@@ -32,6 +32,7 @@
 #include <sys/wait.h>
 
 
+int salir_d;
 
 typedef struct s_mini
 {

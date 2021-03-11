@@ -105,7 +105,7 @@ int			main(int argc, char **argv, char **envp)
 	
 	while (ft_read_commands(&mini))
 	{
-
+		salir_d = 0;
 		i = 0;
 		while (mini.commands[i])
 		{	if (ft_dolar(mini.commands[i], &mini))
@@ -132,4 +132,6 @@ int			main(int argc, char **argv, char **envp)
 	ft_lstclear(&env, ft_kill_env);
 	(void)argc;
 	(void)argv;
+	ft_putstr_fd("exit", 1);
+	return (131);
 }
