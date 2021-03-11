@@ -33,7 +33,7 @@ static int search_in_dir(char *path, char *program)
 	dirp = opendir(path);
 	if (dirp == NULL)
 	{
-		printf("Error: No se puede abrir el directorio\n");
+		//printf("Error: No se puede abrir el directorio\n");
 		return (0);
 	}
 	while ((direntp = readdir(dirp)) != NULL)
