@@ -72,7 +72,7 @@ void		ft_create_token(t_mini *mini, int i)
 }
 
 
-static	int		ft_change_env(char **str, int i, t_list **env)
+int		ft_change_env(char **str, int i, t_list **env)
 {
 	char *start;
 	char *tmp;
@@ -106,7 +106,7 @@ void	ft_check_env(char **str, t_list **env)
 		if ((*str)[i] == 34 || (*str)[i] == 39 )
 			quote = quote == 0 ? (*str)[i] : 0;
 		if ((*str)[i] == '$' && quote != 39 && (*str)[i - 1] != '\\')
-			i += ft_change_env(str, i ,env);
+			i += ft_change_env(str, i ,env) - 1;
 		i++;
 	}
 }

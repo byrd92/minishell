@@ -49,9 +49,7 @@ char		**ft_split_mini(char *str)
 	return (array);
 }
 
-
-
-void			*ft_lstsearch_content(t_list *lst, int (*f)(void *, void *), void *to_search)
+void		*ft_lstsearch_content(t_list *lst, int (*f)(void *, void *), void *to_search)
 {
 	t_list	*ptr;
 

@@ -12,9 +12,9 @@
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-//# include "srcs/getnextline/get_next_line.h"
+# define READ_END 0
+# define WRITE_END 1
 # include "srcs/libft/libft.h"
-//# include "srcs/printf/libftprintf.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -25,118 +25,163 @@
 # include <string.h>
 # include <sys/wait.h>
 # include <fcntl.h>
+# include <sys/wait.h>
 
-# define READ_END 0 //extremo de escritura
-# define WRITE_END 1 //extremo de lectura
-
-#include <sys/wait.h>
-
-
-
-typedef struct s_mini
+typedef struct	s_mini
 {
-		int		newin;
-		int		newout;
-		int		mainout;
-		int		mainin;
-		int		in;
-		int		out;
-		int		dolar;
-		char	*strcmd;
-		char	**commands;
-		t_list	*tokens;
+	int		newin;
+	int		newout;
+	int		mainout;
+	int		mainin;
+	int		in;
+	int		out;
+	int		dolar;
+	char	*strcmd;
+	char	**commands;
+	t_list	*tokens;
 }				t_mini;
 
-typedef struct s_token
+typedef struct	s_token
 {
-		int		type;
-		char	**argv;		
+	int		type;
+	char	**argv;
 }				t_token;
 
-typedef struct s_env 
+typedef struct	s_env 
 {
-	char		*name;
-	char		*value;
+	char	*name;
+	char	*value;
 }				t_env;
 
-void		rm_token(char **arg);
+/*
+** MAIN
+*/
 void		ft_kill_commands(t_mini *mini);
-int			ft_read_commands(t_mini *mini);
+void		ft_kill_env(void *content);
+void		ft_kill_mini(void *content);
+void		init_mini(t_mini *mini);
 
-char		*ft_search_word(char *str);
-int			ft_print_word(char *str);
-int			ft_strcmp(char *s1, char *s2);
-void        ft_parse_commands(t_mini *mini , t_list **env, int i);
-int    		ft_select_build_function(t_mini *mini,  t_list **env, char **envp);
-int		    ft_select_build_function_fork(t_list *mini,  t_list **env, char **envp);
-int			ft_iscomma(char *str, int *comma);
+/*
+** CD
+*/
+
+int			ft_cd(t_list **env, char **argv);
+
+/*
+** CHECK PIPE
+*/
 
 int			ft_check_pipes(t_list *mini);
 
 /*
-** Utils.c
+** ENV
 */
-void		sighandler(const int sig);
-char		*ft_strdup_sep(char *str, int c);
-char		**ft_split_mini(char *str);
-char		*ft_strldup(char *str, int i);
-char		*ft_find_env(char *str, t_list **env);
-int			ft_search_env(void	*content, void *to_search);
-void		*ft_lstsearch_content(t_list *lst, int (*f)(void *, void *), void *to_search);
-int			skip_space(char *str);
-int			ft_search_export(void	*content, void *to_search);
-/*
-** lens.c
-*/
-int			argc_size(char *str);
-int			ft_strlen_char(char *str, char c);
-int			ft_strlen_arg(char *str);
-int			ft_strlen_env(char *str);
 
-
-void		ft_kill_env(void *content);
-void		ft_kill_mini(void *content);
-
-/*
-**	Command export
-*/
-int			ft_export(t_list **env, char **argv);
-/*
-**	Command env
-*/
 int			ft_env(t_list **env);
+int			ft_search_env(void	*content, void *to_search);
+char		*ft_find_env(char *str, t_list **env);
 
 /*
-** Command unset
+** EXIT
 */
-int			ft_unset(t_list **env, char **argv);
+
+void		ft_destroy_mini(t_mini *mini);
+int			ft_exit(t_mini *mini, t_list **env, char **content);
 
 /*
-** Command echo
+** EXPORT
 */
-int      	ft_echo(t_list **env, char **argv);
 
-int			ft_pwd();
-
-char		*search_path(t_list **env, char *program);
-int         ft_cd(t_list **env,  char **argv);
-
-int     ft_dolar(char *comand, t_mini *mini);
+int			ft_search_export(void	*content, void *to_search);
+int			ft_export(t_list **env, char **argv);
 
 /*
-** forks
+** FORKER
 */
 
 void		ft_create_pipes(int num_pipes, int ***fd);
 int			ft_forker(t_mini *mini, int pipes, t_list **env, char **envp);
 
 /*
-** ft_io
+** DOLAR
 */
-void	ft_check_io(t_mini *mini);
-void     ft_save_stdio(t_mini *mini);
-void    ft_reset_io(t_mini *mini);
 
-int     ft_exit(t_mini *mini, t_list **env, char **content);
+int			ft_dolar(char *comand, t_mini *mini);
 
+/*
+** ECHO
+*/
+int			ft_echo(t_list **env, char **argv);
+
+/*
+** IO
+*/
+void		ft_save_stdio(t_mini *mini);
+void		ft_reset_io(t_mini *mini);
+void		ft_check_io(t_mini *mini);
+
+/*
+** PARSER COMMAND
+*/
+int			ft_datatype(char *tmp, t_token *data);
+void		ft_new_token(t_mini *mini,char *command);
+void		ft_create_token(t_mini *mini, int i);
+void		ft_check_env(char **str, t_list **env);
+void		ft_parse_commands(t_mini *mini , t_list **env, int i);
+int			ft_change_env(char **str, int i, t_list **env);
+void		ft_parse_commands(t_mini *mini , t_list **env, int i);
+
+/*
+** READ COMMANDS
+*/
+int			ft_iscomma(char *str, int *comma);
+void		sighandler(const int sig);
+int			ft_read_commands(t_mini *mini);
+
+/*
+** LENS
+*/
+int			skip_space(char *str);
+int			argc_size(char *str);
+int			ft_strlen_char(char *str, char c);
+int			ft_strlen_arg(char *str);
+int			ft_strlen_env(char *str);
+
+/*
+** PWD
+*/
+int			ft_pwd();
+
+/*
+** RM TOKEN
+*/
+void		rm_char(char **str, int j);
+int			is_token(char c);
+void		rm_backslash(char **arg, int *i);
+void		rm_token(char **argv);
+
+/*
+** SEARCH PATH
+*/
+
+char		*search_path(t_list **env, char *program);
+
+/*
+** SELECT BUILD FUNCTION
+*/
+int			ft_select_build_function(t_mini *mini,  t_list **env, char **envp);
+int			ft_select_build_function_fork(t_list *mini,  t_list **env, char **envp);
+
+/*
+** UNSET
+*/
+void		ft_lstdelmiddle(t_list **lst, int (*f)(void *, void *), void *to_search);
+int			ft_unset(t_list **env, char **argv);
+
+/*
+** UTILS
+*/
+char		*ft_strldup(char *str, int size);
+char		**ft_split_mini(char *str);
+void		*ft_lstsearch_content(t_list *lst, int (*f)(void *, void *), void *to_search);
 #endif

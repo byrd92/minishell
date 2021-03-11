@@ -13,14 +13,14 @@ void		rm_char(char **str, int j)
 	free(start);
 }
 
-static int		is_token(char c)
+int			is_token(char c)
 {
 	if (c == '"' || c == '\\')
 		return (1);
 	return (0);
 }
 
-static void	rm_backslash(char **arg, int *i)
+void		rm_backslash(char **arg, int *i)
 {
 	while ((*arg)[*i])
 	{

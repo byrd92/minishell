@@ -92,11 +92,11 @@ int		ft_strlen_env(char *str)
 {
 	int i;
 
-	i = 0;
+	i = 1;
 
 	if (str[i] == ' ')
 		return (0);
-	while (str[i] && str[i] != '\'' && str[i] != '"' && str[i] != ' ')
+	while (str[i] && str[i] != '\'' && str[i] != '"' && str[i] != ' ' && str[i] != '$')
 		i++;
 	return (i); 
 }
