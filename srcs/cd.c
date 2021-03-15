@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-static	int		ft_export_cd(t_list **env, char *argv)
+static	int			ft_export_cd(t_list **env, char *argv)
 {
 	int		i;
 	t_env	*newenv;
@@ -35,8 +35,9 @@ static	int		ft_export_cd(t_list **env, char *argv)
 	free(str);
 	return (0);
 }
-static	void		ft_switch_pwd(char **argv, t_list **env, 
-				char *oldpwd, char *cwd)
+
+static	void		ft_switch_pwd(t_list **env, 
+					char *oldpwd, char *cwd, char **argv)
 {
 	if (argv[1] == NULL)
 		chdir(ft_find_env("$HOME", env));
@@ -44,7 +45,7 @@ static	void		ft_switch_pwd(char **argv, t_list **env,
 	ft_export_cd(env, ft_strjoin("PWD=", (const char *)getcwd(cwd, 4096)));
 }
 
-int				ft_cd(t_list **env, char **argv)
+int					ft_cd(t_list **env, char **argv)
 {
 	char	cwd[4096];
 	char	oldpwd[4096];
@@ -60,9 +61,9 @@ int				ft_cd(t_list **env, char **argv)
 	}
 	getcwd(oldpwd, 4096);
 	if (argv[1] == NULL)
-		ft_switch_pwd(env, oldpwd, cwd);
+		ft_switch_pwd(env, oldpwd, cwd, argv);
 	else if (chdir(argv[1]) == 0)
-		ft_switch_pwd(env, oldpwd, cwd);
+		ft_switch_pwd(env, oldpwd, cwd, argv);
 	else
 	{
 		ft_printf("bash: cd: %s: No such file or directory\n", argv[1]);

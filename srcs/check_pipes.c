@@ -14,8 +14,8 @@
 
 int		ft_check_pipes(t_list *mini)
 {
-   	t_token *content;
-	int pipe;
+	t_token		*content;
+	int			pipe;
 
 	pipe = 0;
 	while (mini)
