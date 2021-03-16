@@ -6,7 +6,7 @@
 /*   By: egarcia- <egarcia-@42madrid.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/15 19:44:13 by egarcia-          #+#    #+#             */
-/*   Updated: 2021/03/16 13:15:27 by egarcia-         ###   ########.fr       */
+/*   Updated: 2021/03/16 18:01:20 by egarcia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int		end_quote(char *str, int quote)
 {
 	int i;
 
-	i = 0;
+	i = 1;
 	if (str[i] == 34 || str[i] == 39)
 		i++;
 	while (str[i] != quote)
@@ -37,7 +37,7 @@ int				argc_size(char *str)
 	i += skip_space(str);
 	while (str[i])
 	{
-		if (str[i] == ' ' && str[i + 1])
+		if (str[i] == ' ' &&  str[i + 1] && str[i + 1] != ' ')
 		{
 			i += skip_space(&str[i]);
 			if (str[i] == 34 || str[i] == 39)
