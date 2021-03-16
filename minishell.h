@@ -85,7 +85,7 @@ int			ft_check_pipes(t_list *mini);
 int			ft_env(t_list **env);
 int			ft_search_env(void	*content, void *to_search);
 char		*ft_find_env(char *str, t_list **env);
-
+void		ft_environment(t_list **env, char **envp);
 /*
 ** EXIT
 */
@@ -124,6 +124,13 @@ int			ft_echo(t_list **env, char **argv);
 void		ft_save_stdio(t_mini *mini);
 void		ft_reset_io(t_mini *mini);
 void		ft_check_io(t_mini *mini);
+
+/*
+** FT_KILL
+*/
+void		ft_kill_commands(t_mini *mini);
+void		ft_kill_env(void *content);
+void		ft_kill_mini(void *content);
 
 /*
 ** PARSER COMMAND
@@ -173,6 +180,7 @@ char		*search_path(t_list **env, char *program);
 /*
 ** SELECT BUILD FUNCTION
 */
+void		child_sig_handler_bash(int sig);
 int			ft_select_build_function(t_mini *mini,  t_list **env, char **envp);
 int			ft_select_build_function_fork(t_list *mini,  t_list **env, char **envp);
 
