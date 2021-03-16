@@ -128,7 +128,6 @@ void		ft_check_io(t_mini *mini);
 /*
 ** PARSER COMMAND
 */
-int			ft_datatype(char *tmp, t_token *data);
 void		ft_new_token(t_mini *mini,char *command);
 void		ft_create_token(t_mini *mini, int i);
 void		ft_check_env(char **str, t_list **env);
@@ -146,7 +145,6 @@ int			ft_read_commands(t_mini *mini);
 /*
 ** LENS
 */
-int			skip_space(char *str);
 int			argc_size(char *str);
 int			ft_strlen_char(char *str, char c);
 int			ft_strlen_arg(char *str);
@@ -156,6 +154,7 @@ int			ft_strlen_env(char *str);
 ** PWD
 */
 int			ft_pwd();
+int			skip_space(char *str);
 
 /*
 ** RM TOKEN
@@ -189,4 +188,5 @@ int			ft_unset(t_list **env, char **argv);
 char		*ft_strldup(char *str, int size);
 char		**ft_split_mini(char *str);
 void		*ft_lstsearch_content(t_list *lst, int (*f)(void *, void *), void *to_search);
+int			ft_datatype(char *tmp, t_token *data);
 #endif

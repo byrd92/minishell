@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: egarcia- <egarcia-@42madrid.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/27 20:06:52 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/11/27 20:08:03 by jalcayne         ###   ########.fr       */
+/*   Created: 2021/01/19 11:00:15 by jalcayne          #+#    #+#             */
+/*   Updated: 2021/03/16 11:54:13 by egarcia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 static void		ft_printenv(void *content)
 {
-	t_env *env;
+	t_env	*env;
 
 	env = (t_env *)content;
 	ft_printf("%s=%s\n", env->name, env->value);
 }
 
-int			ft_env(t_list **env)
+int				ft_env(t_list **env)
 {
 	ft_lstiter(*env, ft_printenv);
 	return (0);
 }
 
-int			ft_search_env(void	*content, void *to_search)
-{ 
+int				ft_search_env(void *content, void *to_search)
+{
 	t_env	*env;
 	char	*name_to_search;
 
@@ -39,7 +39,7 @@ int			ft_search_env(void	*content, void *to_search)
 	return (0);
 }
 
-char	*ft_find_env(char *str, t_list **env)
+char			*ft_find_env(char *str, t_list **env)
 {
 	int		i;
 	t_env	*tmp;
@@ -51,7 +51,7 @@ char	*ft_find_env(char *str, t_list **env)
 		i++;
 	token = malloc(sizeof(char *) * i + 1);
 	ft_strncpy(token, str + 1, i - 1);
-	if ((tmp = (t_env *)ft_lstsearch_content((*env), 
+	if ((tmp = (t_env *)ft_lstsearch_content((*env),
 		ft_search_env, token)) != NULL)
 		return (tmp->value);
 	return (NULL);

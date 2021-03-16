@@ -21,6 +21,7 @@ static void	child_sig_handler_bash(int sig)
 	}
 }
 
+
 int    ft_select_build_function(t_mini *mini,  t_list **env, char **envp)
 {
    	t_token *content;
@@ -138,10 +139,6 @@ int    ft_select_build_function_fork(t_list *mini,  t_list **env, char **envp)
 		write(2, content->argv[0], ft_strlen(content->argv[0]));
 		write(2, ": command not found\n", 20);
 	}
-	/*else
-	{
-		execve(ft_strjoin(search_path(env, content->argv[0]),ft_strjoin("/", content->argv[0])), content->argv, envp);
-	}*/
-	
+
 	exit(0);
 }

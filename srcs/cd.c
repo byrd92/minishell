@@ -6,7 +6,7 @@
 /*   By: egarcia- <egarcia-@42madrid.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 12:53:38 by egarcia-          #+#    #+#             */
-/*   Updated: 2021/03/11 12:53:38 by egarcia-         ###   ########.fr       */
+/*   Updated: 2021/03/16 11:52:10 by egarcia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static	int			ft_export_cd(t_list **env, char *argv)
 	return (0);
 }
 
-static	void		ft_switch_pwd(t_list **env, 
+static	void		ft_switch_pwd(t_list **env,
 					char *oldpwd, char *cwd, char **argv)
 {
 	if (argv[1] == NULL)
