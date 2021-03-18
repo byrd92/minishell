@@ -16,19 +16,29 @@ static int		ft_countwords(char const *s, char c)
 {
 	int i;
 	int words;
+	int comma;
 
+	comma = 0;
 	i = 0;
 	words = 0;
 	while (s[i])
 	{
-		if (s[i] == c)
+		if (s[i] == 34 || s[i] == 39)
+			comma = 1;
+		if (s[i] == c && comma == 0)
 		{
 			i++;
 			continue ;
 		}
 		words++;
-		while (s[i] && s[i] != c)
+		while (s[i] && (s[i] != c || comma == 1))
+		{
+			if ((s[i] == 34 || s[i] == 39) && comma == 1)
+				comma = 0;
+			else if (s[i] == 34 || s[i] == 39)
+				comma = 1;
 			i++;
+		}
 	}
 	return (words);
 }
@@ -36,13 +46,19 @@ static int		ft_countwords(char const *s, char c)
 static int		size_nextword(char const *s, char c, int i)
 {
 	int counter;
+	int comma;
 
+	comma = 0;
 	while (s[i] == c && s[i])
 		i++;
 	counter = 0;
 	while (s[i])
 	{
-		if (s[i] == c)
+		if ((s[i] == 34 || s[i] == 39) && comma == 1)
+				comma = 0;
+		else if (s[i] == 34 || s[i] == 39)
+			comma = 1;
+		if (s[i] == c && comma == 0)
 			return (counter);
 		counter++;
 		i++;
@@ -53,13 +69,19 @@ static int		size_nextword(char const *s, char c, int i)
 static int		save_word(char *str, char const *s, char c, int i)
 {
 	int j;
+	int comma;
 
+	comma = 0;
 	j = 0;
 	while (s[i] == c)
 		i++;
 	while (s[i])
 	{
-		if (s[i] == c)
+		if ((s[i] == 34 || s[i] == 39) && comma == 1)
+				comma = 0;
+		else if (s[i] == 34 || s[i] == 39)
+			comma = 1;
+		if (s[i] == c && comma == 0)
 		{
 			str[j] = '\0';
 			return (i);
