@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_pipes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egarcia- <emilioggo@gmail.com>             +#+  +:+       +#+        */
+/*   By: egarcia- <egarcia-@42madrid.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 16:05:51 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/12/28 11:41:14 by egarcia-         ###   ########.fr       */
+/*   Updated: 2021/03/16 11:52:25 by egarcia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int		ft_check_pipes(t_list *mini)
 {
-   	t_token *content;
-	int pipe;
+	t_token		*content;
+	int			pipe;
 
 	pipe = 0;
 	while (mini)

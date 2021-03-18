@@ -85,7 +85,7 @@ int			ft_check_pipes(t_list *mini);
 int			ft_env(t_list **env);
 int			ft_search_env(void	*content, void *to_search);
 char		*ft_find_env(char *str, t_list **env);
-
+void		ft_environment(t_list **env, char **envp);
 /*
 ** EXIT
 */
@@ -126,9 +126,15 @@ void		ft_reset_io(t_mini *mini);
 void		ft_check_io(t_mini *mini);
 
 /*
+** FT_KILL
+*/
+void		ft_kill_commands(t_mini *mini);
+void		ft_kill_env(void *content);
+void		ft_kill_mini(void *content);
+
+/*
 ** PARSER COMMAND
 */
-int			ft_datatype(char *tmp, t_token *data);
 void		ft_new_token(t_mini *mini,char *command);
 void		ft_create_token(t_mini *mini, int i);
 void		ft_check_env(char **str, t_list **env);
@@ -146,7 +152,6 @@ int			ft_read_commands(t_mini *mini);
 /*
 ** LENS
 */
-int			skip_space(char *str);
 int			argc_size(char *str);
 int			ft_strlen_char(char *str, char c);
 int			ft_strlen_arg(char *str);
@@ -156,6 +161,7 @@ int			ft_strlen_env(char *str);
 ** PWD
 */
 int			ft_pwd();
+int			skip_space(char *str);
 
 /*
 ** RM TOKEN
@@ -174,6 +180,7 @@ char		*search_path(t_list **env, char *program);
 /*
 ** SELECT BUILD FUNCTION
 */
+void		child_sig_handler_bash(int sig);
 int			ft_select_build_function(t_mini *mini,  t_list **env, char **envp);
 int			ft_select_build_function_fork(t_list *mini,  t_list **env, char **envp);
 
@@ -189,4 +196,5 @@ int			ft_unset(t_list **env, char **argv);
 char		*ft_strldup(char *str, int size);
 char		**ft_split_mini(char *str);
 void		*ft_lstsearch_content(t_list *lst, int (*f)(void *, void *), void *to_search);
+int			ft_datatype(char *tmp, t_token *data);
 #endif
