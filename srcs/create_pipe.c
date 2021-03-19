@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalcayne <jalcayne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jalcayne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/16 13:07:20 by jalcayne          #+#    #+#             */
-/*   Updated: 2019/11/20 11:40:29 by jalcayne         ###   ########.fr       */
+/*   Created: 2019/11/06 15:28:14 by jalcayne          #+#    #+#             */
+/*   Updated: 2019/11/06 15:30:57 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishell.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
+void create_pipe(int pipes, int ***fd)
 {
-	t_list	*ptr;
+	int i;
 
-	ptr = *lst;
-	if (lst)
+	i = 0;
+	(*fd) = (int **)malloc(sizeof(int *) * pipes);
+	while (i < pipes)
 	{
-		while (*lst)
-		{
-			ptr = (*lst)->next;
-			ft_lstdelone(*lst, del);
-			(*lst) = ptr;
-		}
+		(*fd)[i] = (int *)malloc(sizeof(int) * 2);
+		pipe((*fd)[i++]);
 	}
 }

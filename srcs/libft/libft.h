@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: jalcayne <jalcayne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/06 11:29:48 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/11/18 17:15:12 by jalcayne         ###   ########.fr       */
+/*   Created: 2019/11/15 14:47:48 by jalcayne          #+#    #+#             */
+/*   Updated: 2019/11/20 11:28:11 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int					ft_isascii(int c);
 int					ft_isprint(int c);
 int					ft_toupper(int c);
 int					ft_tolower(int c);
-char				*ft_strchr(char *s, char c);
 char				*ft_strrchr(const char *s, int c);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t				ft_strlcpy(char *dst, const char *src, size_t dstsize);
@@ -82,5 +81,6 @@ char				*ft_search_word(char *str);
 
 int					ft_printf(const char *format, ...);
 int					get_next_line(int fd, char **line, int salir);
+char				*ft_strchr(char *s, int c);
 
 #endif

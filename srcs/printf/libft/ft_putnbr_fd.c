@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalcayne <jalcayne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvarela <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/15 15:16:16 by jalcayne          #+#    #+#             */
-/*   Updated: 2019/11/25 16:12:12 by jalcayne         ###   ########.fr       */
+/*   Created: 2019/11/28 18:26:31 by lvarela           #+#    #+#             */
+/*   Updated: 2019/12/01 15:02:15 by lvarela          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,23 @@
 
 void	ft_putnbr_fd(int n, int fd)
 {
-	unsigned int	av;
-	char			toprint;
-
-	if (n < 0)
+	if (n == -2147483648)
 	{
-		write(fd, "-", 1);
-		av = n * (-1);
+		ft_putchar_fd('-', fd);
+		ft_putchar_fd('2', fd);
+		ft_putnbr_fd(147483648, fd);
+	}
+	else if (n < 0)
+	{
+		ft_putchar_fd('-', fd);
+		ft_putnbr_fd(n * (-1), fd);
 	}
 	else
-		av = n;
-	if (av / 10 != 0)
-		ft_putnbr_fd(av / 10, fd);
-	toprint = (av % 10) + 48;
-	write(fd, &toprint, 1);
+	{
+		if (n >= 10)
+		{
+			ft_putnbr_fd(n / 10, fd);
+		}
+		ft_putchar_fd(n % 10 + '0', fd);
+	}
 }

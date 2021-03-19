@@ -3,47 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalcayne <jalcayne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvarela <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/15 14:58:57 by jalcayne          #+#    #+#             */
-/*   Updated: 2019/11/25 16:11:10 by jalcayne         ###   ########.fr       */
+/*   Created: 2019/12/16 16:01:01 by enrique           #+#    #+#             */
+/*   Updated: 2019/12/17 18:11:15 by lvarela          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char		*ft_strcpy1(char *dest, const char *src)
+char		*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	int i;
-
-	i = 0;
-	while (src[i])
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = src[i];
-	return (dest);
-}
-
-char			*ft_strmapi(char const *s, char (*f)(unsigned int, char))
-{
-	char		*changed;
-	int			i;
+	char	*new;
+	int		i;
 
 	if (s == NULL)
 		return (NULL);
+	i = (int)ft_strlen(s);
+	if (!(new = malloc(sizeof(char) * i + 1)))
+		return (NULL);
 	i = 0;
 	while (s[i])
-		i++;
-	if (!(changed = malloc(sizeof(char) * (i + 1))))
-		return (NULL);
-	ft_strcpy1(changed, s);
-	i = 0;
-	while (changed[i])
 	{
-		changed[i] = (*f)(i, changed[i]);
+		new[i] = (*f)(i, s[i]);
 		i++;
 	}
-	return (changed);
+	new[i] = '\0';
+	return (new);
 }

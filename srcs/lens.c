@@ -37,13 +37,13 @@ int				argc_size(char *str)
 	i += skip_space(str);
 	while (str[i])
 	{
-		if (str[i] == ' ' &&  str[i + 1] && str[i + 1] != ' ')
+		if (str[i] == ' ' && str[i + 1] && str[i + 1] != ' ')
 		{
 			i += skip_space(&str[i]);
 			if (str[i] == 34 || str[i] == 39)
 			{
 				quote = str[i] == 34 ? 34 : 39;
-				i += end_quote(&str[i] , quote);
+				i += end_quote(&str[i], quote);
 			}
 			words++;
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_type_s.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalcayne <jalcayne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llopez-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/24 16:48:29 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/02/21 16:05:36 by jalcayne         ###   ########.fr       */
+/*   Created: 2020/10/14 19:05:58 by llopez-d          #+#    #+#             */
+/*   Updated: 2020/10/14 19:06:11 by llopez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,17 @@ static int		str_adjust(int zero, int width)
 
 static char		*str_special(char *str, t_flags flags)
 {
+	char *newstr;
+
 	if (!str && flags.precision)
-		str = ft_strdup("(null)");
+		newstr = ft_strdup("(null)");
 	else if (!str && !flags.precision)
-		str = ft_strdup("");
-	return (str);
+		newstr = ft_strdup("");
+	else
+	{
+		newstr = ft_strdup(str);
+	}
+	return (newstr);
 }
 
 static int		ft_minus(t_flags *flags)
@@ -77,15 +83,14 @@ static int		ft_minus(t_flags *flags)
 
 int				ft_type_s(va_list ap, t_flags flags)
 {
-	char	*str;
 	int		len;
 	int		ret;
 	int		how;
 	int		minus;
+	char	*str;
 
 	ret = 0;
-	str = va_arg(ap, char *);
-	str = str_special(str, flags);
+	str = str_special(va_arg(ap, char *), flags);
 	len = ft_strlen(str);
 	how = ft_str_precision(str, len, flags.precision, 0);
 	minus = ft_minus(&flags);
@@ -101,5 +106,6 @@ int				ft_type_s(va_list ap, t_flags flags)
 	}
 	else
 		ret += ft_str_precision(str, len, flags.precision, 1);
+	free(str);
 	return (ret);
 }

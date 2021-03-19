@@ -3,103 +3,94 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalcayne <jalcayne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvarela <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/12 12:49:20 by jalcayne          #+#    #+#             */
-/*   Updated: 2019/11/25 14:59:54 by jalcayne         ###   ########.fr       */
+/*   Created: 2019/12/02 20:28:51 by lvarela           #+#    #+#             */
+/*   Updated: 2019/12/04 15:54:24 by lvarela          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		set_start(char const *s1, char const *set)
+static int	ft_start(char const *s1, char const *to_find)
 {
 	int		i;
+	int		k;
 	int		j;
-	char	boolean;
-
-	i = -1;
-	boolean = 'T';
-	while (boolean == 'T')
-	{
-		boolean = 'F';
-		i++;
-		j = 0;
-		while (set[j])
-		{
-			if (s1[i] == set[j])
-				boolean = 'T';
-			j++;
-		}
-	}
-	return (i);
-}
-
-static int		set_end(char const *s1, char const *set, int start)
-{
-	int		i;
-	int		j;
-	char	boolean;
 
 	i = 0;
-	while (s1[i])
-		i++;
-	i = i == 0 ? 0 : i - 1;
-	boolean = 'T';
-	while (start < i && boolean == 'T')
+	j = 0;
+	while (s1[j])
 	{
-		boolean = 'F';
-		j = 0;
-		while (set[j])
+		k = 0;
+		while (to_find[k])
 		{
-			if (s1[i] == set[j])
-			{
-				i--;
-				boolean = 'T';
-			}
-			j++;
+			if (s1[i] == to_find[k])
+				i++;
+			if (s1[i] != to_find[k])
+				k++;
 		}
+		j++;
 	}
 	return (i);
 }
 
-static char		*trim(char const *s1, int start, int end)
+static int	ft_end(char const *s1, char const *to_find)
 {
-	char	*trimmed;
 	int		i;
+	int		j;
+	int		k;
 	int		o;
 
-	if (!(trimmed = malloc(sizeof(char) * (end - start + 2))))
-		return (NULL);
-	i = start;
+	i = (int)ft_strlen(s1) - 1;
+	j = 0;
 	o = 0;
-	while (i <= end)
+	k = 0;
+	while (s1[o])
 	{
-		trimmed[o] = s1[i];
-		i++;
+		while (to_find[k])
+		{
+			if (s1[i - j] == to_find[k])
+			{
+				j++;
+				k = 0;
+			}
+			if (s1[i - j] != to_find[k])
+				k++;
+		}
 		o++;
 	}
-	trimmed[o] = '\0';
-	return (trimmed);
+	return (j);
 }
 
-char			*ft_strtrim(char const *s1, char const *set)
+char		*ft_yeswecan(char const *s1, int start, int end)
+{
+	int			i;
+	int			space;
+	char		*str;
+
+	i = 0;
+	space = (int)ft_strlen(s1) - start - end + 1;
+	if (!(str = (char *)malloc(sizeof(char) * space)))
+		return (NULL);
+	while (s1[start] && (start <= ((int)ft_strlen(s1) - end - 1)))
+		str[i++] = s1[start++];
+	str[i] = '\0';
+	return (str);
+}
+
+char		*ft_strtrim(char const *s1, char const *set)
 {
 	int		start;
 	int		end;
-	char	*trimmed;
 
 	if (s1 == NULL || set == NULL)
 		return (NULL);
 	if (s1[0] == '\0')
-	{
-		if (!(trimmed = malloc(sizeof(char) * 1)))
-			return (NULL);
-		trimmed[0] = '\0';
-		return (trimmed);
-	}
-	start = set_start(s1, set);
-	end = set_end(s1, set, start);
-	trimmed = trim(s1, start, end);
-	return (trimmed);
+		return (ft_strdup(""));
+	start = ft_start(s1, set);
+	if (start == (int)ft_strlen(s1))
+		return (ft_strdup(""));
+	end = ft_end(s1, set);
+	return (ft_yeswecan(s1, start, end));
 }

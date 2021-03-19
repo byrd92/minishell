@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_type_di.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalcayne <jalcayne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llopez-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/24 18:03:52 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/02/21 16:05:30 by jalcayne         ###   ########.fr       */
+/*   Created: 2020/10/14 19:05:16 by llopez-d          #+#    #+#             */
+/*   Updated: 2020/10/14 19:05:22 by llopez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int				ft_type_di(va_list ap, t_flags flags)
 			ret += ft_adjust(flags.justify * -1, ' ');
 		else
 			ret += ft_adjust(flags.justify, ' ');
+		free(str);
 		return (ret);
 	}
 	ret += ft_int_minus(flags, len, str, num);

@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcmp.c                                        :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvarela <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/17 19:20:57 by lvarela           #+#    #+#             */
-/*   Updated: 2019/11/20 18:20:57 by lvarela          ###   ########.fr       */
+/*   Created: 2019/11/14 19:21:48 by lvarela           #+#    #+#             */
+/*   Updated: 2019/11/20 18:18:31 by lvarela          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_memcmp(const void *s1, const void *s2, size_t n)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
 	unsigned char	*x;
 	unsigned char	*y;
 
-	x = (unsigned char *)s1;
-	y = (unsigned char *)s2;
-	if (x == NULL && y == NULL)
-		return (0);
-	while (n--)
-	{
-		if (*x != *y)
-			return (*x - *y);
-		x++;
-		y++;
-	}
-	return (0);
+	x = (unsigned char *)src;
+	y = (unsigned char *)dst;
+	if (x == 0 && y == 0)
+		return (NULL);
+	if (x > y)
+		while (len-- > 0)
+			*y++ = *x++;
+	else
+		while (len-- > 0)
+			y[len] = x[len];
+	return (dst);
 }

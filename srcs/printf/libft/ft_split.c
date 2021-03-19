@@ -3,56 +3,56 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalcayne <jalcayne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvarela <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/15 10:41:47 by jalcayne          #+#    #+#             */
-/*   Updated: 2019/11/25 15:00:25 by jalcayne         ###   ########.fr       */
+/*   Created: 2019/12/10 14:12:37 by lvarela           #+#    #+#             */
+/*   Updated: 2019/12/17 18:09:21 by lvarela          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		ft_countwords(char const *s, char c)
+static int	ft_n_words(char const *s, char c)
 {
-	int i;
-	int words;
+	static int		i;
+	static int		n_words;
 
 	i = 0;
-	words = 0;
+	n_words = 0;
 	while (s[i])
 	{
 		if (s[i] == c)
 		{
 			i++;
-			continue ;
+			continue;
 		}
-		words++;
+		n_words++;
 		while (s[i] && s[i] != c)
 			i++;
 	}
-	return (words);
+	return (n_words);
 }
 
-static int		size_nextword(char const *s, char c, int i)
+static int	ft_size_next_word(char const *s, char c, int i)
 {
-	int counter;
+	int				size;
 
 	while (s[i] == c && s[i])
 		i++;
-	counter = 0;
+	size = 0;
 	while (s[i])
 	{
-		if (s[i] == c)
-			return (counter);
-		counter++;
+		if (s[i] == c && s[i])
+			return (size);
+		size++;
 		i++;
 	}
-	return (counter);
+	return (size);
 }
 
-static int		save_word(char *str, char const *s, char c, int i)
+static int	ft_save_word(char *str, char const *s, char c, int i)
 {
-	int j;
+	int				j;
 
 	j = 0;
 	while (s[i] == c)
@@ -65,42 +65,34 @@ static int		save_word(char *str, char const *s, char c, int i)
 			return (i);
 		}
 		str[j] = s[i];
-		j++;
 		i++;
+		j++;
 	}
 	str[j] = '\0';
 	return (i);
 }
 
-static char		**ft_split2(char const *s, char c, int max)
+char		**ft_split(char const *s, char c)
 {
-	int		j;
-	char	**tab;
-	int		i;
-
-	i = ft_countwords(s, c);
-	if (!(tab = (char **)malloc(sizeof(char *) * (i + 1))))
-		return (NULL);
-	tab[i] = NULL;
-	max = i;
-	i = 0;
-	j = 0;
-	while (j < max)
-	{
-		if (!(tab[j] = malloc(sizeof(char) * (size_nextword(s, c, i) + 1))))
-			return (NULL);
-		i = save_word(tab[j], s, c, i);
-		j++;
-	}
-	return (tab);
-}
-
-char			**ft_split(char const *s, char c)
-{
-	int max;
+	int				total;
+	int				j;
+	int				i;
+	char			**tab;
 
 	if (s == NULL)
 		return (NULL);
-	max = 0;
-	return (ft_split2(s, c, max));
+	total = ft_n_words(s, c);
+	if (!(tab = (char **)malloc(sizeof(char *) * (total + 1))))
+		return (NULL);
+	tab[total] = NULL;
+	i = 0;
+	j = 0;
+	while (j < total)
+	{
+		if (!(tab[j] = malloc(sizeof(char) * (ft_size_next_word(s, c, i) + 1))))
+			return (NULL);
+		i = ft_save_word(tab[j], s, c, i);
+		j++;
+	}
+	return (tab);
 }

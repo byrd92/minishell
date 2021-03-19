@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions_flags.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalcayne <jalcayne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llopez-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/24 15:59:21 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/02/19 11:03:44 by jalcayne         ###   ########.fr       */
+/*   Created: 2020/10/14 19:08:14 by llopez-d          #+#    #+#             */
+/*   Updated: 2020/10/14 19:08:22 by llopez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,21 +72,23 @@ int	ft_int_precision(t_flags flags, int len, int num)
 int	ft_int_minus(t_flags flags, int len, char *str, int num)
 {
 	int	rtn;
+	int i;
 
+	i = 0;
 	rtn = 0;
 	if (num < 0)
-		str++;
+		i++;
 	if (flags.justify < 0)
 	{
 		rtn += ft_int_precision(flags, len, num);
-		rtn += ft_putstrprint_fd(str, 1);
+		rtn += ft_putstrprint_fd(&str[i], 1);
 		rtn += ft_int_adjust(flags, len, num);
 	}
 	else
 	{
 		rtn += ft_int_adjust(flags, len, num);
 		rtn += ft_int_precision(flags, len, num);
-		rtn += ft_putstrprint_fd(str, 1);
+		rtn += ft_putstrprint_fd(&str[i], 1);
 	}
 	return (rtn);
 }

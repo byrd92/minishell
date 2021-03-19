@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalcayne <jalcayne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llopez-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/23 15:57:17 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/02/21 16:05:09 by jalcayne         ###   ########.fr       */
+/*   Created: 2020/10/14 18:55:18 by llopez-d          #+#    #+#             */
+/*   Updated: 2020/10/14 19:01:48 by llopez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static t_flags	ft_reset_flags(void)
 {
-	t_flags flags;
+	t_flags		flags;
 
 	flags.zero = 0;
 	flags.justify = 0;
@@ -25,7 +25,7 @@ static t_flags	ft_reset_flags(void)
 
 static int		ft_format(char *str, va_list ap, t_flags flags, int *i)
 {
-	int		ret;
+	int			ret;
 
 	ret = 0;
 	*i = *i + 1;
@@ -36,7 +36,7 @@ static int		ft_format(char *str, va_list ap, t_flags flags, int *i)
 
 static int		ft_special_putchar(char c)
 {
-	int rtn;
+	int			rtn;
 
 	rtn = 0;
 	if (c != '%')

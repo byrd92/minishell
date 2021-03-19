@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_search_word.c                                   :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: jalcayne <jalcayne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/17 09:44:01 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/11/18 19:11:23 by jalcayne         ###   ########.fr       */
+/*   Created: 2019/11/15 14:47:48 by jalcayne          #+#    #+#             */
+/*   Updated: 2019/11/20 11:28:11 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
 /*
 ** Funcion que busca una palabra con caracteres alphanumericos en una string
 */

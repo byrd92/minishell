@@ -3,76 +3,71 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalcayne <jalcayne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvarela <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/15 10:33:33 by jalcayne          #+#    #+#             */
-/*   Updated: 2019/11/25 16:10:10 by jalcayne         ###   ########.fr       */
+/*   Created: 2019/12/04 16:28:19 by lvarela           #+#    #+#             */
+/*   Updated: 2019/12/17 18:04:31 by lvarela          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static long int		tenpow(int i)
+static int		ft_getlen(int n)
 {
-	long int		pow;
-
-	pow = 1;
-	while (i >= 1)
-	{
-		pow = 10 * pow;
-		i--;
-	}
-	return (pow);
-}
-
-static void			fillnbr(char *nbr, int n, int size, int i)
-{
-	unsigned int av;
-
-	if (n < 0)
-		av = n * (-1);
-	else
-		av = n;
-	while (size > 0)
-	{
-		nbr[i] = (av / tenpow(size - 1)) + '0';
-		av = av % tenpow(size - 1);
-		size--;
-		i++;
-	}
-	nbr[i] = '\0';
-}
-
-static int			n_size(int n)
-{
-	int i;
+	int		i;
 
 	i = 0;
 	if (n == 0)
-		return (1);
-	while (n / tenpow(i) != 0)
 		i++;
+	if (n < 0)
+		i++;
+	while (n != 0)
+	{
+		n = n / 10;
+		++i;
+	}
 	return (i);
 }
 
-char				*ft_itoa(int n)
+static char		*ft_fulfill(int n, int i)
 {
-	char	*nbr;
-	int		size;
+	char	*str;
+	long	nbr;
 
-	size = n_size(n);
+	nbr = n;
+	if (!(str = (char *)malloc(sizeof(char) * (i + 1))))
+		return (NULL);
+	str[i] = '\0';
+	i--;
 	if (n < 0)
-	{
-		if (!(nbr = malloc(sizeof(char) * (size + 2))))
-			return (NULL);
-		nbr[0] = '-';
-		fillnbr(nbr, n, size, 1);
-	}
+		nbr = -n;
 	else
+		nbr = n;
+	while (nbr > 9)
 	{
-		if (!(nbr = malloc(sizeof(char) * (size + 1))))
-			return (NULL);
-		fillnbr(nbr, n, size, 0);
+		str[i--] = (nbr % 10) + '0';
+		nbr = nbr / 10;
 	}
-	return (nbr);
+	if (nbr < 10)
+		str[i--] = (nbr % 10) + '0';
+	if (n < 0)
+		str[i--] = '-';
+	return (str);
+}
+
+char			*ft_itoa(int n)
+{
+	char	*ptr;
+	int		i;
+
+	if (n == -2147483648)
+	{
+		if (!(ptr = (char *)malloc(sizeof(char) * 12)))
+			return (NULL);
+		ft_strlcpy(ptr, "-2147483648", 12);
+		return (ptr);
+	}
+	i = ft_getlen(n);
+	ptr = ft_fulfill(n, i);
+	return (ptr);
 }

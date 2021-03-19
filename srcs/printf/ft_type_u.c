@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_type_u.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalcayne <jalcayne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llopez-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/25 11:35:54 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/02/21 16:02:53 by jalcayne         ###   ########.fr       */
+/*   Created: 2020/10/14 19:06:25 by llopez-d          #+#    #+#             */
+/*   Updated: 2020/10/14 19:06:35 by llopez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int				ft_type_u(va_list ap, t_flags flags)
 			ret += ft_adjust(flags.justify * -1, ' ');
 		else
 			ret += ft_adjust(flags.justify, ' ');
+		free(str);
 		return (ret);
 	}
 	ret += ft_unsign_minus(flags, len, str);

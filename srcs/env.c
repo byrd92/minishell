@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-static void		ft_printenv(void *content)
+static void	ft_printenv(void *content)
 {
 	t_env	*env;
 
@@ -20,16 +20,16 @@ static void		ft_printenv(void *content)
 	ft_printf("%s=%s\n", env->name, env->value);
 }
 
-int				ft_env(t_list **env)
+int			ft_env(t_list **env)
 {
 	ft_lstiter(*env, ft_printenv);
 	return (0);
 }
 
-int				ft_search_env(void *content, void *to_search)
+int			ft_search_env(void *content, void *to_search)
 {
-	t_env	*env;
-	char	*name_to_search;
+	t_env		*env;
+	char		*name_to_search;
 
 	name_to_search = (char *)to_search;
 	env = (t_env *)content;
@@ -39,11 +39,11 @@ int				ft_search_env(void *content, void *to_search)
 	return (0);
 }
 
-char			*ft_find_env(char *str, t_list **env)
+char		*ft_find_env(char *str, t_list **env)
 {
-	int		i;
-	t_env	*tmp;
-	char	*token;
+	int			i;
+	t_env		*tmp;
+	char		*token;
 
 	i = 0;
 	tmp = NULL;
@@ -60,23 +60,20 @@ char			*ft_find_env(char *str, t_list **env)
 void		ft_environment(t_list **env, char **envp)
 {
 	t_env	*newenv;
-
-	int i;
-	int j;
+	int		i;
+	int		j;
 
 	i = -1;
 	j = 0;
-
-	while(envp[++i])
+	while (envp[++i])
 	{
 		j = 0;
 		newenv = (t_env *)malloc(sizeof(t_env) * 1);
 		newenv->name = ft_search_word(envp[i]);
-		while(envp[i][j] != '=')
+		while (envp[i][j] != '=')
 			j++;
 		j++;
 		newenv->value = ft_strdup(&envp[i][j]);
-		t_list *new = ft_lstnew((const void *)newenv);
-		ft_lstadd_back(env, new);
+		ft_lstadd_back(env, ft_lstnew((const void *)newenv));
 	}
 }

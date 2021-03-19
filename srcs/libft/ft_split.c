@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jalcayne <jalcayne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/15 10:41:47 by jalcayne          #+#    #+#             */
-/*   Updated: 2019/11/25 15:00:25 by jalcayne         ###   ########.fr       */
+/*   Created: 2019/11/15 14:47:48 by jalcayne          #+#    #+#             */
+/*   Updated: 2019/11/20 11:28:11 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,8 @@ static int		ft_countwords(char const *s, char c)
 	{
 		if (s[i] == 34 || s[i] == 39)
 			comma = 1;
-		if (s[i] == c && comma == 0)
-		{
-			i++;
+		if (s[i++] == c && comma == 0)
 			continue ;
-		}
 		words++;
 		while (s[i] && (s[i] != c || comma == 1))
 		{
@@ -55,7 +52,7 @@ static int		size_nextword(char const *s, char c, int i)
 	while (s[i])
 	{
 		if ((s[i] == 34 || s[i] == 39) && comma == 1)
-				comma = 0;
+			comma = 0;
 		else if (s[i] == 34 || s[i] == 39)
 			comma = 1;
 		if (s[i] == c && comma == 0)
@@ -78,7 +75,7 @@ static int		save_word(char *str, char const *s, char c, int i)
 	while (s[i])
 	{
 		if ((s[i] == 34 || s[i] == 39) && comma == 1)
-				comma = 0;
+			comma = 0;
 		else if (s[i] == 34 || s[i] == 39)
 			comma = 1;
 		if (s[i] == c && comma == 0)

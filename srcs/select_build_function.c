@@ -21,7 +21,7 @@ void		child_sig_handler_bash(int sig)
 	}
 }
 
-static int		ft_built_in_function(t_mini *mini,
+static int	ft_built_in_function(t_mini *mini,
 				t_token *content, t_list **env)
 {
 	if (ft_strncmp(content->argv[0], "echo\0", 6) == 0)
@@ -41,7 +41,7 @@ static int		ft_built_in_function(t_mini *mini,
 	return (1);
 }
 
-static int		ft_absolute_path(t_mini *mini, t_token *content, char **envp)
+static int	ft_absolute_path(t_mini *mini, t_token *content, char **envp)
 {
 	if (!fork())
 	{
@@ -57,10 +57,10 @@ static int		ft_absolute_path(t_mini *mini, t_token *content, char **envp)
 	return (mini->dolar);
 }
 
-static int		ft_relative_path(t_mini *mini, t_list **env,
+static int	ft_relative_path(t_mini *mini, t_list **env,
 				t_token *content, char **envp)
 {
-	char *path;
+	char	*path;
 
 	path = search_path(env, content->argv[0]);
 	if (ft_strncmp(path, "bash:", 5) != 0)
@@ -76,13 +76,13 @@ static int		ft_relative_path(t_mini *mini, t_list **env,
 	return (127);
 }
 
-int		ft_select_build_function(t_mini *mini, t_list **env, char **envp)
+int			ft_select_build_function(t_mini *mini, t_list **env, char **envp)
 {
-	t_token *content;
-	t_list *aux;
-	aux = mini->tokens;
-	int ret;
+	t_token	*content;
+	t_list	*aux;
+	int		ret;
 
+	aux = mini->tokens;
 	(void)envp;
 	while (aux)
 	{
@@ -92,7 +92,7 @@ int		ft_select_build_function(t_mini *mini, t_list **env, char **envp)
 		else if (ft_strncmp(content->argv[0], "/", 1) == 0 ||
 				ft_strncmp(content->argv[0], "./", 2) == 0 ||
 				ft_strncmp(content->argv[0], "../", 3) == 0)
-			return(ft_absolute_path(mini, content, envp));
+			return (ft_absolute_path(mini, content, envp));
 		else if (search_path(env, content->argv[0]))
 			return (ft_relative_path(mini, env, content, envp));
 		else

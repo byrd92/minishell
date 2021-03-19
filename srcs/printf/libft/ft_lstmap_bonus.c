@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalcayne <jalcayne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvarela <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/18 15:23:56 by jalcayne          #+#    #+#             */
-/*   Updated: 2019/11/20 11:30:35 by jalcayne         ###   ########.fr       */
+/*   Created: 2019/12/14 17:30:39 by lvarela           #+#    #+#             */
+/*   Updated: 2019/12/17 18:06:01 by lvarela          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,27 @@
 
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_list *list;
-	t_list *temp;
-	t_list *node;
+	t_list	*map;
+	t_list	*now;
+	t_list	*after;
 
 	if (lst)
 	{
-		temp = lst;
-		if (!(list = ft_lstnew(f(temp->content))))
+		now = lst;
+		if (!(map = ft_lstnew(f(now->content))))
 			return (NULL);
-		temp = temp->next;
-		while (temp)
+		now = now->next;
+		while (now)
 		{
-			if (!(node = ft_lstnew(f(temp->content))))
+			if (!(after = ft_lstnew(f(now->content))))
 			{
-				ft_lstclear(&list, del);
+				ft_lstclear(&map, del);
 				return (NULL);
 			}
-			ft_lstadd_back(&list, node);
-			temp = temp->next;
+			ft_lstadd_back(&map, after);
+			now = now->next;
 		}
-		return (list);
+		return (map);
 	}
 	return (NULL);
 }

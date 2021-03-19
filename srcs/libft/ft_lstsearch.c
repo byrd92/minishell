@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsearch.c                                     :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: jalcayne <jalcayne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/18 17:14:33 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/11/18 17:14:41 by jalcayne         ###   ########.fr       */
+/*   Created: 2019/11/15 14:47:48 by jalcayne          #+#    #+#             */
+/*   Updated: 2019/11/20 11:28:11 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ int			ft_lstsearch(t_list *lst, int (*f)(void *, void *), void *to_search)
 		while (ptr->next)
 		{
 			if (f(ptr->content, to_search) > 0)
-				return(1);
+				return (1);
 			ptr = ptr->next;
 		}
 		if (f(ptr->content, to_search) > 0)
-			return(1);
+			return (1);
 	}
 	return (0);
 }

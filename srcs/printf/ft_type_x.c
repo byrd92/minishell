@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_type_x.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalcayne <jalcayne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llopez-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/28 11:24:09 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/02/21 15:53:38 by jalcayne         ###   ########.fr       */
+/*   Created: 2020/10/14 19:06:51 by llopez-d          #+#    #+#             */
+/*   Updated: 2020/10/14 19:07:00 by llopez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ int				ft_type_x(va_list ap, t_flags flags, char *base)
 			ret += ft_adjust(flags.justify * -1, ' ');
 		else
 			ret += ft_adjust(flags.justify, ' ');
+		free(str);
 		return (ret);
 	}
 	ret += ft_hexa_minus(flags, len, str);

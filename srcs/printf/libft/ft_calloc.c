@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalcayne <jalcayne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvarela <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/12 11:38:47 by jalcayne          #+#    #+#             */
-/*   Updated: 2019/11/25 15:38:31 by jalcayne         ###   ########.fr       */
+/*   Created: 2019/11/26 20:30:55 by lvarela           #+#    #+#             */
+/*   Updated: 2019/11/26 21:05:32 by lvarela          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,10 @@
 void	*ft_calloc(size_t count, size_t size)
 {
 	void			*s;
-	char			*scpy;
-	size_t			bytes;
-	size_t			i;
 
-	bytes = count * size;
-	if (!(s = malloc(bytes)))
+	s = malloc(count * size);
+	if (s == 0)
 		return (NULL);
-	scpy = (char *)s;
-	i = -1;
-	while (++i < bytes)
-		scpy[i] = 0;
+	ft_bzero(s, count * size);
 	return (s);
 }
