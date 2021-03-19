@@ -21,7 +21,6 @@ void			init_mini(t_mini *mini)
 	mini->newin = 0;
 	mini->newout = 0;
 	mini->strcmd = NULL;
-	mini->dolar = 0;
 }
 
 static	void	ft_reset(t_mini *mini)
@@ -72,6 +71,7 @@ int				main(int argc, char **argv, char **envp)
 	ft_printf("minivid > ");
 	ft_save_stdio(&mini);
 	signal(SIGINT, &sighandler);
+	mini.dolar = 0;
 	while (ft_read_commands(&mini))
 		starter(&mini, env, envp);
 	ft_destroy_mini(&mini);
