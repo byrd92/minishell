@@ -33,7 +33,7 @@ void		sighandler(const int sig)
 	{
 		while ((child = wait(NULL)) > 0)
 			i++;
-		i > 0 ? ft_putstr_fd("Quit: 3\n", 1) : ft_putstr_fd("\b\b  \b\b", 2);
+		i > 0 ? ft_putstr_fd("Quit: (Core dumped)\n", 1) : ft_putstr_fd("\b\b  \b\b", 2);
 	}
 }
 
