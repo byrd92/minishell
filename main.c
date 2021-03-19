@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egarcia- <egarcia-@42madrid.com>           +#+  +:+       +#+        */
+/*   By: jalcayne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/16 19:38:34 by jalcayne          #+#    #+#             */
-/*   Updated: 2021/03/16 18:54:04 by egarcia-         ###   ########.fr       */
+/*   Created: 2019/11/06 15:28:14 by jalcayne          #+#    #+#             */
+/*   Updated: 2019/11/06 15:30:57 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void			starter(t_mini *mini, t_list *env, char **envp)
 	int i;
 	int pipes;
 
-	salir_d = 0;
+	g_salir_d = 0;
 	i = 0;
 	while (mini->commands[i])
 	{

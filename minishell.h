@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: jalcayne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 15:28:14 by jalcayne          #+#    #+#             */
-/*   Updated: 2021/03/19 15:24:45 by jalcayne         ###   ########.fr       */
+/*   Updated: 2019/11/06 15:30:57 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ typedef struct	s_env
 
 typedef struct	s_env_envp
 {
-	t_list	**env;
-	char	**envp;
+	t_list		**env;
+	char		**envp;
 }				t_env_envp;
 
 /*
@@ -139,12 +139,12 @@ void			ft_kill_mini(void *content);
 /*
 ** PARSER COMMAND
 */
-void			ft_new_token(t_mini *mini,char *command);
+void			ft_new_token(t_mini *mini, char *command);
 void			ft_create_token(t_mini *mini, int i);
 void			ft_check_env(char **str, t_list **env);
-void			ft_parse_commands(t_mini *mini , t_list **env, int i);
+void			ft_parse_commands(t_mini *mini, t_list **env, int i);
 int				ft_change_env(char **str, int i, t_list **env);
-void			ft_parse_commands(t_mini *mini , t_list **env, int i);
+void			ft_parse_commands(t_mini *mini, t_list **env, int i);
 
 /*
 ** READ COMMANDS
@@ -174,7 +174,7 @@ void			rm_char(char **str, int j);
 int				is_token(char c);
 void			rm_backslash(char **arg, int *i);
 void			rm_token(char **argv);
-int				salir_d;
+int				g_salir_d;
 /*
 ** SEARCH PATH
 */
@@ -185,11 +185,10 @@ char			*search_path(t_list **env, char *program);
 ** SELECT BUILD FUNCTION
 */
 void			child_sig_handler_bash(int sig);
-int				ft_select_build_function(t_mini *mini,  t_list **env,
-				char **envp);
+int				ft_select_build_function(t_mini *mini,
+				t_list **env, char **envp);
 int				ft_select_build_function_fork(t_list *mini,
 				t_list **env, char **envp);
-
 /*
 ** UNSET
 */
@@ -202,7 +201,8 @@ int				ft_unset(t_list **env, char **argv);
 */
 char			*ft_strldup(char *str, int size);
 char			**ft_split_mini(char *str);
-void			*ft_lstsearch_content(t_list *lst, int (*f)(void *, void *), void *to_search);
+void			*ft_lstsearch_content(t_list *lst, int (*f)(void *, void *),
+				void *to_search);
 int				ft_datatype(char *tmp, t_token *data);
 
 void			create_pipe(int pipes, int ***fd);

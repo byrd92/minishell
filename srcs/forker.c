@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-static void first_fork(int ***fd, t_list **aux, t_env_envp *aux2)
+static void	first_fork(int ***fd, t_list **aux, t_env_envp *aux2)
 {
 	close((*fd)[0][READ_END]);
 	dup2((*fd)[0][WRITE_END], STDOUT_FILENO);
@@ -21,7 +21,7 @@ static void first_fork(int ***fd, t_list **aux, t_env_envp *aux2)
 	exit(0);
 }
 
-static void while_fork(int ***fd, t_list **aux, t_env_envp *aux2, int i)
+static void	while_fork(int ***fd, t_list **aux, t_env_envp *aux2, int i)
 {
 	if (!fork())
 	{
@@ -36,7 +36,7 @@ static void while_fork(int ***fd, t_list **aux, t_env_envp *aux2, int i)
 	close((*fd)[i + 1][WRITE_END]);
 }
 
-static void middle_fork(int ***fd, t_list **aux, t_env_envp *aux2, int pipes)
+static void	middle_fork(int ***fd, t_list **aux, t_env_envp *aux2, int pipes)
 {
 	int i;
 	int j;
@@ -61,12 +61,12 @@ static void middle_fork(int ***fd, t_list **aux, t_env_envp *aux2, int pipes)
 	}
 }
 
-int		ft_forker(t_mini *mini, int pipes, t_list **env, char **envp)
+int			ft_forker(t_mini *mini, int pipes, t_list **env, char **envp)
 {
-	int		**fd;
-	t_list	*aux;
-	int j;
-	t_env_envp aux2;
+	int			**fd;
+	t_list		*aux;
+	int			j;
+	t_env_envp	aux2;
 
 	aux2.env = env;
 	aux2.envp = envp;

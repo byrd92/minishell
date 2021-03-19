@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-void create_pipe(int pipes, int ***fd)
+void	create_pipe(int pipes, int ***fd)
 {
 	int i;
 

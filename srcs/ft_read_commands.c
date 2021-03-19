@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_read_commands.c                                 :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egarcia- <egarcia-@42madrid.com>           +#+  +:+       +#+        */
+/*   By: jalcayne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/12 12:07:48 by jalcayne          #+#    #+#             */
-/*   Updated: 2021/03/16 12:38:24 by egarcia-         ###   ########.fr       */
+/*   Created: 2019/11/06 15:28:14 by jalcayne          #+#    #+#             */
+/*   Updated: 2019/11/06 15:30:57 by jalcayne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void		sighandler(const int sig)
 		ft_putstr_fd("\b\b  \b\b", 0);
 		while ((child = wait(NULL)) > 0)
 			i++;
-		salir_d = 1;
+		g_salir_d = 1;
 		i > 0 ? ft_putstr_fd("^C\n", 1) : write(1, "\nminivid > ", 11);
 		ft_putstr_fd("\0", 0);
 	}
@@ -58,10 +58,10 @@ int			ft_read_commands(t_mini *mini)
 	str = ft_calloc(1, sizeof(char));
 	while (1)
 	{
-		salir_d = 0;
+		g_salir_d = 0;
 		if (str == NULL)
 			ft_strdup("");
-		while (!salir_d && (ret = read(0, buf, 1)))
+		while (!g_salir_d && (ret = read(0, buf, 1)))
 		{
 			if ((*buf == '\n' || *buf == 0x04))
 				break ;
