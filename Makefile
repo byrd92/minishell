@@ -3,9 +3,9 @@ CC = gcc
 
 NAME = minishell
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = 
 
-SRCS = main.c srcs/getnextline/get_next_line_utils.c srcs/getnextline/get_next_line.c srcs/ft_read_commands.c
+SRCS = main.c srcs/getnextline/get_next_line_utils.c srcs/getnextline/get_next_line.c srcs/ft_read_commands.c srcs/ft_parse_command.c srcs/export.c srcs/unset.c srcs/ft_echo.c srcs/pwd.c srcs/cd.c srcs/env.c srcs/utils.c srcs/lens.c srcs/search_path.c srcs/select_build_function.c srcs/check_pipes.c srcs/forker.c srcs/ft_io.c srcs/ft_dolar.c
 
 OBJS = $(SRCS:.c=.o)
 

@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_read_commands.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalcayne <jalcayne@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: egarcia- <egarcia-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 12:07:48 by jalcayne          #+#    #+#             */
-/*   Updated: 2020/11/13 11:09:19 by jalcayne         ###   ########.fr       */
+/*   Updated: 2020/11/19 18:25:50 by egarcia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int		ft_iscomma(char *str, int *comma)
+int g_sig;
+int		ft_iscomma(char *str, int *comma)
 {
 	int i;
 	
@@ -29,45 +30,37 @@ static int		ft_iscomma(char *str, int *comma)
 	}
 	return (*comma);
 }
+/*
+crl + c = sigint, borra lo que tiene y lanza  nueva linea.
+ctrl + d = sigexit, si no hay nada escrito sale, si hay algo escrito no permite
+*/
+void sighandler(const int sig)
+{
+
+	if (sig == SIGINT)
+	{
+			write(STDOUT_FILENO, "\033[2D\033[J", 7);
+			write(1,"\nminivid > ", 11);
+			
+	}
+	if (sig == SIGQUIT && g_sig == 0)
+	{
+		write(STDOUT_FILENO, "\033[2D\033[J", 7);
+	}	
+
+}
 
 /*
 **	Funcion que separa los comandos, separados por <;>, de la frase escrita en la terminal
 */
-static void		ft_separate_commands(char ***commands, char **str)
-{
-	int i;
-	int num_commands;
-	char *aux;
 
-	num_commands = 1;
-	i = 0;
-	while ((*str)[i])
-	{
-		i++;
-		if ((*str)[i] == ';')
-			num_commands++;
-	}
-	i = 0;
-	(*commands) = (char **)malloc(sizeof(char *) * num_commands + 1);
-	while((aux = ft_strchr((*str), ';')))
-	{
-		*aux = 0;
-		(*commands)[i++] = ft_strdup((*str));
-		aux = ft_strdup(++aux);
-		free((*str));
-		(*str) = aux;
-		aux = NULL;
-	}
-	(*commands)[i++] = ft_strdup((*str));
-	(*commands)[i] = NULL;
-	free((*str));
-	(*str) = NULL;
-}
 /*
 **	Funcion para leer los valores que se encirben en la terminal
 **	y separar los comandos 
 */
-int			ft_read_commands(char ***commands)
+
+
+int			ft_read_commands(t_mini *mini)
 {
 	int		ret;
 	char	*line;
@@ -78,12 +71,16 @@ int			ft_read_commands(char ***commands)
 	ret = 1;
 	str = NULL;
 	comma = 0;
-	while (ret > 0)
+
+	while (1)
 	{
+		g_sig = 0; 
+
 		if (str == NULL)
 			str = ft_strdup("");
-		ft_printf("> ");
 		ret = get_next_line(0, &line);
+
+		g_sig = 1;
 		if (ret < 0)
 			return(-1);
 		aux = ft_strjoin(str, line);
@@ -96,7 +93,7 @@ int			ft_read_commands(char ***commands)
 			str = aux;
 			continue;
 		}
-		ft_separate_commands(commands, &str);
+		mini->commands = ft_split(str, ';');
 		free(line);
 		return (ret);
 	}
